@@ -614,6 +614,25 @@
 @media (prefers-reduced-motion: reduce) {
   .funky-letter { transition: none !important; }
 }
+.funky-logo {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;  /* keeps it left-aligned */
+  gap: 0.04em;
+  line-height: 0.85;
+  margin: 0;
+  padding: 0;
+}
+
+.funky-letter {
+  text-shadow: none;              /* avoid old orange glow */
+  transition: filter 120ms ease;  /* subtle hover polish */
+}
+.funky-letter:hover { filter: brightness(1.06); }
+
+@media (prefers-reduced-motion: reduce) {
+  .funky-letter { transition: none !important; }
+}
 
 
 
