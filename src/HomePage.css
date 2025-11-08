@@ -595,12 +595,11 @@
 /* Funky one-time logo */
 .funky-logo {
   display: flex;
-  align-items: flex-end;   /* lets different heights sit on same baseline */
-  justify-content: center;
-  gap: 0.06em;
+  align-items: flex-end;
+  justify-content: flex-start;   /* ⬅️ key change */
+  gap: 0.04em;                   /* slightly tighter */
   line-height: 0.85;
-  margin-top: 64px;
-  margin-bottom: 12px;
+  margin: 0;                     /* remove big top margin */
 }
 
 .funky-letter {
