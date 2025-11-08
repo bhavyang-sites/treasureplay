@@ -2,6 +2,8 @@ import React, { useEffect, useMemo, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './HomePage.css';
 import { motion } from "framer-motion";
+import FunkyLogo from "./components/FunkyLogo";
+
 
 const NAV_ITEMS = ['Home', 'Movies', 'Shows', 'Kids'];
 
@@ -53,20 +55,7 @@ const HomePage = () => {
       {/* Header / Nav */}
       <header className="hp-header">
         <div className="brand">
-          <motion.h1
-            className="logo-funky"
-            animate={{
-            textShadow: [
-               "0 0 0px #ff9f1c",
-                "0 0 10px #ff9f1c",
-                "0 0 0px #ff9f1c",
-              ],
-            }}
-          transition={{ duration: 2, repeat: Infinity }}
-          >
-            TreasurePlay
-          </motion.h1>
-
+          <FunkyLogo text="TreasurePlay" />
         <span className="brand-sub">
               Experience <span style={{ color: "#00AEEF" }}>Safer Streaming</span>
         </span>

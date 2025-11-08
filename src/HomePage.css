@@ -569,8 +569,11 @@
   line-height: 1;
   background: linear-gradient(90deg, #ff0057, #ff9f1c, #00bcd4, #9c27b0);
   background-size: 400%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  background-clip: text;                /* ✅ standard version */
+  -webkit-background-clip: text;        /* ✅ for Chrome/Safari */
+  color: transparent;                   /* fallback for non-supporting browsers */
+  -webkit-text-fill-color: transparent; /* ✅ ensures gradient text visibility */
+
   animation: tpGradientShift 6s ease infinite;
   text-shadow: none;         /* crisp gradient text */
 }
@@ -588,6 +591,30 @@
 /* Respect users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .logo-funky { animation: none; }
+}
+/* Funky one-time logo */
+.funky-logo {
+  display: flex;
+  align-items: flex-end;   /* lets different heights sit on same baseline */
+  justify-content: center;
+  gap: 0.06em;
+  line-height: 0.85;
+  margin-top: 64px;
+  margin-bottom: 12px;
+}
+
+.funky-letter {
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  display: inline-block;
+  /* optional micro-hover polish, keeps it “stable” otherwise */
+  transition: transform 120ms ease;
+}
+.funky-letter:hover { transform: translateY(-2px); }
+
+/* Respect reduced motion: fade only */
+@media (prefers-reduced-motion: reduce) {
+  .funky-letter { transition: none !important; }
 }
 
 
