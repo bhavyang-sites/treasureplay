@@ -29,9 +29,6 @@ const child = {
 };
 
 export default function FunkyLogo({ text = "TreasurePlay", className = "" }) {
-  const splitIndex = text.indexOf("Play"); // accents "Play"
-  const letters = text.split("");
-
   return (
     <motion.div
       className={`funky-logo ${className}`}
@@ -39,28 +36,19 @@ export default function FunkyLogo({ text = "TreasurePlay", className = "" }) {
       initial="hidden"
       animate="visible"
     >
-      {letters.map((ch, i) => {
-        const isAccent = splitIndex !== -1 && i >= splitIndex;
-        const h = (isAccent ? 1.0 : 1.0) * HEIGHTS[i % HEIGHTS.length];
-        const sizeRem = 2.6 * h;
-
-        const baseStyle = { fontSize: `${sizeRem}rem`, fontWeight: 900 };
-
-        const style = isAccent
-          ? {
-              ...baseStyle,
-              background:
-                "linear-gradient(90deg, #00bcd4 0%, #7c4dff 100%)",
-              backgroundSize: "100%",
-              backgroundClip: "text",
-              WebkitBackgroundClip: "text",
-              color: "transparent",
-              WebkitTextFillColor: "transparent",
-            }
-          : { ...baseStyle, color: "#e6e6e6" };
-
+      {text.split("").map((ch, i) => {
+        const color = PALETTE[i % PALETTE.length];
+        const h = HEIGHTS[i % HEIGHTS.length];
+        // Use font-size scaling per letter to create different heights
+        const sizeRem = 2.6 * h; // base 2.6rem * height factor
         return (
-          <motion.span key={`${ch}-${i}`} className="funky-letter" variants={child} style={style}>
+          <motion.span
+            key={`${ch}-${i}`}
+            className="funky-letter"
+            variants={child}
+            style={{ color, fontSize: `${sizeRem}rem` }}
+            aria-hidden="true"
+          >
             {ch === " " ? "\u00A0" : ch}
           </motion.span>
         );
@@ -68,4 +56,3 @@ export default function FunkyLogo({ text = "TreasurePlay", className = "" }) {
     </motion.div>
   );
 }
-
