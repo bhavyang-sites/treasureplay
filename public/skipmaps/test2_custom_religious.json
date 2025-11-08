@@ -1,0 +1,16 @@
+[
+  {
+    "start": 4.75,
+    "end": 6.0,
+    "action": "skip",
+    "label": "Non-Explicit Nudity of Intimate parts and Kissing",
+    "source": "moderation"
+  },
+  {
+    "start": 6.76,
+    "end": 8.01,
+    "action": "skip",
+    "label": "Non-Explicit Nudity of Intimate parts and Kissing",
+    "source": "moderation"
+  }
+]

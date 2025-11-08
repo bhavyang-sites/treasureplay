@@ -1,0 +1,294 @@
+/* VideoDetail.css */
+.video-detail-container {
+  padding: 1.5rem;
+  background-color: #121212;
+  min-height: 100vh;
+  color: #fff;
+}
+.back-button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+.video-title {
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+/* Enhanced family mode toggle */
+.toggle-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+.toggle-block {
+  display: flex;
+  flex-direction: column; 
+  gap: 6px; 
+}
+.toggle-checkbox {
+  display: none;
+}
+.toggle-switch {
+  position: relative;
+  width: 3rem;           /* 48px */
+  height: 1.5rem;        /* 24px */
+  background-color: #444;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.toggle-switch::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 1.1rem;         /* ~18px */
+  height: 1.1rem;        /* ~18px */
+  background-color: #ccc;
+  border-radius: 9999px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+.toggle-checkbox:checked + .toggle-switch {
+  background-color: #4ade80;
+}
+.toggle-checkbox:checked + .toggle-switch::after {
+  transform: translateX(1.5rem); /* move ball 24px */
+  background-color: #fff;
+}
+.toggle-row {
+  display: flex;
+  align-items: center; /* So profile info is on the next line */
+  gap: 12px; /* Small spacing between toggle status and profile text */
+}
+.toggle-status {
+  font-weight: 600;
+}
+.active-profile {
+  font-style: italic;
+  color: #666; /* dimmed color */
+  font-family: 'Segoe UI', sans-serif; /* clean, professional font */
+  font-size: 0.95em;
+}
+.toggle-text {
+  margin-left: 0.75rem;
+  font-size: 1rem;
+  color: #fff;
+}
+
+/* Video wrapper & player */
+.video-wrapper {
+  display: flex;
+  justify-content: flex-start;  /* ← left-align the video */
+  margin-top: 1rem;
+}
+.video-player {
+  width: 100%;
+  max-width: 800px;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.7);
+}
+.video-loading {
+  padding: 2rem;
+  text-align: center;
+  font-size: 1.25rem;
+}
+.profile-selector {
+  display: flex;
+  gap: 1rem;
+  margin: 0.5rem 0 1rem 0.5rem;
+}
+.profile-row {
+  font-style: italic;
+  color: #8a8a8a;
+  font-size: 0.95rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.profile-name { 
+  font-style: italic; 
+}
+.segments-info {
+  font-style: italic;   /* match Active Profile style */
+  color: inherit;       /* match profile-row color */
+}
+
+.segments-info strong {
+  font-weight: 500;     /* make number stand out slightly */
+}
+.profile-selector label {
+  font-size: 1rem;
+  cursor: pointer;
+}
+.profile-block {
+  margin: 0 0 1.5rem 1rem;
+  transition: all 0.3s ease;
+}
+
+.custom-dropdown {
+  margin-top: 0.5rem;
+}
+
+.profile-description {
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  color: #ccc;
+}
+/* Reserve space so video never shifts */
+/* Only reserve extra vertical space when the profile UI is actually visible */
+.controls-container {
+  margin-left: 1rem;
+}
+/* When expanded, reserve enough room so the video never moves again */
+.controls-container.expanded {
+  min-height: 8rem; /* Adjust this so it exactly matches your tallest profile-block */
+}
+
+/* Tidy up the profile block itself */
+.profile-block {
+  transition: all 0.3s ease;
+}
+
+/* Radio group spacing */
+.profile-selector {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Dropdown spacing */
+.custom-dropdown {
+  margin-top: 0.5rem;
+}
+
+/* Description styling */
+.profile-description {
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  color: #ccc;
+}
+/* Container for controls + player */
+.video-detail-content {
+  display: flex;
+  align-items: flex-start;  /* both start at the same top line */
+  gap: 2rem;                /* space between controls and video */
+}
+
+/* Fixed-width sidebar for all controls */
+.controls-panel {
+  flex: 0 0 280px;          /* or whatever width fits your controls */
+}
+
+/* Video stays in its own flex cell, never moves vertically */
+.video-wrapper {
+  flex: 1;
+}
+.select-wrap {
+  position: relative;
+  display: inline-block;
+  min-width: 160px; /* compact width */
+  margin-bottom: 6px; /* consistent small gap between dropdowns */
+}
+
+select.select-modern {
+  width: 100%;
+  padding: 10px 34px 10px 14px;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  background: #111;
+  color: #eee;
+  font-size: 1rem;
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
+  font-weight: 500;
+  outline: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Style for the dropdown arrow */
+.select-arrow {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 1rem;
+  color: #aaa;
+}
+
+/* Match option text to dropdown styling */
+.select-modern option {
+  background: #111;
+  color: #eee;
+  font-size: 1rem;              /* bigger */
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
+  font-weight: 500;
+  padding: 10px;                /* space in list */
+}
+
+/* Hover/focus effects */
+.select-modern:hover {
+  border-color: #3b82f6;
+}
+.select-modern:focus {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96,165,250,0.25);
+}
+
+.video-wrapper {
+  position: relative;
+  display: inline-block;
+  max-width: 960px;
+}
+
+/* Overlay bar — sits ON TOP of the scrubber line */
+.video-wrapper { position: relative; display: inline-block; max-width: 960px; }
+/* wrapper already has position:relative inline, that’s fine */
+
+.video-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+/* Overlay skip line */
+.ss-bar {
+  position: absolute;
+  bottom: 36px;
+  height: 6px;
+  background: transparent;
+  border-radius: 3px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 10;
+}
+
+
+
+/* Red skipped segments */
+.ss-seg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: #ff4d4f;
+  opacity: 0.9;
+  border-radius: 2px;
+  pointer-events: auto;        /* tooltips still show */
+  cursor: pointer;
+}
+
+/* Optional: Fade when Family Mode off */
+.ss-bar.dimmed {
+  opacity: 0.3;
+  transition: opacity 0.3s ease;
+}
+.ss-bar.dimmed:hover {
+  opacity: 0.7;
+}
+

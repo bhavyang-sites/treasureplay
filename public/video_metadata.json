@@ -1,0 +1,316 @@
+[
+  {
+    "id": "Adult_video_new_req_1",
+    "title": "Movie Time",
+    "videoUrl": "/videos/Adult_video_new_req_1.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/Adult_video_new_req_1_mild.json",
+      "strict": "/skipmaps/Adult_video_new_req_1_strict.json",
+      "custom_kids_safe": "/skipmaps/Adult_video_new_req_1_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Adult_video_new_req_1_custom_teens.json",
+      "custom_religious": "/skipmaps/Adult_video_new_req_1_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/Adult_video_new_req_1/thumb_001.jpg",
+    "category": "SmartSkips Demo"
+  },
+  {
+    "id": "family_mode_four_stories",
+    "title": "Family Mode Four Stories",
+    "videoUrl": "/videos/family_mode_four_stories.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/family_mode_four_stories_mild.json",
+      "strict": "/skipmaps/family_mode_four_stories_strict.json",
+      "custom_kids_safe": "/skipmaps/family_mode_four_stories_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/family_mode_four_stories_custom_teens.json",
+      "custom_religious": "/skipmaps/family_mode_four_stories_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/family_mode_four_stories/thumb_001.jpg",
+    "category": "SmartSkips Demo"
+  },
+  {
+    "id": "rapid_merged",
+    "title": "Best Moments",
+    "videoUrl": "/videos/rapid_merged.mp4",
+    "skipMapUrl": "/skipmaps/rapid_merged.json",
+    "thumbnail": "/thumbnails/rapid_merged.jpg",
+    "category": "SmartSkips Demo"
+  },
+  {
+    "id": "Distracted_Meditation",
+    "title": "Distracted Meditation",
+    "videoUrl": "/videos/Distracted Meditation.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/Distracted_Meditation_mild.json",
+      "strict": "/skipmaps/Distracted_Meditation_strict.json",
+      "custom_kids_safe": "/skipmaps/Distracted_Meditation_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Distracted_Meditation_custom_teens.json",
+      "custom_religious": "/skipmaps/Distracted_Meditation_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/Distracted_Meditation/thumb_001.jpg",
+    "category": "SmartSkips Demo"
+  },
+  {
+    "id": "Swimwear",
+    "title": "Swim Dream",
+    "videoUrl": "/videos/swimwear.mp4",
+    "thumbnail": "/thumbnails/swimwear.jpg",
+    "skipMapUrl": {
+      "mild": "/skipmaps/swimwear_mild.json",
+      "strict": "/skipmaps/swimwear_strict.json",
+      "custom_kids_safe": "/skipmaps/swimwear_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/swimwear_custom_teens.json",
+      "custom_religious": "/skipmaps/swimwear_custom_religious.json"
+    },
+    "category": "SmartSkips Demo"
+  },
+  {
+    "id": "Hip_Hop",
+    "title": "Hip Hop",
+    "videoUrl": "/videos/Hip_Hop.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/Hip_Hop_mild.json",
+      "strict": "/skipmaps/Hip_Hop_strict.json",
+      "custom_kids_safe": "/skipmaps/Hip_Hop_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Hip_Hop_custom_teens.json",
+      "custom_religious": "/skipmaps/Hip_Hop_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/Hip_Hop/thumb_001.jpg",
+    "category": "SmartSkips Demo"
+  },
+  {
+    "id": "rapid_merged_2",
+    "title": "Summer Moments",
+    "videoUrl": "/videos/rapid_merged.mp4",
+    "skipMapUrl": "/skipmaps/rapid_merged.json",
+    "thumbnail": "/thumbnails/summer_thumbnail.jpg",
+    "category": "Family Picks"
+  },
+  {
+    "id": "Swimwear_2",
+    "title": "By the Water",
+    "videoUrl": "/videos/swimwear.mp4",
+    "thumbnail": "/thumbnails/water.jpg",
+    "skipMapUrl": {
+      "mild": "/skipmaps/swimwear_mild.json",
+      "strict": "/skipmaps/swimwear_strict.json",
+      "custom_kids_safe": "/skipmaps/swimwear_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/swimwear_custom_teens.json",
+      "custom_religious": "/skipmaps/swimwear_custom_religious.json"
+    },
+    "category": "Family Picks"
+  },
+  {
+    "id": "dance_moves",
+    "title": "Dance Practice",
+    "videoUrl": "/videos/dance_moves.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/dance_moves_mild.json",
+      "strict": "/skipmaps/dance_moves_strict.json",
+      "custom_kids_safe": "/skipmaps/dance_moves_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/dance_moves_custom_teens.json",
+      "custom_religious": "/skipmaps/dance_moves_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/dance_moves/thumb_003.jpg",
+    "category": "Family Picks"
+  },
+  {
+    "id": "test_suggest",
+    "title": "Live Performance",
+    "videoUrl": "/videos/test_suggest.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/test_suggest_mild.json",
+      "strict": "/skipmaps/test_suggest_strict.json",
+      "custom_kids_safe": "/skipmaps/test_suggest_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/test_suggest_custom_teens.json",
+      "custom_religious": "/skipmaps/test_suggest_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/test_suggest/thumb_003.jpg",
+    "category": "Family Picks"
+  },
+  {
+    "id": "Adult_video_new_req_2",
+    "title": "Cinema Night",
+    "videoUrl": "/videos/Adult_video_new_req_1.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/Adult_video_new_req_1_mild.json",
+      "strict": "/skipmaps/Adult_video_new_req_1_strict.json",
+      "custom_kids_safe": "/skipmaps/Adult_video_new_req_1_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Adult_video_new_req_1_custom_teens.json",
+      "custom_religious": "/skipmaps/Adult_video_new_req_1_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/Adult_video_new_req_1/thumb_005.jpg",
+    "category": "Family Picks"
+  },
+  {
+    "id": "Hip_Hop_2",
+    "title": "Music Vibes",
+    "videoUrl": "/videos/Hip_Hop.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/Hip_Hop_mild.json",
+      "strict": "/skipmaps/Hip_Hop_strict.json",
+      "custom_kids_safe": "/skipmaps/Hip_Hop_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Hip_Hop_custom_teens.json",
+      "custom_religious": "/skipmaps/Hip_Hop_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/Hip_Hop/thumb_008.jpg",
+    "category": "Family Picks"
+  },
+  {
+    "id": "dance_moves_2",
+    "title": "Dance Moves",
+    "videoUrl": "/videos/dance_moves.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/dance_moves_mild.json",
+      "strict": "/skipmaps/dance_moves_strict.json",
+      "custom_kids_safe": "/skipmaps/dance_moves_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/dance_moves_custom_teens.json",
+      "custom_religious": "/skipmaps/dance_moves_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/dance_moves/thumb_007.jpg",
+    "category": "General Entertainment"
+  },
+  {
+    "id": "test_suggest_2",
+    "title": "Solo Performance",
+    "videoUrl": "/videos/test_suggest.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/test_suggest_mild.json",
+      "strict": "/skipmaps/test_suggest_strict.json",
+      "custom_kids_safe": "/skipmaps/test_suggest_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/test_suggest_custom_teens.json",
+      "custom_religious": "/skipmaps/test_suggest_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/test_suggest/thumb_004.jpg",
+    "category": "General Entertainment"
+  },
+  {
+    "id": "Hip_Hop_3",
+    "title": "Star World",
+    "videoUrl": "/videos/Hip_Hop.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/Hip_Hop_mild.json",
+      "strict": "/skipmaps/Hip_Hop_strict.json",
+      "custom_kids_safe": "/skipmaps/Hip_Hop_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Hip_Hop_custom_teens.json",
+      "custom_religious": "/skipmaps/Hip_Hop_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/Hip_Hop/thumb_004.jpg",
+    "category": "General Entertainment"
+  },
+  {
+    "id": "Adult_video_new_req_3",
+    "title": "Movie Time",
+    "videoUrl": "/videos/Adult_video_new_req_1.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/Adult_video_new_req_1_mild.json",
+      "strict": "/skipmaps/Adult_video_new_req_1_strict.json",
+      "custom_kids_safe": "/skipmaps/Adult_video_new_req_1_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Adult_video_new_req_1_custom_teens.json",
+      "custom_religious": "/skipmaps/Adult_video_new_req_1_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/Adult_video_new_req_1/thumb_001.jpg",
+    "category": "General Entertainment"
+  },
+  {
+    "id": "rapid_merged_3",
+    "title": "Highlight Reel",
+    "videoUrl": "/videos/rapid_merged.mp4",
+    "skipMapUrl": "/skipmaps/rapid_merged.json",
+    "thumbnail": "/thumbnails/highlight.jpg",
+    "category": "General Entertainment"
+  },
+  {
+    "id": "Distracted_Meditation_2",
+    "title": "Relaxed Break",
+    "videoUrl": "/videos/Distracted Meditation.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/Distracted_Meditation_mild.json",
+      "strict": "/skipmaps/Distracted_Meditation_strict.json",
+      "custom_kids_safe": "/skipmaps/Distracted_Meditation_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Distracted_Meditation_custom_teens.json",
+      "custom_religious": "/skipmaps/Distracted_Meditation_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/Distracted_Meditation/thumb_008.jpg",
+    "category": "General Entertainment"
+  },
+  {
+    "id": "family_mode_four_stories_2",
+    "title": "Tales of Light & Dark",
+    "videoUrl": "/videos/family_mode_four_stories.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/family_mode_four_stories_mild.json",
+      "strict": "/skipmaps/family_mode_four_stories_strict.json",
+      "custom_kids_safe": "/skipmaps/family_mode_four_stories_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/family_mode_four_stories_custom_teens.json",
+      "custom_religious": "/skipmaps/family_mode_four_stories_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/family_mode_four_stories/thumb_005.jpg",
+    "category": "Trending",
+    "featured": true,
+    "tagline": "Experience every tale — your way."
+  },
+  {
+    "id": "Distracted_Meditation_3",
+    "title": "Distracted Meditation",
+    "videoUrl": "/videos/Distracted Meditation.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/Distracted_Meditation_mild.json",
+      "strict": "/skipmaps/Distracted_Meditation_strict.json",
+      "custom_kids_safe": "/skipmaps/Distracted_Meditation_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Distracted_Meditation_custom_teens.json",
+      "custom_religious": "/skipmaps/Distracted_Meditation_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/Distracted_Meditation/thumb_001.jpg",
+    "category": "Trending"
+  },
+  {
+    "id": "rapid_merged_4",
+    "title": "Viral Edit",
+    "videoUrl": "/videos/rapid_merged.mp4",
+    "skipMapUrl": "/skipmaps/rapid_merged.json",
+    "thumbnail": "/thumbnails/rapid_merged.jpg",
+    "category": "Trending"
+  },
+  {
+    "id": "Swimwear_3",
+    "title": "Beach View",
+    "videoUrl": "/videos/swimwear.mp4",
+    "thumbnail": "/thumbnails/swimwear.jpg",
+    "skipMapUrl": {
+      "mild": "/skipmaps/swimwear_mild.json",
+      "strict": "/skipmaps/swimwear_strict.json",
+      "custom_kids_safe": "/skipmaps/swimwear_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/swimwear_custom_teens.json",
+      "custom_religious": "/skipmaps/swimwear_custom_religious.json"
+    },
+    "category": "Trending"
+  },
+  {
+    "id": "Hip_Hop_4",
+    "title": "Trending Beats",
+    "videoUrl": "/videos/Hip_Hop.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/Hip_Hop_mild.json",
+      "strict": "/skipmaps/Hip_Hop_strict.json",
+      "custom_kids_safe": "/skipmaps/Hip_Hop_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Hip_Hop_custom_teens.json",
+      "custom_religious": "/skipmaps/Hip_Hop_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/Hip_Hop/thumb_005.jpg",
+    "category": "Trending"
+  },
+  {
+    "id": "Adult_video_new_req_4",
+    "title": "Cine Romance",
+    "videoUrl": "/videos/Adult_video_new_req_1.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/Adult_video_new_req_1_mild.json",
+      "strict": "/skipmaps/Adult_video_new_req_1_strict.json",
+      "custom_kids_safe": "/skipmaps/Adult_video_new_req_1_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Adult_video_new_req_1_custom_teens.json",
+      "custom_religious": "/skipmaps/Adult_video_new_req_1_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/Adult_video_new_req_1/thumb_006.jpg",
+    "category": "Trending"
+  }
+]
