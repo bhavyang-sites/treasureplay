@@ -1,35 +1,31 @@
 import { motion } from "framer-motion";
 
-// Replace your PALETTE and HEIGHTS with these:
-
-// Subtle, professional look
-const USE_PRO_MONO = true;  // toggle this true to enable pro style
-
-const PALETTE = USE_PRO_MONO
-  ? ["#e6e6e6"] // single elegant color
-  : ["#ff0057", "#ff9f1c", "#00bcd4", "#9c27b0", "#03a9f4", "#ff6f61", "#00e676", "#ffca28"];
-
-const HEIGHTS = USE_PRO_MONO
-  ? [1.08, 1.0, 1.06, 1.0, 1.07, 1.05, 1.02, 1.06, 1.0, 1.07, 1.03, 1.05] // subtle variation
-  : [1.35, 1.1, 1.25, 1.0, 1.18, 1.28, 1.05, 1.22, 1.14, 1.3, 1.08, 1.2];
-
-
+// Animation variants
 const container = {
   hidden: { opacity: 0, y: 10 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { staggerChildren: 0.05, duration: 0.4, ease: "easeOut" }
-  }
+    transition: { staggerChildren: 0.05, duration: 0.4, ease: "easeOut" },
+  },
 };
 
 const child = {
-  hidden: { opacity: 0, y: 20, rotate: -4, scale: 0.95 },
-  visible: { opacity: 1, y: 0, rotate: 0, scale: 1, transition: { duration: 0.45, ease: "easeOut" } }
+  hidden: { opacity: 0, y: 20, rotate: -3, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    rotate: 0,
+    scale: 1,
+    transition: { duration: 0.45, ease: "easeOut" },
+  },
 };
 
+// Slight natural height variation (keeps it organic)
+const HEIGHTS = [1.08, 1.0, 1.06, 1.0, 1.07, 1.05, 1.02, 1.06, 1.0, 1.07, 1.03, 1.05];
+
 export default function FunkyLogo({ text = "TreasurePlay", className = "" }) {
-  const splitIndex = text.indexOf("Play"); // accents "Play"
+  const splitIndex = text.indexOf("Play");
   const letters = text.split("");
 
   return (
@@ -40,24 +36,34 @@ export default function FunkyLogo({ text = "TreasurePlay", className = "" }) {
       animate="visible"
     >
       {letters.map((ch, i) => {
-        const isAccent = splitIndex !== -1 && i >= splitIndex;
-        const h = (isAccent ? 1.0 : 1.0) * HEIGHTS[i % HEIGHTS.length];
+        const isAccent = splitIndex !== -1 && i >= splitIndex; // marks "Play"
+        const h = HEIGHTS[i % HEIGHTS.length];
         const sizeRem = 2.6 * h;
 
-        const baseStyle = { fontSize: `${sizeRem}rem`, fontWeight: 900 };
+        const baseStyle = {
+          fontSize: `${sizeRem}rem`,
+          fontWeight: 900,
+          lineHeight: 0.9,
+        };
+
+        // --- 🎨 TREASURE (Gold/Silver/Pearl gradient) ---
+        const treasureGradient =
+          "linear-gradient(90deg, #ffd700 0%, #e0e0e0 45%, #f5f5dc 90%)"; 
+          // gold → silver → pearl
+
+        // --- 🎬 PLAY (Maroon) ---
+        const playColor = "#800000";
 
         const style = isAccent
-          ? {
+          ? { ...baseStyle, color: playColor }
+          : {
               ...baseStyle,
-              background:
-                "linear-gradient(90deg, #00bcd4 0%, #7c4dff 100%)",
-              backgroundSize: "100%",
+              background: treasureGradient,
               backgroundClip: "text",
               WebkitBackgroundClip: "text",
               color: "transparent",
               WebkitTextFillColor: "transparent",
-            }
-          : { ...baseStyle, color: "#e6e6e6" };
+            };
 
         return (
           <motion.span key={`${ch}-${i}`} className="funky-letter" variants={child} style={style}>
@@ -68,4 +74,3 @@ export default function FunkyLogo({ text = "TreasurePlay", className = "" }) {
     </motion.div>
   );
 }
-

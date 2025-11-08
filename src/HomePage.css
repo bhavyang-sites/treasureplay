@@ -596,27 +596,25 @@
 .funky-logo {
   display: flex;
   align-items: flex-end;
-  justify-content: flex-start;   /* ⬅️ key change */
-  gap: 0.04em;                   /* slightly tighter */
+  justify-content: flex-start;
+  gap: 0.04em;
   line-height: 0.85;
-  margin: 0;                     /* remove big top margin */
+  margin: 0;
+  padding: 0;
 }
 
 .funky-letter {
-  font-weight: 900;
-  letter-spacing: 0.02em;
-  display: inline-block;
-  /* optional micro-hover polish, keeps it “stable” otherwise */
-  transition: transform 120ms ease;
+  transition: filter 120ms ease;
+  text-shadow: none;
 }
-.funky-letter:hover { transform: translateY(-2px); }
+.funky-letter:hover {
+  filter: brightness(1.08);
+}
 
-/* Respect reduced motion: fade only */
 @media (prefers-reduced-motion: reduce) {
   .funky-letter { transition: none !important; }
 }
-.funky-letter { transition: filter 120ms ease; }
-.funky-letter:hover { filter: brightness(1.06); }
+
 
 
 
