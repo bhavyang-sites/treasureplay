@@ -1,12 +1,18 @@
 import { motion } from "framer-motion";
 
-const PALETTE = [
-  "#ff0057", "#ff9f1c", "#00bcd4", "#9c27b0",
-  "#03a9f4", "#ff6f61", "#00e676", "#ffca28"
-];
+// Replace your PALETTE and HEIGHTS with these:
 
-// Slight, deterministic height multipliers (per index)
-const HEIGHTS = [1.35, 1.1, 1.25, 1.0, 1.18, 1.28, 1.05, 1.22, 1.14, 1.3, 1.08, 1.2];
+// Subtle, professional look
+const USE_PRO_MONO = true;  // toggle this true to enable pro style
+
+const PALETTE = USE_PRO_MONO
+  ? ["#e6e6e6"] // single elegant color
+  : ["#ff0057", "#ff9f1c", "#00bcd4", "#9c27b0", "#03a9f4", "#ff6f61", "#00e676", "#ffca28"];
+
+const HEIGHTS = USE_PRO_MONO
+  ? [1.08, 1.0, 1.06, 1.0, 1.07, 1.05, 1.02, 1.06, 1.0, 1.07, 1.03, 1.05] // subtle variation
+  : [1.35, 1.1, 1.25, 1.0, 1.18, 1.28, 1.05, 1.22, 1.14, 1.3, 1.08, 1.2];
+
 
 const container = {
   hidden: { opacity: 0, y: 10 },
@@ -31,20 +37,9 @@ export default function FunkyLogo({ text = "TreasurePlay", className = "" }) {
       animate="visible"
     >
       {text.split("").map((ch, i) => {
-        // Replace your PALETTE and HEIGHTS with these:
-
-        // Subtle, professional look
-        const USE_PRO_MONO = true;  // toggle this true to enable pro style
-
-        const PALETTE = USE_PRO_MONO
-             ? ["#e6e6e6"] // single elegant color
-                : ["#ff0057", "#ff9f1c", "#00bcd4", "#9c27b0", "#03a9f4", "#ff6f61", "#00e676", "#ffca28"];
-
-        const HEIGHTS = USE_PRO_MONO
-            ? [1.08, 1.0, 1.06, 1.0, 1.07, 1.05, 1.02, 1.06, 1.0, 1.07, 1.03, 1.05] // subtle variation
-             : [1.35, 1.1, 1.25, 1.0, 1.18, 1.28, 1.05, 1.22, 1.14, 1.3, 1.08, 1.2];
-
-                // Use font-size scaling per letter to create different heights
+        const color = PALETTE[i % PALETTE.length];
+        const h = HEIGHTS[i % HEIGHTS.length];
+        // Use font-size scaling per letter to create different heights
         const sizeRem = 2.6 * h; // base 2.6rem * height factor
         return (
           <motion.span
