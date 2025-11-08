@@ -53,14 +53,20 @@ const HomePage = () => {
       {/* Header / Nav */}
       <header className="hp-header">
         <div className="brand">
-          <motion.span
-            className="brand-mark logo-funky"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
+          <motion.h1
+            className="logo-funky"
+            animate={{
+            textShadow: [
+               "0 0 0px #ff9f1c",
+                "0 0 10px #ff9f1c",
+                "0 0 0px #ff9f1c",
+              ],
+            }}
+          transition={{ duration: 2, repeat: Infinity }}
           >
             TreasurePlay
-        </motion.span>
+          </motion.h1>
+
         <span className="brand-sub">
               Experience <span style={{ color: "#00AEEF" }}>Safer Streaming</span>
         </span>
