@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './HomePage.css';
+import { motion } from "framer-motion";
 
 const NAV_ITEMS = ['Home', 'Movies', 'Shows', 'Kids'];
 
@@ -52,13 +53,19 @@ const HomePage = () => {
       {/* Header / Nav */}
       <header className="hp-header">
         <div className="brand">
-          <span className="brand-mark">
-          <span className="haze">Haze</span><span className="play">Play</span>
-          </span>
-          <span className="brand-sub">
-            Experience <span style={{ color:"#00AEEF" }}>Safer Streaming</span>
-          </span>
-        </div>
+          <motion.span
+            className="brand-mark logo-funky"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+          >
+            TreasurePlay
+        </motion.span>
+        <span className="brand-sub">
+              Experience <span style={{ color: "#00AEEF" }}>Safer Streaming</span>
+        </span>
+    </div>
+
 
 
         <nav className="hp-nav" aria-label="Primary">
@@ -86,7 +93,15 @@ const HomePage = () => {
           style={{ backgroundImage: `url(${hero.backdrop || hero.thumbnail})` }}
         >
           <div className="home-hero-overlay">
-            <h2 className="hero-title">{hero.title}</h2>
+            <motion.h2
+              className="hero-title"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+            >
+              {hero.title}
+            </motion.h2>
+
             {hero.tagline ? <p className="hero-tagline">{hero.tagline}</p> : null}
             <div className="hero-actions">
               <button className="btn btn-primary" onClick={() => onThumbActivate(hero.id)}>
