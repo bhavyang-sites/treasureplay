@@ -617,20 +617,27 @@
 .funky-logo {
   display: flex;
   align-items: flex-end;
-  justify-content: flex-start;
+  justify-content: flex-start;  /* left-align */
   gap: 0.04em;
   line-height: 0.85;
   margin: 0;
   padding: 0;
 }
 
-
+/* generic letters: solid color only */
 .funky-letter {
-  display: inline-block;                 /* safer for transforms */
-  -webkit-text-fill-color: transparent;  /* required in Chrome/Safari */
-  color: transparent;                    /* fallback */
+  display: inline-block;
+  text-shadow: none;
+  transition: filter 120ms ease;
+  /* IMPORTANT: do NOT force background-clip/color here */
+}
+
+/* only the PLAY letters need clipping for gradient */
+.play-letter {
   background-clip: text;
-  -webkit-background-clip: text;         /* required in Chrome/Safari */
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 
 .funky-letter:hover { filter: brightness(1.06); }
@@ -638,6 +645,7 @@
 @media (prefers-reduced-motion: reduce) {
   .funky-letter { transition: none !important; }
 }
+
 
 
 
