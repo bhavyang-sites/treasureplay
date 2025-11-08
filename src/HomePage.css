@@ -614,23 +614,22 @@
 @media (prefers-reduced-motion: reduce) {
   .funky-letter { transition: none !important; }
 }
+/* Let descenders (like Y) show fully */
 .funky-logo {
   display: flex;
-  align-items: flex-end;
-  justify-content: flex-start;  /* left-align */
+  align-items: baseline;   /* was flex-end */
+  justify-content: flex-start;
   gap: 0.04em;
-  line-height: 0.85;
-  margin: 0;
-  padding: 0;
+  line-height: 1;          /* was ~0.85–0.9; give glyphs room */
+  overflow: visible;       /* just in case a parent has overflow rules */
 }
 
-/* generic letters: solid color only */
+/* Each letter: don't compress line box */
 .funky-letter {
   display: inline-block;
-  text-shadow: none;
-  transition: filter 120ms ease;
-  /* IMPORTANT: do NOT force background-clip/color here */
+  line-height: 1;          /* ensure no cropping inside */
 }
+
 
 /* only the PLAY letters need clipping for gradient */
 .play-letter {
@@ -645,6 +644,28 @@
 @media (prefers-reduced-motion: reduce) {
   .funky-letter { transition: none !important; }
 }
+.hp-header, .brand { overflow: visible; }
+/* Tagline directly under the logo */
+.brand-sub {
+  margin-top: 6px;               /* tight link to the logo */
+  font-size: 1.05rem;            /* slightly larger */
+  letter-spacing: 0.02em;
+  color: rgba(230,230,230,0.92);
+  line-height: 1.2;
+}
+
+/* Optional: accent for “SAFER STREAMING” */
+.brand-sub .accent,
+.brand-sub span {
+  color: #00AEEF;                /* your existing blue */
+  font-weight: 600;
+}
+.brand {
+  display: flex;
+  flex-direction: column;     /* logo on top, tagline below */
+  align-items: flex-start;
+}
+
 
 
 

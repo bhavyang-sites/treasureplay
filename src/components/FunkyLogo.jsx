@@ -56,7 +56,7 @@ export default function FunkyLogo({ text = "TreasurePlay", className = "" }) {
     <motion.div className={`funky-logo ${className}`} variants={container} initial="hidden" animate="visible">
       {letters.map((ch, i) => {
         const h = HEIGHTS[i % HEIGHTS.length];
-        const sizeRem = 2.6 * h;
+        const sizeRem = 2.3 * h;
 
         // Base text style (no background-clip here)
         const baseText = {
