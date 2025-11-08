@@ -617,17 +617,22 @@
 .funky-logo {
   display: flex;
   align-items: flex-end;
-  justify-content: flex-start;  /* keeps it left-aligned */
+  justify-content: flex-start;
   gap: 0.04em;
   line-height: 0.85;
   margin: 0;
   padding: 0;
 }
 
+
 .funky-letter {
-  text-shadow: none;              /* avoid old orange glow */
-  transition: filter 120ms ease;  /* subtle hover polish */
+  display: inline-block;                 /* safer for transforms */
+  -webkit-text-fill-color: transparent;  /* required in Chrome/Safari */
+  color: transparent;                    /* fallback */
+  background-clip: text;
+  -webkit-background-clip: text;         /* required in Chrome/Safari */
 }
+
 .funky-letter:hover { filter: brightness(1.06); }
 
 @media (prefers-reduced-motion: reduce) {
