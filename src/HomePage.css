@@ -665,6 +665,27 @@
   flex-direction: column;     /* logo on top, tagline below */
   align-items: flex-start;
 }
+/* 1) Let glyph descenders render fully */
+.funky-logo {
+  align-items: baseline;     /* already set */
+  overflow: visible;         /* ensure no cropping */
+}
+
+/* 2) Letters get a touch more line box */
+.funky-letter {
+  line-height: 1.08;         /* was 1; adds a hair of vertical space */
+}
+
+/* 3) Specifically fix the 'y' in Play (last letter) */
+.funky-logo .play-letter:last-child {
+  padding-bottom: 3px;       /* expands the paint area for the gradient */
+  margin-bottom: -2px;       /* keeps visual alignment with the baseline */
+  display: inline-block;     /* ensure padding/margin take effect */
+}
+
+/* 4) Belt-and-suspenders: no hiding anywhere up the chain */
+.hp-header, .brand { overflow: visible; }
+
 
 
 
