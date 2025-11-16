@@ -743,10 +743,7 @@
 /* Inner green gradient text */
 .tag-safe-text {
   font-weight: 600;
-  background: linear-gradient(90deg,
-    #7CFF64 0%,
-    #2BD24F 50%,
-    #0FAF3C 100%
+  background: linear-gradient(90deg, #4D7AF9 0%, #122B5F 100%
   );
   background-clip: text;
   -webkit-background-clip: text;
