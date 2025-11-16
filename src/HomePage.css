@@ -685,6 +685,13 @@
 
 /* 4) Belt-and-suspenders: no hiding anywhere up the chain */
 .hp-header, .brand { overflow: visible; }
+.tagline {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: 0.3px;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
 
 
 
