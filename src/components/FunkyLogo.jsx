@@ -20,14 +20,17 @@ const child = {
 const HEIGHTS = [1.08, 1.0, 1.06, 1.0, 1.07, 1.05, 1.02, 1.06, 1.0, 1.07, 1.03, 1.05];
 
 // SOLID colors only (no textures)
-const TREASURE_SOLIDS = [
-  "#D4AF37", // gold
-  "#C0C0C0", // silver
-  "#F8F4E6", // pearl (warm off-white)
-  "#0F9D58", // emerald
-  "#0D47A1", // sapphire
-  "#C41E3A", // ruby
-];
+// const TREASURE_SOLIDS = [
+//   "#D4AF37", // gold
+//   "#C0C0C0", // silver
+//   "#F8F4E6", // pearl (warm off-white)
+//   "#0F9D58", // emerald
+//   "#0D47A1", // sapphire
+//   "#C41E3A", // ruby
+// ];
+
+const TREASURE_GRADIENT =
+  "linear-gradient(90deg, #4D7AF9 0%, #122B5F 100%)";
 
 // shiny rose-gold for "Play"
 const ROSE_GOLD = "linear-gradient(90deg,#b76e79 0%,#e6b7c8 35%,#f7d3d9 55%,#e0a3ad 75%,#b76e79 100%)";
@@ -64,21 +67,27 @@ export default function FunkyLogo({ text = "TreasurePlay", className = "" }) {
           fontWeight: 900,
           lineHeight: 0.9,
         };
+        // TREASURE (navy gradient)
+if (splitIndex === -1 || i < splitIndex) {
+  return (
+    <motion.span
+      key={`${ch}-${i}`}
+      className="funky-letter treasure-letter"
+      variants={child}
+      style={{
+        ...baseText,
+        background: TREASURE_GRADIENT,
+        backgroundClip: "text",
+        WebkitBackgroundClip: "text",
+        color: "transparent",
+        WebkitTextFillColor: "transparent",
+      }}
+    >
+      {ch === " " ? "\u00A0" : ch}
+    </motion.span>
+  );
+}
 
-        // TREASURE (solid colors only)
-        if (splitIndex === -1 || i < splitIndex) {
-          const color = TREASURE_SOLIDS[shuffled[i % treasureCount] % TREASURE_SOLIDS.length];
-          return (
-            <motion.span
-              key={`${ch}-${i}`}
-              className="funky-letter"
-              variants={child}
-              style={{ ...baseText, color }}
-            >
-              {ch === " " ? "\u00A0" : ch}
-            </motion.span>
-          );
-        }
 
         // PLAY (shiny rose-gold gradient)
         return (
