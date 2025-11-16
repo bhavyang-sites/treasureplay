@@ -13,6 +13,8 @@ const VideoDetail = () => {
   const [familyMode, setFamilyMode] = useState(false);
   const [filteringProfile, setFilteringProfile] = useState("Strict");
   const [customProfile, setCustomProfile] = useState("");
+  const [showProfileCard, setShowProfileCard] = useState(false);
+
   const customProfiles = ["Kids Safe", "Teens", "Religious"];
   const videoRef = useRef(null);
 
@@ -26,7 +28,9 @@ const VideoDetail = () => {
           : json.videos && Array.isArray(json.videos)
           ? json.videos
           : [json];
-        const found = arr.find((v) => v.id.toLowerCase() === normalizedId) || null;
+
+        const found =
+          arr.find((v) => v.id.toLowerCase() === normalizedId) || null;
         setVideo(found);
       })
       .catch(() => setVideo(null));
@@ -37,6 +41,7 @@ const VideoDetail = () => {
     const saved = localStorage.getItem("lastProfile");
     if (saved) setFilteringProfile(saved);
   }, []);
+
   useEffect(() => {
     localStorage.setItem("lastProfile", filteringProfile);
   }, [filteringProfile]);
@@ -44,21 +49,29 @@ const VideoDetail = () => {
   const handleProfileChange = (e) => {
     const val = e.target.value;
     setFilteringProfile(val);
-    if (val !== "Custom") setCustomProfile("");
+    setShowProfileCard(true); // show when profile changes
+
+    if (val !== "Custom") {
+      setCustomProfile("");
+    }
   };
 
   // Load skip map for selected profile
   useEffect(() => {
     if (!video) return;
+
     const raw = video.skipMapUrl;
     let url = null;
 
-    if (typeof raw === "string") url = raw;
-    else if (raw && typeof raw === "object") {
+    if (typeof raw === "string") {
+      url = raw;
+    } else if (raw && typeof raw === "object") {
       if (filteringProfile === "Custom" && customProfile) {
         const key = "custom_" + customProfile.toLowerCase().replace(/ /g, "_");
         url = raw[key];
-      } else url = raw[filteringProfile.toLowerCase()];
+      } else {
+        url = raw[filteringProfile.toLowerCase()];
+      }
     }
 
     if (!url) {
@@ -74,6 +87,7 @@ const VideoDetail = () => {
           : Array.isArray(data?.segments)
           ? data.segments
           : [];
+
         const normalized = arr
           .map((s) => ({
             start: +s.start > 1000 ? +s.start / 1000 : +s.start,
@@ -81,6 +95,7 @@ const VideoDetail = () => {
             action: s.action || "skip",
           }))
           .filter((s) => s.end > s.start);
+
         setSkipMap(normalized);
       })
       .catch(() => setSkipMap([]));
@@ -90,9 +105,11 @@ const VideoDetail = () => {
   useEffect(() => {
     const vid = videoRef.current;
     if (!vid) return;
+
     const segs = (skipMap || [])
       .filter((s) => (s.action || "skip") === "skip")
       .sort((a, b) => a.start - b.start);
+
     if (!familyMode || segs.length === 0) return;
 
     let lastJumpAt = -1;
@@ -102,7 +119,9 @@ const VideoDetail = () => {
     const jumpIfNeeded = () => {
       if (!familyMode) return;
       const t = vid.currentTime || 0;
+
       if (t < lastJumpAt - 0.2) lastJumpAt = -1;
+
       for (let s of segs) {
         if (t >= s.start - EPS_START && t < s.end - EPS_END) {
           const target = Math.min(s.end + 0.02, vid.duration - 0.05);
@@ -119,6 +138,7 @@ const VideoDetail = () => {
     vid.addEventListener("seeking", jumpIfNeeded);
     vid.addEventListener("seeked", jumpIfNeeded);
     vid.addEventListener("timeupdate", jumpIfNeeded);
+
     return () => {
       clearInterval(interval);
       vid.removeEventListener("seeking", jumpIfNeeded);
@@ -127,20 +147,39 @@ const VideoDetail = () => {
     };
   }, [skipMap, familyMode]);
 
-  if (video === undefined) return <div className="video-loading">Loading...</div>;
-  if (video === null) return <div className="video-loading">Video not found.</div>;
+  // Auto-hide profile card after a few seconds
+  useEffect(() => {
+    if (!familyMode || !showProfileCard) return;
+
+    const timer = setTimeout(() => {
+      setShowProfileCard(false);
+    }, 5000); // 5s; tweak if you want longer/shorter
+
+    return () => clearTimeout(timer);
+  }, [familyMode, showProfileCard]);
+
+  // Loading / error states
+  if (video === undefined) {
+    return <div className="video-loading">Loading...</div>;
+  }
+  if (!video) {
+    return <div className="video-loading">Video not found.</div>;
+  }
 
   return (
     <div className="video-detail-page">
+      {/* Back arrow */}
       <button className="back-arrow" onClick={() => navigate("/")}>
         <span className="arrow-icon">←</span>
       </button>
 
+      {/* Fullscreen-style hero */}
       <div
         className="hero-bg"
         style={{ backgroundImage: `url(${video.thumbnail || ""})` }}
       >
-        <div className="hero-overlay"></div>
+        <div className="hero-overlay" />
+
         <div className="hero-content">
           <video
             ref={videoRef}
@@ -150,92 +189,96 @@ const VideoDetail = () => {
             controls
             preload="metadata"
           />
-        </div>
-      </div>
 
-      <div className="info-row below-video">
-        <div className="info-left">
-          <h1 className="video-title">{video.title}</h1>
-          {video.genre && (
-            <p className="video-meta">
-              {video.genre} • {video.duration || "1h"}
-            </p>
-          )}
-        </div>
+          {/* SmartSkips bottom overlay bar */}
+          <div className="player-overlay">
+            <div className="overlay-row">
+              {/* Centered movie-style title */}
+              <div className="overlay-title">{video.title}</div>
 
-        <div className="info-right">
-          <div className="toggle-row">
-            <input
-              id="family-toggle"
-              type="checkbox"
-              className="toggle-checkbox"
-              checked={familyMode}
-              onChange={(e) => {
-                const on = e.target.checked;
-                setFamilyMode(on);
-                if (on) {
-                  setFilteringProfile("Strict");
-                  setCustomProfile("");
-                }
-              }}
-            />
-            <label htmlFor="family-toggle" className="toggle-switch" />
-            <span className="toggle-status">
-              {familyMode ? "Family Mode: On" : "Family Mode: Off"}
-            </span>
-          </div>
-
-          {/* Segment count */}
-          {familyMode && skipMap.length > 0 && (
-            <div className="segment-count">Skips: {skipMap.length}</div>
-          )}
-
-          {familyMode && (
-            <div className="profile-card under-toggle">
-              <div className="profile-row elegant-dropdown">
-                <span>
-                  Active Profile: <strong>{filteringProfile}</strong>
-                </span>
-                <select
-                  className="select-elegant"
-                  value={filteringProfile}
-                  onChange={handleProfileChange}
-                >
-                  <option value="Mild">Mild</option>
-                  <option value="Strict">Strict</option>
-                  <option value="Custom">Custom</option>
-                </select>
-              </div>
-
-              {filteringProfile === "Custom" && (
-                <div className="profile-row elegant-dropdown">
-                  <select
-                    className="select-elegant"
-                    value={customProfile}
-                    onChange={(e) => setCustomProfile(e.target.value)}
-                  >
-                    <option value="">Select sub-profile…</option>
-                    {customProfiles.map((p) => (
-                      <option key={p} value={p}>
-                        {p}
-                      </option>
-                    ))}
-                  </select>
+              {/* Family Mode block on the right */}
+              <div className="overlay-family">
+                <div className="family-toggle-row">
+                  <input
+                    id="family-toggle"
+                    type="checkbox"
+                    className="toggle-checkbox"
+                    checked={familyMode}
+                    onChange={(e) => {
+                      const on = e.target.checked;
+                      setFamilyMode(on);
+                      if (on) {
+                        setFilteringProfile("Strict");
+                        setCustomProfile("");
+                        setShowProfileCard(true);
+                      } else {
+                        setShowProfileCard(false);
+                      }
+                    }}
+                  />
+                  <label htmlFor="family-toggle" className="toggle-switch" />
+                  <span className="toggle-status">
+                    {familyMode ? "Family Mode: On" : "Family Mode: Off"}
+                  </span>
                 </div>
-              )}
 
-              <p className="profile-desc">
-                {filteringProfile === "Mild" &&
-                  "Blocks only explicit content. Ideal for general audiences."}
-                {filteringProfile === "Strict" &&
-                  "Strictly filters nudity, suggestive content, and violence. Best for young kids."}
-                {filteringProfile === "Custom" &&
-                  (customProfile
-                    ? `Custom settings applied: ${customProfile}`
-                    : "Please select a custom profile to apply.")}
-              </p>
+                {/* Popover card (conditional, auto-hides) */}
+                {familyMode && showProfileCard && (
+                  <div className="profile-card family-popover">
+                    <div className="profile-row elegant-dropdown">
+                      <span>
+                        Active Profile: <strong>{filteringProfile}</strong>
+                      </span>
+                      <select
+                        className="select-elegant"
+                        value={filteringProfile}
+                        onChange={handleProfileChange}
+                      >
+                        <option value="Mild">Mild</option>
+                        <option value="Strict">Strict</option>
+                        <option value="Custom">Custom</option>
+                      </select>
+                    </div>
+
+                    {filteringProfile === "Custom" && (
+                      <div className="profile-row elegant-dropdown">
+                        <select
+                          className="select-elegant"
+                          value={customProfile}
+                          onChange={(e) => {
+                            setCustomProfile(e.target.value);
+                            setShowProfileCard(true);
+                          }}
+                        >
+                          <option value="">Select sub-profile…</option>
+                          {customProfiles.map((p) => (
+                            <option key={p} value={p}>
+                              {p}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    )}
+
+                    {skipMap && skipMap.length > 0 && (
+                      <p className="profile-skips">Skips: {skipMap.length}</p>
+                    )}
+
+                    <p className="profile-desc">
+                      {filteringProfile === "Mild" &&
+                        "Blocks only explicit content. Ideal for general audiences."}
+                      {filteringProfile === "Strict" &&
+                        "Strictly filters nudity, suggestive content, and violence. Best for young kids."}
+                      {filteringProfile === "Custom" &&
+                        (customProfile
+                          ? `Custom settings applied: ${customProfile}`
+                          : "Please select a custom profile to apply.")}
+                    </p>
+                  </div>
+                )}
+              </div>
             </div>
-          )}
+          </div>
         </div>
       </div>
     </div>
