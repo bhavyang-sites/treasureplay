@@ -714,6 +714,46 @@
 .tag-green {
   text-shadow: 0 0 8px rgba(95,255,120,0.35);
 }
+.brand-sub {
+  margin-top: 4px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* EXPERIENCE */
+.tag-white {
+  color: rgba(255,255,255,0.9);
+  font-weight: 400;
+}
+
+/* Outer bracket / pill */
+.tag-safe {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.1rem 0.6rem;
+  border-radius: 999px; /* rounded like the SAFE frame */
+  border: 1px solid rgba(92, 255, 140, 0.9);
+  box-shadow: 0 0 10px rgba(92, 255, 140, 0.45);
+  background: rgba(0, 0, 0, 0.35);  /* subtle dark backing */
+}
+
+/* Inner green gradient text */
+.tag-safe-text {
+  font-weight: 600;
+  background: linear-gradient(90deg,
+    #7CFF64 0%,
+    #2BD24F 50%,
+    #0FAF3C 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
 
 
 

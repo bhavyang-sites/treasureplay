@@ -56,10 +56,13 @@ const HomePage = () => {
       <header className="hp-header">
         <div className="brand">
           <FunkyLogo text="TreasurePlay" />
-       <div class="brand-sub">
-  <span class="tag-white">EXPERIENCE</span>
-  <span class="tag-green">SAFER STREAMING</span>
+       <div className="brand-sub">
+  <span className="tag-white">Experience</span>
+  <span className="tag-safe">
+    <span className="tag-safe-text">Safer Streaming</span>
+  </span>
 </div>
+
     </div>
 
 
