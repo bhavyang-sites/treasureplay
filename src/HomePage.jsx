@@ -56,9 +56,10 @@ const HomePage = () => {
       <header className="hp-header">
         <div className="brand">
           <FunkyLogo text="TreasurePlay" />
-        <span className="brand-sub">
-              Experience <span style={{ color: "#00AEEF" }}>Safer Streaming</span>
-        </span>
+       <div class="brand-sub">
+  <span class="tag-white">Experience</span>
+  <span class="tag-green">Safer Streaming</span>
+</div>
     </div>
 
 

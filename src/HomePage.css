@@ -681,6 +681,39 @@
 
 /* 4) Belt-and-suspenders: no hiding anywhere up the chain */
 .hp-header, .brand { overflow: visible; }
+.brand-sub {
+  margin-top: 4px;
+  font-size: 0.9rem;                /* smaller scale */
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  line-height: 1.2;
+  display: flex;
+  gap: 0.35rem;                     /* space between words */
+  align-items: center;
+}
+
+/* EXPERIENCE (white normal text) */
+.tag-white {
+  color: rgba(255,255,255,0.88);
+  font-weight: 400;
+}
+
+/* SAFER STREAMING (green gradient like SAFE graphic) */
+.tag-green {
+  font-weight: 700;
+  background: linear-gradient(90deg,
+    #7CFF64 0%,   /* bright lime-green */
+    #2BD24F 50%,  /* mid-green */
+    #1AAF3C 100%  /* deeper green */
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+.tag-green {
+  text-shadow: 0 0 8px rgba(95,255,120,0.35);
+}
 
 
 
