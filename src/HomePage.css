@@ -647,24 +647,20 @@
 .hp-header, .brand { overflow: visible; }
 /* Tagline directly under the logo */
 .brand-sub {
-  margin-top: 6px;               /* tight link to the logo */
-  font-size: 1.05rem;            /* slightly larger */
-  letter-spacing: 0.02em;
-  color: rgba(230,230,230,0.92);
-  line-height: 1.2;
+  margin-top: 4px;
+  font-size: 0.95rem;              /* a bit smaller = less shouty */
+  font-weight: 400;                /* not bold */
+  color: rgba(230, 230, 230, 0.9); /* soft off-white */
+  letter-spacing: 0.01em;          /* minimal spacing */
+  text-transform: none;            /* no forced uppercase */
+  line-height: 1.3;
 }
 
-/* Optional: accent for “SAFER STREAMING” */
-.brand-sub .accent,
-.brand-sub span {
-  color: #00AEEF;                /* your existing blue */
-  font-weight: 600;
+.brand-sub .accent {
+  color: #00AEEF;                  /* keep your blue accent */
+  font-weight: 600;                /* only the accent is stronger */
 }
-.brand {
-  display: flex;
-  flex-direction: column;     /* logo on top, tagline below */
-  align-items: flex-start;
-}
+
 /* 1) Let glyph descenders render fully */
 .funky-logo {
   align-items: baseline;     /* already set */
