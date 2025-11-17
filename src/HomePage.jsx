@@ -54,8 +54,11 @@ const HomePage = () => {
     <div className="homepage-container">
       {/* Header / Nav */}
       <header className="hp-header">
-        <div className="brand">
-          <FunkyLogo text="TreasurePlay" />
+       <div className="brand">
+  <div className="logo-wrapper">
+    <div className="logo-bg-strip"></div>
+    <FunkyLogo text="TreasurePlay" />
+  </div>
       <div className="brand-sub tagline">
   <span className="tag-red">Smooth.</span>
   <span className="tag-rose">Smart.</span>
