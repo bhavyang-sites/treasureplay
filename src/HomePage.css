@@ -755,6 +755,8 @@
   font-size: 0.95rem;
   letter-spacing: 0.3px;
   display: flex;
+  width: fit-content;
+  margin-top: 4px; 
   gap: 0.4rem;
 }
 
@@ -794,6 +796,13 @@
   -webkit-text-fill-color: transparent;
   font-weight: 700;
 }
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;     /* centers both logo and tagline */
+  text-align: center;      /* centers text inside */
+}
+
 
 
 
