@@ -563,7 +563,7 @@
 /* ---- Funky animated logo ---- */
 .logo-funky {
   font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-  font-size: 1.9rem;         /* slightly bigger than current */
+  font-size: 1.6rem;         /* slightly bigger than current */
   font-weight: 900;
   letter-spacing: 1px;
   line-height: 1;
