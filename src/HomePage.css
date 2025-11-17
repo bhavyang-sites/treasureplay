@@ -750,6 +750,51 @@
   color: transparent;
   -webkit-text-fill-color: transparent;
 }
+.tagline {
+  font-family: 'Inter', 'Montserrat', sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.3px;
+  display: flex;
+  gap: 0.4rem;
+}
+
+/* Netflix Red */
+.tag-red {
+  background: linear-gradient(90deg, #E50914 0%, #B20710 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+}
+
+/* Rose Gold */
+.tag-rose {
+  background: linear-gradient(
+    90deg,
+    #b76e79 0%,
+    #e6b7c8 35%,
+    #f7d3d9 55%,
+    #e0a3ad 75%,
+    #b76e79 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
+}
+
+/* Treasure Blue */
+.tag-blue {
+  background: linear-gradient(90deg, #4D7AF9 0%, #122B5F 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+}
+
 
 
 
