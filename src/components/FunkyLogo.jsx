@@ -34,7 +34,7 @@ const TREASURE_GRADIENT =
 
 // shiny rose-gold for "Play"
 //const ROSE_GOLD = "linear-gradient(90deg,#b76e79 0%,#e6b7c8 35%,#f7d3d9 55%,#e0a3ad 75%,#b76e79 100%)";
-const SHINY_WHITE = "linear-gradient(90deg,#ffffff 0%,#fefefe 8%,#e8e8e8 20%,#ffffff 38%,#d0d0d0 55%,#ffffff 78%,#f8f8f8 100%)";
+const SHINY_WHITE = "linear-gradient(90deg,#ffffff 0%,#e6e6e6 12%,#bfbfbf 26%,#ffffff 45%,#bdbdbd 63%,#dcdcdc 78%,#ffffff 100%)";
 
 // deterministic shuffle so colors don't change on re-render
 function seededShuffleIndices(n, seedStr = "TreasurePlay-v1") {
