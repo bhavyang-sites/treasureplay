@@ -849,6 +849,9 @@ font-weight: 700;
   color: #58A029;
   font-weight: 700;
 }
+.treasure-letter {
+  text-shadow: 0 1px 4px rgba(178, 13, 58, 0.25);
+}
 
 
 
