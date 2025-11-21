@@ -823,15 +823,34 @@ font-weight: 700;
 
 }
 .treasure-letter {
-  background: linear-gradient(90deg, #1A5CFF 0%, #0041C4 45%, #002A80 100%);
+  background: linear-gradient(
+    90deg,
+    #ff4d6d 0%,
+    #ff002e 25%,
+    #c30033 50%,
+    #ff5f7f 75%,
+    #ffced6 100%
+  );
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
-
-  /* Optional cinematic glow */
-  text-shadow: 0 0 6px rgba(0, 80, 255, 0.25);
+  text-shadow: 0 0 8px rgba(255, 0, 50, 0.35);
 }
+.tag-blue {
+  color: #2B6A92;
+  font-weight: 700;
+}
+.tag-yellow {
+  color: #F4A81C;
+  font-weight: 700;
+}
+.tag-green {
+  color: #58A029;
+  font-weight: 700;
+}
+
+
 
 
 
