@@ -824,23 +824,16 @@
   display: inline-block;
 }
 .logo-bg-strip {
-  position: absolute;
-  top: 55%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 115%;
-  height: 22px;
+  height: 16px;                              /* thinner strip */
   background: linear-gradient(
     to right,
-    rgba(255,255,255,0.08),
-    rgba(255,255,255,0.22),
-    rgba(255,255,255,0.08)
+    rgba(255,255,255,0.06),
+    rgba(255,255,255,0.16),
+    rgba(255,255,255,0.06)
   );
-  border-radius: 30px;
-  filter: blur(4px);
-  z-index: -1;
-  pointer-events: none;
+  filter: blur(2px);                         /* less blur = less haze */
 }
+
 
 
 
