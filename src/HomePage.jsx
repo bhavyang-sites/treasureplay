@@ -59,9 +59,9 @@ const HomePage = () => {
     <FunkyLogo text="TreasurePlay" />
   </div>
       <div className="brand-sub tagline">
-  <span className="tag-blue">Smooth.</span>
-  <span className="tag-yellow">Smart.</span>
-  <span className="tag-green">Streaming.</span>
+  <span className="tag-smooth">Smooth.</span>
+  <span className="tag-smart"> Smart.</span>
+  <span className="tag-stream"> Streaming.</span>
 </div>
 
 

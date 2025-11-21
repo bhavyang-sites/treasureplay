@@ -852,6 +852,45 @@ font-weight: 700;
 .treasure-letter {
   text-shadow: 0 1px 4px rgba(178, 13, 58, 0.25);
 }
+.funky-logo {
+  font-family: 'Playfair Display', 'Times New Roman', serif;
+  font-size: 2.1rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  line-height: 1;
+}
+.treasure-letter {
+  text-shadow: 0 1px 4px rgba(91, 11, 35, 0.35);
+}
+
+.play-letter {
+  text-shadow: 0 1px 4px rgba(255, 255, 255, 0.28);
+}
+.tagline {
+  margin-top: 4px;
+  font-family: 'Inter', 'Montserrat', system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
+.tag-smooth {
+  color: #2B6A92;    /* blue from the icon */
+}
+
+.tag-smart {
+  color: #F4A81C;    /* yellow from the icon */
+}
+
+.tag-stream {
+  color: #58A029;    /* green from the icon */
+}
+
+/* IMPORTANT: make sure there is NO text-shadow / blur on tagline */
+.tagline span {
+  text-shadow: none;
+}
+
 
 
 
