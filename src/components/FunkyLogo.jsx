@@ -30,7 +30,7 @@ const HEIGHTS = [1.08, 1.0, 1.06, 1.0, 1.07, 1.05, 1.02, 1.06, 1.0, 1.07, 1.03, 
 // ];
 
 const TREASURE_GRADIENT =
-  "linear-gradient(90deg, #4D7AF9 0%, #122B5F 100%)";
+  "linear-gradient(90deg, #1A5CFF 0%, #0041C4 45%, #002A80 100%)";
 
 // shiny rose-gold for "Play"
 //const ROSE_GOLD = "linear-gradient(90deg,#b76e79 0%,#e6b7c8 35%,#f7d3d9 55%,#e0a3ad 75%,#b76e79 100%)";
