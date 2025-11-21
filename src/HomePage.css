@@ -802,37 +802,11 @@
   align-items: center;     /* centers both logo and taglin */
   justify-self: flex-start;  /* ⬅ NEW: stick to left of column */
 }
-.logo-bg-strip {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 110%;
-  height: 24px;
-  background: linear-gradient(
-    to right,
-    rgba(255,255,255,0.15),
-    rgba(255,255,255,0.25),
-    rgba(255,255,255,0.15)
-  );
-  filter: blur(6px);
-  border-radius: 40px;
-  z-index: -1;
-}
 .logo-wrapper {
   position: relative;
   display: inline-block;
 }
-.logo-bg-strip {
-  height: 16px;                              /* thinner strip */
-  background: linear-gradient(
-    to right,
-    rgba(255,255,255,0.06),
-    rgba(255,255,255,0.16),
-    rgba(255,255,255,0.06)
-  );
-  filter: blur(2px);                         /* less blur = less haze */
-}
+
 
 
 

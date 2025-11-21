@@ -56,7 +56,6 @@ const HomePage = () => {
       <header className="hp-header">
        <div className="brand">
   <div className="logo-wrapper">
-    <div className="logo-bg-strip"></div>
     <FunkyLogo text="TreasurePlay" />
   </div>
       <div className="brand-sub tagline">
