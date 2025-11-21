@@ -822,6 +822,17 @@ color: transparent;
 font-weight: 700;
 
 }
+.treasure-letter {
+  background: linear-gradient(90deg, #1A5CFF 0%, #0041C4 45%, #002A80 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+
+  /* Optional cinematic glow */
+  text-shadow: 0 0 6px rgba(0, 80, 255, 0.25);
+}
+
 
 
 
