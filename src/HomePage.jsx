@@ -60,7 +60,7 @@ const HomePage = () => {
   </div>
       <div className="brand-sub tagline">
   <span className="tag-red">Smooth.</span>
-  <span className="tag-rose">Smart.</span>
+  <span className="tag-white">Smart.</span>
   <span className="tag-blue">Streaming.</span>
 </div>
 
