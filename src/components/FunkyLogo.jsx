@@ -32,10 +32,10 @@ const HEIGHTS = [1.08, 1.0, 1.06, 1.0, 1.07, 1.05, 1.02, 1.06, 1.0, 1.07, 1.03, 
 const TREASURE_GRADIENT = `
   linear-gradient(
     90deg,
-    #5b0b23 0%,
-    #7a1530 35%,
-    #b33854 70%,
-    #661227 100%
+    #8b2c3b 0%,
+    #a53a4b 40%,
+    #c45164 70%,
+    #8b2c3b 100%
   )
 `;
 
@@ -43,12 +43,12 @@ const PLAY_CHROME = `
   linear-gradient(
     90deg,
     #ffffff 0%,
-    #f3f3f3 20%,
-    #dcdcdc 45%,
-    #ffffff 70%,
-    #f5f5f5 100%
+    #f1f1f1 25%,
+    #d9d9d9 50%,
+    #ffffff 75%
   )
 `;
+
 
 // deterministic shuffle so colors don't change on re-render
 function seededShuffleIndices(n, seedStr = "TreasurePlay-v1") {

@@ -890,6 +890,11 @@ font-weight: 700;
 .tagline span {
   text-shadow: none;
 }
+.funky-logo {
+  font-family: "Nunito", sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
 
 
 
