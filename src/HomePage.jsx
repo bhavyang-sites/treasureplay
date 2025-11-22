@@ -55,20 +55,16 @@ const HomePage = () => {
       {/* Header / Nav */}
       <header className="hp-header">
        <div className="brand">
-  <div className="brand-logo">
-  <span className="treasure-box">TREASURE</span>
-  <span className="play-text">PLAY</span>
+  <div className="treasureplay-title">
+    <span className="title-treasure">Treasure</span>
+    <span className="title-play">Play</span>
+  </div>
+
+  <div className="title-tagline">
+    Smooth. Smart. Streaming.
+  </div>
 </div>
 
-
-      <div className="brand-sub tagline">
-  <span className="tag-smooth">Smooth.</span>
-  <span className="tag-smart"> Smart.</span>
-  <span className="tag-stream"> Streaming.</span>
-</div>
-
-
-    </div>
 
 
 
