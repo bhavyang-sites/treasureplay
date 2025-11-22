@@ -826,19 +826,20 @@ font-weight: 700;
 }
 .treasure-letter {
   background: linear-gradient(
-    90deg,
-    #ff4d6d 0%,
-    #ff002e 25%,
-    #c30033 50%,
-    #ff5f7f 75%,
-    #ffced6 100%
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 8px rgba(255, 0, 50, 0.35);
-}
+  180deg,
+  #ffe9a9 0%,
+  #e8c15c 35%,
+  #c89a32 65%,
+  #8f611a 100%
+);
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+
+text-shadow:
+  0 2px 4px rgba(0,0,0,0.55),
+  0 0 4px rgba(255,230,150,0.4);
+ }
 .tag-blue {
   color: #2B6A92;
   font-weight: 700;
@@ -973,33 +974,42 @@ font-weight: 700;
   font-weight: 400; /* Pirata One accepts this */
 filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));
 
-background: linear-gradient(
-  180deg,
-  #ffe8a8 0%,
-  #e1bb55 40%,
-  #b18a32 100%
-);
-
-  -webkit-background-clip: text;
   background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.6), 0 0 6px rgba(255,230,150,0.4);
+  background: linear-gradient(
+  180deg,
+  #ffe9a9 0%,
+  #e8c15c 35%,
+  #c89a32 65%,
+  #8f611a 100%
+);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+
+text-shadow:
+  0 2px 4px rgba(0,0,0,0.55),
+  0 0 4px rgba(255,230,150,0.4);
+font-weight: 400;
+
 }
 
 /* PLAY */
 .title-play {
   font-family: 'Pirata One', serif;
   font-size: 2.7rem;  /* closer to Treasure */
-  background: linear-gradient(
-    180deg,
-    #ffffff 0%,
-    #f7f4e4 40%,
-    #e0d8c0 100%
-  );
-  -webkit-background-clip: text;
   background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.45);
+  background: linear-gradient(
+  180deg,
+  #ffffff 0%,
+  #f8f2dc 40%,
+  #e8d7a8 100%
+);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+
+font-size: 2.75rem;
+text-shadow: 0 1px 3px rgba(0,0,0,0.45);
+font-weight: 400;
+
 }
 
 
