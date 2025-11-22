@@ -55,9 +55,11 @@ const HomePage = () => {
       {/* Header / Nav */}
       <header className="hp-header">
        <div className="brand">
-  <div className="logo-wrapper">
-    <FunkyLogo text="TreasurePlay" />
-  </div>
+  <div className="tp-logo">
+  <span className="tp-box treasure-box">Treasure</span>
+  <span className="tp-box play-box">Play</span>
+</div>
+
       <div className="brand-sub tagline">
   <span className="tag-smooth">Smooth.</span>
   <span className="tag-smart"> Smart.</span>
