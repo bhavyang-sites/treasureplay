@@ -929,6 +929,34 @@ font-weight: 700;
 .play-box {
   background: #2ECC71; /* Streaming Green */
 }
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Blue curved box for TREASURE */
+.treasure-box {
+  background: linear-gradient(180deg, #4D7AF9, #0E1F47);
+  padding: 0.3rem 1rem;
+  border-radius: 14px;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.4);
+}
+
+/* PLAY in green, but WITHOUT box */
+.play-text {
+  color: #00C853;  /* same shade as your Streaming */
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+  text-shadow: 0 0 8px rgba(0, 200, 83, 0.55);  /* apple-style glow */
+}
 
 
 

@@ -55,10 +55,11 @@ const HomePage = () => {
       {/* Header / Nav */}
       <header className="hp-header">
        <div className="brand">
-  <div className="tp-logo">
-  <span className="tp-box treasure-box">Treasure</span>
-  <span className="tp-box play-box">Play</span>
+  <div className="brand-logo">
+  <span className="treasure-box">TREASURE</span>
+  <span className="play-text">PLAY</span>
 </div>
+
 
       <div className="brand-sub tagline">
   <span className="tag-smooth">Smooth.</span>
