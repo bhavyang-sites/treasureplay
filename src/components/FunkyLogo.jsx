@@ -31,12 +31,10 @@ const HEIGHTS = [1.08, 1.0, 1.06, 1.0, 1.07, 1.05, 1.02, 1.06, 1.0, 1.07, 1.03, 
 
 const TREASURE_GRADIENT = `
   linear-gradient(
-    90deg,
-    #F2C94C 0%,
-    #F1B645 25%,
-    #DFA02E 50%,
-    #F5D36C 75%,
-    #F2C94C 100%
+    180deg,
+  #F4D06F 0%,
+  #E5B85B 50%,
+  #C8943C 100%
   )
 `;
 

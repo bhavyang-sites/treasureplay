@@ -864,7 +864,7 @@ font-weight: 700;
 }
 
 .play-letter {
-  text-shadow: 0 1px 3px rgba(0,0,0,0.22);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.35);
 }
 .tagline {
   margin-top: 4px;
@@ -888,8 +888,9 @@ font-weight: 700;
 
 /* IMPORTANT: make sure there is NO text-shadow / blur on tagline */
 .tagline span {
-  text-shadow: none;
+  letter-spacing: 0.5px;
 }
+
 .funky-logo {
   font-family: "Shantell Sans", cursive;
   font-weight: 700;
