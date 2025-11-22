@@ -32,22 +32,25 @@ const HEIGHTS = [1.08, 1.0, 1.06, 1.0, 1.07, 1.05, 1.02, 1.06, 1.0, 1.07, 1.03, 
 const TREASURE_GRADIENT = `
   linear-gradient(
     90deg,
-    #8b2c3b 0%,
-    #a53a4b 40%,
-    #c45164 70%,
-    #8b2c3b 100%
+    #F2C94C 0%,
+    #F1B645 25%,
+    #DFA02E 50%,
+    #F5D36C 75%,
+    #F2C94C 100%
   )
 `;
+
 
 const PLAY_CHROME = `
   linear-gradient(
     90deg,
-    #ffffff 0%,
-    #f1f1f1 25%,
-    #d9d9d9 50%,
-    #ffffff 75%
+    #B20710 0%,
+    #9A0510 35%,
+    #7A040A 70%,
+    #B20710 100%
   )
 `;
+
 
 
 // deterministic shuffle so colors don't change on re-render
@@ -90,13 +93,13 @@ if (splitIndex === -1 || i < splitIndex) {
       className="funky-letter treasure-letter"
       variants={child}
       style={{
-        ...baseText,
-        background: TREASURE_GRADIENT,
-        backgroundClip: "text",
-        WebkitBackgroundClip: "text",
-        color: "transparent",
-        WebkitTextFillColor: "transparent",
-      }}
+  ...baseText,
+  background: TREASURE_GRADIENT,
+  WebkitBackgroundClip: "text",
+  backgroundClip: "text",
+  color: "transparent"
+}}
+
     >
       {ch === " " ? "\u00A0" : ch}
     </motion.span>
@@ -111,13 +114,13 @@ if (splitIndex === -1 || i < splitIndex) {
             className="funky-letter play-letter"
             variants={child}
             style={{
-              ...baseText,
-              background: PLAY_CHROME,
-              backgroundClip: "text",
-              WebkitBackgroundClip: "text",
-              color: "transparent",
-              WebkitTextFillColor: "transparent",
-            }}
+  ...baseText,
+  background: PLAY_CHROME,
+  WebkitBackgroundClip: "text",
+  backgroundClip: "text",
+  color: "transparent"
+}}
+
           >
             {ch === " " ? "\u00A0" : ch}
           </motion.span>
