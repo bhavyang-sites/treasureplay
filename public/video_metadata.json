@@ -1,5 +1,13 @@
 [
   {
+    "id": "rapid_merged",
+    "title": "Moments of Truth",
+    "videoUrl": "/videos/rapid_merged.mp4",
+    "skipMapUrl": "/skipmaps/rapid_merged.json",
+    "thumbnail": "/thumbnails/rapid_merged.jpg",
+    "category": "Recommended For You"
+  },
+  {
     "id": "Adult_video_new_req_1",
     "title": "Cinematic Journey",
     "videoUrl": "/videos/Adult_video_new_req_1.mp4",
@@ -28,28 +36,6 @@
     "category": "Recommended For You"
   },
   {
-    "id": "rapid_merged",
-    "title": "Moments of Truth",
-    "videoUrl": "/videos/rapid_merged.mp4",
-    "skipMapUrl": "/skipmaps/rapid_merged.json",
-    "thumbnail": "/thumbnails/rapid_merged.jpg",
-    "category": "Recommended For You"
-  },
-  {
-    "id": "Distracted_Meditation",
-    "title": "Distracted Meditation",
-    "videoUrl": "/videos/Distracted Meditation.mp4",
-    "skipMapUrl": {
-      "mild": "/skipmaps/Distracted_Meditation_mild.json",
-      "strict": "/skipmaps/Distracted_Meditation_strict.json",
-      "custom_kids_safe": "/skipmaps/Distracted_Meditation_custom_kids_safe.json",
-      "custom_teens": "/skipmaps/Distracted_Meditation_custom_teens.json",
-      "custom_religious": "/skipmaps/Distracted_Meditation_custom_religious.json"
-    },
-    "thumbnail": "/thumbnails/Distracted_Meditation/thumb_001.jpg",
-    "category": "Recommended For You"
-  },
-  {
     "id": "Swimwear",
     "title": "Deep Blue Diary",
     "videoUrl": "/videos/swimwear.mp4",
@@ -75,6 +61,20 @@
       "custom_religious": "/skipmaps/Hip_Hop_custom_religious.json"
     },
     "thumbnail": "/thumbnails/Hip_Hop/thumb_001.jpg",
+    "category": "Recommended For You"
+  },
+  {
+    "id": "Distracted_Meditation",
+    "title": "Distracted Meditation",
+    "videoUrl": "/videos/Distracted Meditation.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/Distracted_Meditation_mild.json",
+      "strict": "/skipmaps/Distracted_Meditation_strict.json",
+      "custom_kids_safe": "/skipmaps/Distracted_Meditation_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Distracted_Meditation_custom_teens.json",
+      "custom_religious": "/skipmaps/Distracted_Meditation_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/Distracted_Meditation/thumb_001.jpg",
     "category": "Recommended For You"
   },
   {
