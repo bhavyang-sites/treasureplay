@@ -1,7 +1,7 @@
 [
   {
     "id": "Adult_video_new_req_1",
-    "title": "Movie Time",
+    "title": "Cinematic Journey",
     "videoUrl": "/videos/Adult_video_new_req_1.mp4",
     "skipMapUrl": {
       "mild": "/skipmaps/Adult_video_new_req_1_mild.json",
@@ -29,7 +29,7 @@
   },
   {
     "id": "rapid_merged",
-    "title": "Best Moments",
+    "title": "Moments of Truth",
     "videoUrl": "/videos/rapid_merged.mp4",
     "skipMapUrl": "/skipmaps/rapid_merged.json",
     "thumbnail": "/thumbnails/rapid_merged.jpg",
@@ -51,7 +51,7 @@
   },
   {
     "id": "Swimwear",
-    "title": "Swim Dream",
+    "title": "Deep Blue Diary",
     "videoUrl": "/videos/swimwear.mp4",
     "thumbnail": "/thumbnails/swimwear.jpg",
     "skipMapUrl": {
@@ -65,7 +65,7 @@
   },
   {
     "id": "Hip_Hop",
-    "title": "Hip Hop",
+    "title": "Beat Street Stories",
     "videoUrl": "/videos/Hip_Hop.mp4",
     "skipMapUrl": {
       "mild": "/skipmaps/Hip_Hop_mild.json",
