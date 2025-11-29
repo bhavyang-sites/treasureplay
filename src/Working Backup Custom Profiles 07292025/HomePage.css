@@ -1,0 +1,48 @@
+.homepage-container {
+  padding: 1.5rem;
+  background-color: #000;
+  min-height: 100vh;
+  color: #fff;
+}
+
+.header {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+/* This makes the row horizontally scrollable, with no wrapping */
+.thumbnail-row {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+}
+
+/* Each thumbnail has a fixed width and won’t shrink */
+.thumbnail-item {
+  flex: 0 0 auto;
+  width: 12rem; /* 192px */
+  cursor: pointer;
+  text-align: center;
+}
+
+/* Crop images to 16:9 in a consistent box */
+.thumbnail-image {
+  width: 100%;
+  height: 7rem; /* 112px */
+  object-fit: cover;
+  border-radius: 0.25rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  display: block;
+}
+
+/* Title styling */
+.thumbnail-title {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

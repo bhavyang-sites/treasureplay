@@ -1,0 +1,675 @@
+.video-detail-page {
+  background-color: #0a0a0a;
+  color: #fff;
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Netflix-style back arrow */
+.back-arrow {
+  position: absolute;
+  top: 1.2rem;
+  left: 2rem;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.8rem;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0.8;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.back-arrow:hover {
+  opacity: 1;
+  transform: translateX(-4px);
+}
+.arrow-icon {
+  font-weight: 300;
+  line-height: 1;
+}
+
+/* Hero section */
+.hero-bg {
+  position: relative;
+  width: 100%;
+  height: 65vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.3));
+  backdrop-filter: blur(18px);
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.video-player {
+  width: 70%;
+  max-width: 960px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+}
+
+/* Info row */
+.info-row.below-video {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 85%;
+  margin: 2rem auto 0;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.video-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+}
+.video-meta {
+  color: #bbb;
+  font-size: 0.95rem;
+}
+
+/* Toggle */
+.toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.toggle-checkbox {
+  display: none;
+}
+.toggle-switch {
+  position: relative;
+  width: 2.8rem;
+  height: 1.4rem;
+  background: #555;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.toggle-switch::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 1rem;
+  height: 1rem;
+  background: #ccc;
+  border-radius: 50%;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+.toggle-checkbox:checked + .toggle-switch {
+  background: #4ade80;
+  box-shadow: 0 0 8px rgba(74, 222, 128, 0.6);
+}
+.toggle-checkbox:checked + .toggle-switch::after {
+  transform: translateX(1.4rem);
+  background: #fff;
+}
+.toggle-status {
+  font-weight: 500;
+}
+
+/* Segment count */
+.segment-count {
+  font-size: 0.9rem;
+  color: #9ca3af;
+  margin-top: 0.4rem;
+}
+
+.select-elegant {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 8px;           /* less round than capsule */
+  padding: 6px 18px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+  text-align: center;
+  text-align-last: center;
+  appearance: none;
+}
+.select-elegant:hover {
+  border-color: #60a5fa;
+  box-shadow: 0 0 6px rgba(96, 165, 250, 0.4);
+}
+.select-elegant:focus {
+  border-color: #93c5fd;
+  box-shadow: 0 0 10px rgba(147, 197, 253, 0.4);
+}
+
+/* Dropdown list */
+.select-elegant option {
+  background: #111;
+  color: #fff;
+  font-size: 0.95rem;
+  border-radius: 0; /* native menus ignore this, but keeps consistency */
+}
+
+
+
+/* Profile Card */
+.profile-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 1rem 1.5rem;
+  margin-top: 0.8rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.4s ease;
+  width: 280px;
+}
+.profile-card.under-toggle {
+  align-self: flex-start;
+}
+.profile-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
+  flex-wrap: wrap;
+}
+.profile-desc {
+  color: #ccc;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* Loader */
+.video-loading {
+  padding: 2rem;
+  font-size: 1.25rem;
+  text-align: center;
+}
+/* Right-hand block under the video (toggle + profiles) */
+.info-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;  /* keep toggle + text left-aligned inside */
+  width: 280px;             /* match profile-card width so layout is stable */
+}
+
+.profile-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 1rem 1.5rem;
+  margin-top: 0.8rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.4s ease;
+  width: 100%;        /* use full .info-right width */
+  max-width: 280px;   /* keep it from stretching too much if you change .info-right */
+}
+.video-detail-page {
+  background-color: #000;
+  color: #fff;
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Fullscreen video area */
+.hero-bg {
+  position: relative;
+  width: 100%;
+  height: 100vh;          /* use full viewport height */
+  background: #000;       /* plain black like Netflix when frame is blank */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top,
+      rgba(0, 0, 0, 0.95),
+      rgba(0, 0, 0, 0.4));
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Video fills the space but keeps aspect ratio */
+.video-player {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.video-title-overlay {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+.family-overlay {
+  position: absolute;
+  right: 3rem;
+  bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.4rem;
+  max-width: 340px;  /* keeps it within similar “Netflix corner” size */
+}
+
+/* existing styles reused */
+.toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.segment-count {
+  font-size: 0.85rem;
+  color: #9ca3af;
+}
+
+/* Compact card so it doesn’t look congested */
+.profile-card {
+  background: rgba(0, 0, 0, 0.75);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  margin-top: 0.4rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.profile-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.profile-desc {
+  color: #ddd;
+  font-size: 0.85rem;
+  line-height: 1.35;
+  text-align: left;
+}
+@media (max-width: 768px) {
+  .family-overlay {
+    right: 1rem;
+    left: 1rem;
+    align-items: flex-start;
+    max-width: none;
+  }
+
+  .video-title-overlay {
+    bottom: 1.6rem;
+    font-size: 1rem;
+  }
+}
+
+.video-detail-page {
+  background-color: #000;
+  color: #fff;
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
+  min-height: 100vh;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;   /* no scroll, full-screen feel */
+}
+
+.hero-bg {
+  position: relative;
+  width: 100%;
+  height: 100vh;      /* fill viewport height */
+  background: #000;   /* pure black behind video */
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.video-player {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  border-radius: 0;
+  box-shadow: none;
+  object-fit: contain;   /* keep aspect ratio, add black bars if needed */
+  background: #000;
+}
+.info-row.below-video {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 0;
+  width: 100%;
+  padding: 0 3rem;
+  margin: 0;
+  border-bottom: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+/* title side */
+.video-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+.video-meta {
+  color: #bbb;
+  font-size: 0.85rem;
+}
+
+/* right side (toggle + card) */
+.info-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+/* keep what you already have for .toggle-row, .profile-card, etc. */
+/* If the card feels like it's too far over the image, you can do:  */
+.profile-card {
+  max-width: 260px;  /* keeps it compact */
+}
+.hero-content {
+  position: relative; /* you already have this, just confirming */
+}
+
+/* Overlay near the bottom controls */
+.family-toggle-overlay {
+  position: absolute;
+  bottom: 0.7rem;   /* sits just above the control bar */
+  right: 7.5rem;    /* tune this: roughly left of the volume icon */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3rem;
+  z-index: 5;       /* above the video */
+}
+
+/* Keep the card compact so it fits the available room */
+.family-toggle-overlay .profile-card {
+  margin-top: 0.35rem;
+  width: 260px;
+  max-width: 260px;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+}
+
+
+.family-toggle-overlay {
+  position: absolute;
+  /* move it ABOVE the control bar and away from icons */
+  bottom: 3.2rem;   /* was ~0.7rem – this lifts it above the scrubber + icons */
+  right: 2.5rem;    /* move a bit left from the very edge */
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.3rem;
+  z-index: 5;
+}
+
+/* keep the card compact so it fits the corner nicely */
+.family-toggle-overlay .profile-card {
+  margin-top: 0.35rem;
+  width: 260px;
+  max-width: 260px;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* Sits just above native controls */
+.bottom-info-bar {
+  position: absolute;
+  bottom: 3.2rem; /* enough space above the progress bar + icons */
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(90%, 1100px);  /* similar width as the video area */
+}
+
+.bottom-info-inner {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+/* Title side */
+.bottom-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+.bottom-family {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+}
+
+.segment-count {
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+.profile-card.profile-popover {
+  position: absolute;
+  bottom: 2.4rem;  /* pops up above the toggle */
+  right: 0;
+  width: 260px;
+  max-width: 260px;
+  background: rgba(0, 0, 0, 0.85);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  backdrop-filter: blur(10px);
+}
+/* Bottom bar sitting just above the native controls */
+.bottom-info-bar {
+  position: absolute;
+  bottom: 2.7rem;                     /* adjust up/down to line with icons */
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(96%, 1100px);            /* roughly matches video width */
+}
+
+.bottom-info-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Title in the center band */
+.bottom-title {
+  flex: 1;
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* Family block on the right */
+.bottom-family {
+  position: relative;
+  /* fixed height so toggle never moves when card shows/hides */
+  height: 2.2rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+/* Toggle row itself – stays anchored to the bottom-right */
+.bottom-family .toggle-row {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+/* Profile card pops ABOVE the toggle without covering it */
+.profile-card.profile-popover {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 0.6rem);       /* 0.6rem gap above the toggle */
+  width: 260px;
+  max-width: 260px;
+  background: rgba(0, 0, 0, 0.9);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  backdrop-filter: blur(10px);
+}
+
+.profile-skips {
+  font-size: 0.85rem;
+  color: #9ca3af;
+  margin: 0.25rem 0 0.35rem;
+}
+.hero-content {
+  position: relative; /* important for overlay anchoring */
+}
+
+/* Bar just above the native controls */
+.player-overlay {
+  position: absolute;
+  bottom: 2.7rem;                  /* tweak 2.5–3.0rem as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(96%, 1100px);         /* roughly matches video width */
+}
+
+/* Layout inside the bar */
+.overlay-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Centered title */
+.overlay-title {
+  flex: 1;
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* Family block on the right */
+.overlay-family {
+  position: relative;
+  height: 2.2rem;                  /* fixes toggle jump */
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+/* Toggle itself – locked to the bottom-right of the block */
+.family-toggle-row {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Popover card ABOVE the toggle, not on top of it */
+.family-popover {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 0.6rem);     /* 0.6rem gap above toggle */
+  width: 260px;
+  max-width: 260px;
+  background: rgba(0, 0, 0, 0.9);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  backdrop-filter: blur(10px);
+}
+
+.profile-skips {
+  font-size: 0.85rem;
+  color: #9ca3af;
+  margin: 0.25rem 0 0.35rem;
+}
+/* Family block on the right of the bar */
+.overlay-family {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-width: max-content;        /* enough width so text doesn't wrap */
+}
+
+/* Horizontal row: [toggle] Family Mode: Off */
+.family-toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;           /* keep "Family Mode: Off" on one line */
+}
+
+.toggle-status {
+  white-space: nowrap;
+}
+/* Popover card ABOVE the toggle, with a clear gap */
+.family-popover {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 1rem);   /* increase from 0.6rem → 1rem (or even 1.2rem) */
+  width: 260px;
+  max-width: 260px;
+  background: rgba(0, 0, 0, 0.9);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  backdrop-filter: blur(10px);
+}
+.player-overlay {
+  position: absolute;
+  bottom: 2.6rem;   /* try 2.4–2.8rem until it looks right */
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(96%, 1100px);
+}
+.overlay-title {
+  flex: 1;
+  text-align: center;
+  font-size: 1.25rem;             /* bigger = more “title” */
+  font-weight: 700;               /* bolder */
+  letter-spacing: 0.03em;         /* subtle spacing */
+  text-shadow: 0 3px 8px rgba(0, 0, 0, 0.85);
+}
