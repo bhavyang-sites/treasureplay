@@ -16,7 +16,7 @@
   {
     "id": "argument",
     "title": "Until the Storm Settles",
-    "videoUrl": "/videos/argument.mp4",
+    "videoUrl": "https://pub-3b449d5e44504ca18a0a8be82cbbf64c.r2.dev/argument.mp4",
     "skipMapUrl": {
       "mild": "/skipmaps/argument_mild.json",
       "strict": "/skipmaps/argument_strict.json",
