@@ -14,17 +14,17 @@
     "category": "SmartSkips Demo"
   },
   {
-    "id": "family_mode_four_stories",
-    "title": "Family Mode Four Stories",
-    "videoUrl": "/videos/family_mode_four_stories.mp4",
+    "id": "argument",
+    "title": "Until the Storm Settles",
+    "videoUrl": "/videos/argument.mp4",
     "skipMapUrl": {
-      "mild": "/skipmaps/family_mode_four_stories_mild.json",
-      "strict": "/skipmaps/family_mode_four_stories_strict.json",
-      "custom_kids_safe": "/skipmaps/family_mode_four_stories_custom_kids_safe.json",
-      "custom_teens": "/skipmaps/family_mode_four_stories_custom_teens.json",
-      "custom_religious": "/skipmaps/family_mode_four_stories_custom_religious.json"
+      "mild": "/skipmaps/argument_mild.json",
+      "strict": "/skipmaps/argument_strict.json",
+      "custom_kids_safe": "/skipmaps/argument_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/argument_custom_teens.json",
+      "custom_religious": "/skipmaps/argument_custom_religious.json"
     },
-    "thumbnail": "/thumbnails/family_mode_four_stories/thumb_001.jpg",
+    "thumbnail": "/thumbnails/argument.jpg",
     "category": "SmartSkips Demo"
   },
   {
@@ -312,5 +312,19 @@
     },
     "thumbnail": "/thumbnails/Adult_video_new_req_1/thumb_006.jpg",
     "category": "Trending"
+  },
+  {
+    "id": "family_mode_four_stories",
+    "title": "Family Mode Four Stories",
+    "videoUrl": "/videos/family_mode_four_stories.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/family_mode_four_stories_mild.json",
+      "strict": "/skipmaps/family_mode_four_stories_strict.json",
+      "custom_kids_safe": "/skipmaps/family_mode_four_stories_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/family_mode_four_stories_custom_teens.json",
+      "custom_religious": "/skipmaps/family_mode_four_stories_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/family_mode_four_stories/thumb_001.jpg",
+    "category": "SmartSkips Demo"
   }
 ]
