@@ -98,26 +98,34 @@ const HomePage = () => {
       {/* Body: left dock + main content */}
       <div className="hp-body">
         {/* Hoichoi-like side strip */}
-        <aside className="side-dock" aria-label="Secondary navigation">
-          <button className="side-icon side-profile" aria-label="Profile">
-            <span>👤</span>
-          </button>
-          <button className="side-icon" aria-label="Search">
-            <span>🔍</span>
-          </button>
-          <button className="side-icon" aria-label="Home">
-            <span>⌂</span>
-          </button>
-          <button className="side-icon" aria-label="TV">
-            <span>📺</span>
-          </button>
+     <aside className="side-dock" aria-label="Secondary navigation">
+  <div className="side-dock-content">
 
-          <div className="side-pill">Free</div>
+    <button className="side-icon side-profile" aria-label="Profile">
+      <span>👤</span>
+    </button>
 
-          <button className="side-icon side-lang" aria-label="Language">
-            <span>अ</span>
-          </button>
-        </aside>
+    <button className="side-icon" aria-label="Search">
+      <span>🔍</span>
+    </button>
+
+    <button className="side-icon" aria-label="Home">
+      <span>⌂</span>
+    </button>
+
+    <button className="side-icon" aria-label="TV">
+      <span>📺</span>
+    </button>
+
+    <div className="side-pill">Free</div>
+
+    <button className="side-icon side-lang" aria-label="Language">
+      <span>अ</span>
+    </button>
+
+  </div>
+</aside>
+
 
         {/* Main column: hero + rows + footer */}
         <div className="hp-main">
