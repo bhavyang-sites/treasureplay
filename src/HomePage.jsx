@@ -54,16 +54,17 @@ const HomePage = () => {
     <div className="homepage-container">
       {/* Header / Nav */}
       <header className="hp-header">
-       <div className="brand">
-  <div className="treasureplay-title">
-    <span className="title-treasure">Treasure</span>
-    <span className="title-play">Play</span>
+        <div className="brand">
+    <div className="brand-mark">
+      <span className="tp-primary">treasure</span>
+      <span className="tp-secondary">play</span>
+    </div>
+    <div className="brand-sub tagline">
+      <span className="tag-soft">Smooth.</span>{" "}
+      <span className="tag-soft">Smart.</span>{" "}
+      <span className="tag-soft">Streaming.</span>
+    </div>
   </div>
-
-  <div className="title-tagline">
-    Smooth. Smart. Streaming.
-  </div>
-</div>
 
 
 

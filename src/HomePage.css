@@ -1024,6 +1024,39 @@ text-shadow: 0 1px 4px rgba(0,0,0,0.45);
 font-size: 1.15rem;
 
 }
+.hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg,
+      rgba(0,0,0,0.10) 0%,      /* was heavier */
+      rgba(0,0,0,0.40) 60%,
+      rgba(0,0,0,0.75) 100%);
+}
+.home-hero-overlay {
+  background: linear-gradient(
+    to right,
+    rgba(0,0,0,0.35),
+    rgba(0,0,0,0.05)
+  );
+}
+.brand-mark {
+  font-size: 1.6rem;   /* down from 1.9–2.0 */
+}
+.hp-header {
+  padding: 0.9rem 2rem;
+}
+.hp-header {
+  grid-template-columns: auto 1fr auto;
+}
+.hp-nav {
+  justify-content: center;
+}
+.row-title {
+  font-family: "Poppins", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 1.35rem;
+}
 
 
 
