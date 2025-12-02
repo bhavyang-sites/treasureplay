@@ -1,1135 +1,31 @@
-/* ===== Base (yours, keep as-is) ===== */
+/* ========== PAGE BACKGROUND ========== */
 .homepage-container {
   background: radial-gradient(1200px 600px at 10% -10%, #1a1c22 0%, #0c0d10 55%, #090a0d 100%);
   color: #fff;
   min-height: 100vh;
 }
 
-/* You can keep .header for other pages if needed */
-.header {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-}
+/* ========== HEADER (LOGO + NAV + BADGE) ========== */
 
-.thumbnail-row {
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  gap: 1rem;
-  padding: 0.5rem 1rem;
-}
-
-.thumbnail-item {
-  flex: 0 0 auto;
-  width: 12rem; /* 192px */
-  cursor: pointer;
-  text-align: center;
-}
-
-.thumbnail-image {
-  width: 100%;
-  height: 7rem; /* 112px */
-  object-fit: cover;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
-  display: block;
-}
-
-.thumbnail-title {
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: #e6e6e6;
-}
-
-/* ===== New OTT polish ===== */
-
-/* Header / Nav */
 .hp-header {
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  gap: 1rem;
-  padding: 1rem 2rem;
+  padding: 0.9rem 2rem;
+  gap: 1.5rem;
   position: sticky;
   top: 0;
   z-index: 20;
-  background: linear-gradient(180deg, rgba(0,0,0,.75), rgba(0,0,0,.35) 70%, rgba(0,0,0,0));
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.85),
+    rgba(0, 0, 0, 0.55) 60%,
+    rgba(0, 0, 0, 0)
+  );
   backdrop-filter: blur(6px);
 }
 
-.brand {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.1;
-}
-.brand-mark {
-  font-size: 1.4rem;
-  font-weight: 800;
-  letter-spacing: .2px;
-}
-.brand-sub {
-  font-size: .8rem;
-  color: #a6a6a6;
-}
-
-.hp-nav {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-}
-.nav-link {
-  background: transparent;
-  border: 0;
-  color: #d6d6d6;
-  font-size: .95rem;
-  padding: .4rem .6rem;
-  border-radius: .5rem;
-  cursor: pointer;
-}
-.nav-link:hover, .nav-link:focus-visible {
-  color: #fff;
-  background: rgba(255,255,255,.08);
-  outline: none;
-}
-
-.right-ctls {
-  display: flex;
-  justify-content: flex-end;
-}
-
-/* Family Mode toggle */
-.fm-toggle {
-  display: flex;
-  align-items: center;
-  gap: .6rem;
-}
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 44px;
-  height: 24px;
-}
-.switch input { display: none; }
-.slider {
-  position: absolute; inset: 0;
-  background: #555;
-  border-radius: 999px;
-  transition: background .2s ease;
-}
-.slider::before {
-  content: '';
-  position: absolute; left: 3px; top: 3px;
-  width: 18px; height: 18px;
-  background: #fff; border-radius: 50%;
-  transition: transform .2s ease;
-}
-.switch input:checked + .slider { background: #3b82f6; }
-.switch input:checked + .slider::before { transform: translateX(20px); }
-.fm-label { font-size: .9rem; color: #cfcfcf; }
-.fm-label.on { color: #b3e1ff; }
-.fm-label.off { color: #a8a8a8; }
-
-/* Hero */
-.hero {
-  position: relative;
-  margin: 0 2rem 1rem;
-  height: 42vh;
-  min-height: 280px;
-  border-radius: 1rem;
-  background-size: cover;
-  background-position: center;
-  overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0,0,0,.4);
-}
-.hero::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: radial-gradient(70% 100% at 30% 50%, rgba(0,0,0,.0) 0, rgba(0,0,0,.65) 70%, rgba(0,0,0,.9) 100%);
-}
-.home-hero-overlay {
-  position: absolute; inset: 0;
-  display: flex; flex-direction: column; justify-content: flex-end;
-  padding: 2rem;
-  z-index: 1;
-}
-.hero-title { font-size: 2rem; font-weight: 800; margin: 0 0 .4rem; }
-.hero-tagline { color: #d8d8d8; margin: 0 0 .8rem; }
-.hero-actions { display: flex; gap: .75rem; }
-
-.btn {
-  border: 0;
-  padding: .6rem 1rem;
-  border-radius: .7rem;
-  cursor: pointer;
-  font-weight: 600;
-}
-.btn-primary {
-  background: #3b82f6;
-  color: #fff;
-}
-.btn-primary:hover { filter: brightness(1.1); }
-.btn-ghost {
-  background: rgba(255,255,255,.1);
-  color: #fff;
-}
-.btn-ghost:hover { background: rgba(255,255,255,.18); }
-.btn-outline {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,.35);
-  color: #fff;
-}
-.btn-outline:hover { border-color: #fff; }
-
-/* Rows */
-.rows {
-  display: grid;
-  gap: 1.25rem;
-  padding: 1rem 0 2rem;
-}
-.row { padding: 0 2rem; }
-.row-title {
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin: .25rem 0 .6rem;
-  color: #eaeaea;
-}
-.thumb-strip {
-  display: flex;
-  gap: 1rem;
-  overflow-x: auto;
-  padding-bottom: .25rem;
-  scroll-snap-type: x proximity;
-}
-
-/* Thumbnails (enhanced) */
-.thumbnail-item {
-  flex: 0 0 auto;
-  width: 14rem;
-  cursor: pointer;
-  text-align: left;
-  scroll-snap-align: start;
-}
-.thumb-wrap {
-  position: relative;
-  border-radius: .75rem;
-  overflow: hidden;
-  box-shadow: 0 8px 24px rgba(0,0,0,.35);
-  transform: translateZ(0);
-}
-.thumbnail-image {
-  height: 8rem;
-  border-radius: 0; /* handled by wrapper */
-}
-.thumb-hover {
-  position: absolute; inset: 0;
-  display: grid; place-items: center;
-  background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,.5));
-  opacity: 0; transition: opacity .2s ease;
-}
-.play-icon {
-  font-size: 1.3rem;
-  padding: .4rem .7rem;
-  border-radius: .6rem;
-  background: rgba(0,0,0,.55);
-  border: 1px solid rgba(255,255,255,.35);
-}
-.thumbnail-item:hover .thumb-hover,
-.thumbnail-item:focus-within .thumb-hover { opacity: 1; }
-.thumbnail-item:hover .thumb-wrap,
-.thumbnail-item:focus-within .thumb-wrap {
-  box-shadow: 0 12px 36px rgba(0,0,0,.5);
-  transform: translateY(-2px);
-}
-
-.fm-chip {
-  position: absolute; top: 8px; right: 8px;
-  font-size: .7rem;
-  background: #3b82f6;
-  color: #fff;
-  padding: .15rem .4rem;
-  border-radius: .5rem;
-}
-
-/* Accessibility focus */
-.thumbnail-item:focus-visible {
-  outline: 2px solid #3b82f6;
-  outline-offset: 4px;
-  border-radius: .75rem;
-}
-
-/* Footer CTA */
-.hp-footer {
-  padding: 1.5rem 2rem 2.5rem;
-}
-.hp-footer .cta {
-  display: flex; gap: 1rem; align-items: center; justify-content: center;
-  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-  border: 1px solid rgba(255,255,255,.12);
-  border-radius: 1rem;
-  padding: 1rem 1.25rem;
-}
-
-/* Small screens */
-@media (max-width: 720px) {
-  .hp-header { grid-template-columns: 1fr auto; grid-template-areas: "brand right" "nav nav"; row-gap: .5rem; }
-  .brand { grid-area: brand; }
-  .hp-nav { grid-area: nav; justify-content: flex-start; overflow-x: auto; }
-  .right-ctls { grid-area: right; }
-  .hero { margin: 0 1rem 1rem; height: 36vh; }
-  .row { padding: 0 1rem; }
-  .thumbnail-item { width: 11.5rem; }
-  .thumbnail-image { height: 6.5rem; }
-}
-/* ensure the strip can scroll on all devices */
-.thumb-strip {
-  display: flex;
-  gap: 1rem;
-  overflow-x: auto;
-  padding-bottom: .25rem;
-  scroll-snap-type: x proximity;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior-inline: contain;
-  scrollbar-gutter: stable both-edges;
-}
-.thumb-strip.dragging { cursor: grabbing; }
-.thumb-strip::-webkit-scrollbar { height: 10px; }
-.thumb-strip::-webkit-scrollbar-thumb { background: rgba(255,255,255,.2); border-radius: 10px; }
-.thumb-strip::-webkit-scrollbar-track { background: transparent; }
-
-.row {
-  position: relative;
-  padding-inline: 2rem;
-}
-
-/* the strip must be a stacking context and accept events */
-.thumb-strip {
-  position: relative;                 /* NEW */
-  display: flex;
-  gap: 1rem;
-  overflow-x: auto;
-  padding: .25rem 3.5rem;             /* room under absolute arrows */
-  scroll-snap-type: x proximity;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior-inline: contain;
-}
-.thumb-strip.dragging { cursor: grabbing; user-select: none; }
-
-/* absolute chevrons centered over the strip */
-.strip-arrow {
-  position: absolute;
-  top: calc(2.1rem + 50%);            /* below row title, vertically centered */
-  transform: translateY(-50%);
-  z-index: 50;                        /* above gradients/thumbs */
-  width: 42px; height: 42px;
-  border: 1px solid rgba(255,255,255,.28);
-  background: rgba(22,22,25,.85);     /* solid—no backdrop-filter to avoid artifacts */
-  color: #fff;
-  font-size: 22px; font-weight: 700;
-  border-radius: 999px;
-  display: grid; place-items: center;
-  cursor: pointer;
-  transition: transform .15s ease, background .15s ease, border-color .15s ease;
-  box-shadow: 0 6px 20px rgba(0,0,0,.35);
-}
-.strip-arrow.left  { left: 1.25rem; }
-.strip-arrow.right { right: 1.25rem; }
-.strip-arrow:hover { transform: translateY(-50%) scale(1.05); background: rgba(40,40,45,.95); }
-
-/* gradient edges should NOT eat clicks */
-.row::before,
-.row::after {
-  content: '';
-  position: absolute; top: 2.1rem; bottom: 1rem; width: 36px;
-  pointer-events: none;               /* ensure arrows remain clickable */
-  z-index: 4;
-}
-.row::before { left: 0;  background: linear-gradient(90deg, rgba(9,10,13,1), rgba(9,10,13,0)); }
-.row::after  { right: 0; background: linear-gradient(-90deg, rgba(9,10,13,1), rgba(9,10,13,0)); }
-/* native horizontal scrolling, like your old build */
-.thumb-strip.native-scroll {
-  display: flex;
-  flex-wrap: nowrap;           /* <- no wrap */
-  overflow-x: auto;            /* <- horizontal scroll */
-  gap: 1rem;
-  padding: 0.5rem 0;           /* room for the scrollbar */
-  -webkit-overflow-scrolling: touch;
-  scroll-snap-type: x proximity;
-  touch-action: pan-x;         /* important for trackpad/touch to favor horizontal */
-}
-
-.thumbnail-item {
-  flex: 0 0 auto;              /* fixed-width items */
-  width: 14rem;                /* adjust to taste */
-  cursor: pointer;
-  text-align: left;
-}
-
-/* if you kept gradient edges or arrows earlier, disable them */
-.row::before,
-.row::after,
-.strip-arrow { display: none !important; }
-
-/* ensure nothing above the row steals scroll/clicks */
-.hero, .home-hero-overlay, .hp-header {
-  pointer-events: auto;        /* default, just to be explicit */
-}
-/* Make sure no parent hides overflow */
-.rows, .row, .homepage-container { overflow: visible; }
-
-/* Native horizontal scroller using CSS Grid (more reliable than flex here) */
-.thumb-strip.native-grid {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 14rem;      /* width of each tile */
-  gap: 1rem;
-
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding: 0.5rem 0;             /* space for scrollbar */
-  -webkit-overflow-scrolling: touch;
-  scroll-snap-type: x proximity;
-  touch-action: pan-x;            /* prefer horizontal gestures */
-}
-
-/* Prevent items from shrinking */
-.thumbnail-item { width: auto; }
-
-/* Always show/beautify the scrollbar so you can see it during testing */
-.thumb-strip.native-grid::-webkit-scrollbar { height: 10px; }
-.thumb-strip.native-grid::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,.25);
-  border-radius: 10px;
-}
-.thumb-strip.native-grid::-webkit-scrollbar-track { background: rgba(255,255,255,.06); }
-.thumb-strip.native-grid { scrollbar-color: rgba(255,255,255,.25) transparent; scrollbar-width: thin; }
-
-/* If you had gradient edges or arrows before, kill them */
-.row::before, .row::after, .strip-arrow { display: none !important; }
-.thumb-strip.native-grid { min-width: 101%; }  /* exaggerates width so overflow must happen */
-/* Ensure hero never sits on top of the rows */
-.hero {
-  position: relative;
-  z-index: 1;          /* lower than rows */
-  margin-bottom: 2rem; /* add breathing room under hero */
-}
-
-/* The visual dark gradient shouldn't catch clicks */
-.hero::after {
-  pointer-events: none;
-}
-
-/* Buttons/text inside hero should still be clickable */
-.home-hero-overlay {
-  pointer-events: auto;
-}
-
-/* Rows must be above hero and receive wheel/clicks */
-.rows, .row {
-  position: relative;
-  z-index: 2;
-}
-
-/* The strip must be a stacking context with hit-testing on */
-.thumb-strip {
-  position: relative;
-  z-index: 3;
-  overflow-x: auto;
-  overflow-y: hidden;
-}
-
-/* If you still have arrow/edge gradients, make sure they don't eat clicks */
-.row::before, .row::after { pointer-events: none; }
-/* The proven native scroller */
-.thumbnail-row {
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;       /* shows scrollbar when overflow exists */
-  gap: 1rem;
-  padding: 0.5rem 0;      /* space for scrollbar */
-  -webkit-overflow-scrolling: touch;
-  touch-action: pan-x;    /* prefer horizontal gestures */
-}
-
-/* Prevent shrinking so width > container and overflow happens */
-.thumbnail-item { flex: 0 0 auto; }
-
-/* Optional: make the scrollbar visible during testing */
-.thumbnail-row::-webkit-scrollbar { height: 10px; }
-.thumbnail-row::-webkit-scrollbar-thumb { background: rgba(255,255,255,.25); border-radius: 10px; }
-.thumbnail-row::-webkit-scrollbar-track { background: rgba(255,255,255,.06); }
-.thumbnail-row { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.25) transparent; }
-.brand-mark {
-  font-size: 1.6rem;
-  font-weight: 700;
-}
-
-.brand-mark .haze {
-  color: #3fa9f5; /* your accent */
-}
-
-.brand-mark .play {
-  color: #fff; /* keep white */
-}
-.fm-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: .5rem;
-  padding: .35rem .7rem;
-  border-radius: 999px;
-  font-size: .9rem;
-  color: #e8f3ff;
-  background: linear-gradient(180deg, rgba(14,165,233,.18), rgba(14,165,233,.12));
-  border: 1px solid rgba(14,165,233,.35);
-  box-shadow: 0 4px 14px rgba(14,165,233,.15);
-  user-select: none;
-}
-.fm-badge .fm-icon { width: 16px; height: 16px; color: #0ea5e9; }
-.fm-badge:hover { background: rgba(14,165,233,.22); border-color: rgba(14,165,233,.5); }
-.thumbnail-title {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 600;          /* SemiBold */
-  font-size: 0.9rem;
-  color: #fff;
-  text-align: center;
-  margin-top: 6px;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.7); /* keeps it legible */
-}
-.thumbnail-item:hover .thumbnail-title {
-  color: #00aeef;   /* or your brand blue (#00AEEF for Haze) */
-  transition: color 0.2s ease;
-}
-.row-title {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 700;        /* Bold */
-  font-size: 1.25rem;      /* ~20px */
-  color: #fff;
-  margin: 1rem 0;
-  position: relative;
-  display: inline-block;
-  letter-spacing: 0.5px;
-}
-.row-title::after {
-  content: "";
-  display: block;
-  width: 60px;
-  height: 3px;
-  background: #00AEEF;  /* Haze brand blue */
-  margin-top: 6px;
-  border-radius: 2px;
-}
-.hero-title {
-  font-family: 'Oswald', 'Montserrat', sans-serif; /* cinematic style */
-  font-size: 2.5rem;       /* large and bold */
-  font-weight: 700;
-  letter-spacing: 1px;     /* adds premium spacing */
-  margin-bottom: 0.5rem;
-  color: #fff;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.7); /* makes it pop over any background */
-}
-
-.hero-tagline {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1rem;
-  font-weight: 400;
-  color: #ddd;             /* softer contrast */
-  letter-spacing: 0.5px;
-  margin-top: 0;           /* keep close to title */
-}
-.home-hero-overlay {
-  background: linear-gradient(to bottom, rgba(0,0,0,0.15), rgba(0,0,0,0.5));
-  padding: 2rem;
-}
-.brand-sub {
-  font-size: 0.85rem;
-  font-weight: 400;
-  color: #ccc;   /* softer gray to distinguish from brand title */
-  letter-spacing: 0.3px;
-}
-.brand-sub {
-  display: block;           /* forces it below the logo, not inline */
-  margin-top: 0.3rem;       /* add some breathing space */
-  font-size: 0.75rem;       /* smaller so it feels like a subtitle */
-  font-weight: 350;
-  color: #aaa;              /* lighter gray for subtlety */
-  letter-spacing: 0.4px;
-  text-transform: uppercase;
-  letter-spacing: 0.2px;
-  font-size: 0.7rem;
-}
-/* ---- Funky animated logo ---- */
-.logo-funky {
-  font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-  font-size: 1.6rem;         /* slightly bigger than current */
-  font-weight: 900;
-  letter-spacing: 1px;
-  line-height: 1;
-  background: linear-gradient(90deg, #ff0057, #ff9f1c, #00bcd4, #9c27b0);
-  background-size: 400%;
-  background-clip: text;                /* ✅ standard version */
-  -webkit-background-clip: text;        /* ✅ for Chrome/Safari */
-  color: transparent;                   /* fallback for non-supporting browsers */
-  -webkit-text-fill-color: transparent; /* ✅ ensures gradient text visibility */
-
-  animation: tpGradientShift 6s ease infinite;
-  text-shadow: none;         /* crisp gradient text */
-}
-
-/* subtle entrance sheen on hover */
-.logo-funky:hover {
-  filter: brightness(1.05);
-}
-
-@keyframes tpGradientShift {
-  0%   { background-position: 0% }
-  100% { background-position: 400% }
-}
-
-/* Respect users who prefer reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  .logo-funky { animation: none; }
-}
-/* Funky one-time logo */
-.funky-logo {
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-start;
-  gap: 0.04em;
-  line-height: 0.85;
-  margin: 0;
-  padding: 0;
-}
-
-.funky-letter {
-  transition: filter 120ms ease;
-  text-shadow: none;
-}
-.funky-letter:hover {
-  filter: brightness(1.08);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .funky-letter { transition: none !important; }
-}
-/* Let descenders (like Y) show fully */
-.funky-logo {
-  display: flex;
-  align-items: baseline;   /* was flex-end */
-  justify-content: flex-start;
-  gap: 0.04em;
-  line-height: 1;          /* was ~0.85–0.9; give glyphs room */
-  overflow: visible;       /* just in case a parent has overflow rules */
-}
-
-/* Each letter: don't compress line box */
-.funky-letter {
-  display: inline-block;
-  line-height: 1;          /* ensure no cropping inside */
-}
-
-
-/* only the PLAY letters need clipping for gradient */
-.play-letter {
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-}
-
-.funky-letter:hover { filter: brightness(1.06); }
-
-@media (prefers-reduced-motion: reduce) {
-  .funky-letter { transition: none !important; }
-}
-.hp-header, .brand { overflow: visible; }
-/* Tagline directly under the logo */
-.brand-sub {
-  margin-top: 4px;
-  font-size: 0.95rem;              /* a bit smaller = less shouty */
-  font-weight: 400;                /* not bold */
-  color: rgba(230, 230, 230, 0.9); /* soft off-white */
-  letter-spacing: 0.01em;          /* minimal spacing */
-  text-transform: none;            /* no forced uppercase */
-  line-height: 1.3;
-}
-
-.brand-sub .accent {
-  color: #00AEEF;                  /* keep your blue accent */
-  font-weight: 600;                /* only the accent is stronger */
-}
-
-/* 1) Let glyph descenders render fully */
-.funky-logo {
-  align-items: baseline;     /* already set */
-  overflow: visible;         /* ensure no cropping */
-}
-
-/* 2) Letters get a touch more line box */
-.funky-letter {
-  line-height: 1.08;         /* was 1; adds a hair of vertical space */
-}
-
-/* 3) Specifically fix the 'y' in Play (last letter) */
-.funky-logo .play-letter:last-child {
-  padding-bottom: 3px;       /* expands the paint area for the gradient */
-  margin-bottom: -2px;       /* keeps visual alignment with the baseline */
-  display: inline-block;     /* ensure padding/margin take effect */
-}
-
-/* 4) Belt-and-suspenders: no hiding anywhere up the chain */
-.hp-header, .brand { overflow: visible; }
-.brand-sub {
-  margin-top: 4px;
-  font-size: 0.9rem;                /* smaller scale */
-  font-weight: 500;
-  letter-spacing: 0.3px;
-  line-height: 1.2;
-  display: flex;
-  gap: 0.35rem;                     /* space between words */
-  align-items: center;
-}
-
-/* EXPERIENCE (white normal text) */
-.tag-white {
-  color: rgba(255,255,255,0.88);
-  font-weight: 400;
-}
-
-/* SAFER STREAMING (green gradient like SAFE graphic) */
-.tag-green {
-  font-weight: 700;
-  background: linear-gradient(90deg,
-    #7CFF64 0%,   /* bright lime-green */
-    #2BD24F 50%,  /* mid-green */
-    #1AAF3C 100%  /* deeper green */
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-}
-.tag-green {
-  text-shadow: 0 0 8px rgba(95,255,120,0.35);
-}
-.brand-sub {
-  margin-top: 4px;
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-}
-
-/* EXPERIENCE */
-.tag-white {
-  color: rgba(242, 193, 193, 0.9);
-  font-weight: 400;
-}
-
-/* Outer bracket / pill */
-.tag-safe {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  padding: 0.15rem 0.65rem;
-  border-radius: 999px; /* rounded like the SAFE frame */
-  border: 1px solid rgba(92, 255, 140, 0.9);
-  box-shadow: 0 0 6px rgba(92,255,140,0.35);
-  background: rgba(0, 0, 0, 0.35);  /* subtle dark backing */
-}
-
-/* Inner green gradient text */
-.tag-safe-text {
-  font-weight: 600;
-  background: linear-gradient(270deg, #4D7AF9 0%, #122B5F 100%
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-}
-.tagline {
-  font-family: 'Inter', 'Montserrat', sans-serif;
-  font-size: 0.95rem;
-  letter-spacing: 0.3px;
-  display: flex;
-  width: fit-content;
-  margin-top: 4px; 
-  gap: 0.4rem;
-}
-
-/* Netflix Red */
-.tag-red {
-  background: linear-gradient(90deg, #E50914 0%, #B20710 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  font-weight: 700;
-}
-
-/* Rose Gold */
-.tag-rose {
-  background: linear-gradient(
-    90deg,
-    #b76e79 0%,
-    #e6b7c8 35%,
-    #f7d3d9 55%,
-    #e0a3ad 75%,
-    #b76e79 100%
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  font-weight: 600;
-}
-
-/* Treasure Blue */
-.tag-blue {
-  background: linear-gradient(90deg, #4D7AF9 0%, #122B5F 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  font-weight: 700;
-}
-.brand {
-  display: flex;
-  flex-direction: column;
-  align-items: center;     /* centers both logo and taglin */
-  justify-self: flex-start;  /* ⬅ NEW: stick to left of column */
-  margin-top: 0.5rem; 
-  line-height: 1.1;
-}
-.logo-wrapper {
-  position: relative;
-  display: inline-block;
-}
-.tag-white {
-background: linear-gradient(
-  90deg,
-  #ffffff 0%,
-  #f0f0f0 25%,
-  #d9d9d9 45%,
-  #ffffff 70%,
-  #f5f5f5 100%
-);
-background-clip: text;
--webkit-background-clip: text;
-color: transparent;
--webkit-text-fill-color: transparent;
-font-weight: 700;
-
-}
-.treasure-letter {
-  background: linear-gradient(
-  180deg,
-  #ffe9a9 0%,
-  #e8c15c 35%,
-  #c89a32 65%,
-  #8f611a 100%
-);
-background-clip: text;
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-
-text-shadow:
-  0 2px 4px rgba(0,0,0,0.55),
-  0 0 4px rgba(255,230,150,0.4);
- }
-.tag-blue {
-  color: #2B6A92;
-  font-weight: 700;
-}
-.tag-yellow {
-  color: #F4A81C;
-  font-weight: 700;
-}
-.tag-green {
-  color: #58A029;
-  font-weight: 700;
-}
-.treasure-letter {
-  text-shadow: 0 1px 4px rgba(178, 13, 58, 0.25);
-}
-.funky-logo {
-  font-family: 'Playfair Display', 'Times New Roman', serif;
-  font-size: 2.1rem;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-  line-height: 1;
-}
-.treasure-letter {
-  text-shadow: 0 1px 4px rgba(0,0,0,0.18);
-}
-
-.play-letter {
-  text-shadow: 0 1px 3px rgba(0,0,0,0.35);
-}
-.tagline {
-  margin-top: 4px;
-  font-family: 'Inter', 'Montserrat', system-ui, sans-serif;
-  font-size: 0.9rem;
-  font-weight: 500;
-  letter-spacing: 0.03em;
-}
-
-.tag-smooth {
-  color: #2B6A92;    /* blue from the icon */
-}
-
-.tag-smart {
-  color: #F4A81C;    /* yellow from the icon */
-}
-
-.tag-stream {
-  color: #58A029;    /* green from the icon */
-}
-
-/* IMPORTANT: make sure there is NO text-shadow / blur on tagline */
-.tagline span {
-  letter-spacing: 0.5px;
-}
-
-.funky-logo {
-  font-family: "Shantell Sans", cursive;
-  font-weight: 700;
-  font-size: 2.3rem;
-  letter-spacing: 0.02em;
-  line-height: 1.05;
-}
-@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
-
-.tp-logo {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.tp-box {
-  font-family: 'Russo One', sans-serif;
-  font-size: 2.2rem;
-  padding: 0.35rem 0.9rem;
-  border-radius: 14px;
-  color: white;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  display: inline-block;
-
-  /* Demon Hunters effect */
-  text-shadow: 
-    0px 0px 6px rgba(255,255,255,0.4),
-    0px 0px 12px rgba(255,255,255,0.25);
-}
-
-.treasure-box {
-  background: #3366CC; /* Smooth Blue */
-}
-
-.play-box {
-  background: #2ECC71; /* Streaming Green */
-}
-.brand-logo {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-/* Blue curved box for TREASURE */
-.treasure-box {
-  background: linear-gradient(180deg, #4D7AF9, #0E1F47);
-  padding: 0.3rem 1rem;
-  border-radius: 14px;
-  color: white;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
-  font-size: 1.8rem;
-  letter-spacing: 1px;
-  box-shadow: 0 3px 12px rgba(0,0,0,0.4);
-}
-
-/* PLAY in green, but WITHOUT box */
-.play-text {
-  color: #00C853;  /* same shade as your Streaming */
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
-  font-size: 1.8rem;
-  letter-spacing: 1px;
-  text-shadow: 0 0 8px rgba(0, 200, 83, 0.55);  /* apple-style glow */
-}
-/* TITLE WRAPPER */
-.treasureplay-title {
-  display: flex;
-  align-items: baseline;
-  gap: 0.35rem;
-}
-
-/* TREASURE */
-.title-treasure {
-  font-family: 'Pirata One', serif;
-  font-size: 2.8rem;
-  font-weight: 400; /* Pirata One accepts this */
-filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));
-
-  background-clip: text;
-  background: linear-gradient(
-  180deg,
-  #f6d784 0%,
-  #e4b84f 35%,
-  #c4912b 70%,
-  #7e5415 100%
-);
-
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-
-text-shadow:
-  0 2px 6px rgba(0,0,0,0.55),
-  0 0 4px rgba(255,220,150,0.35);
-font-weight: 400;
-
-}
-
-/* PLAY */
-.title-play {
-  font-family: 'Pirata One', serif;
-  font-size: 2.82rem;
-  background-clip: text;
-  background: linear-gradient(
-  180deg,
-  #ffffff 0%,
-  #f8f2dc 40%,
-  #e8d7a8 100%
-);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-
-font-size: 2.75rem;
-text-shadow: 0 1px 3px rgba(0,0,0,0.45);
-font-weight: 400;
-
-}
-
-
-/* TAGLINE */
-.title-tagline {
-  margin-top: 0.3rem;
-  font-family: 'Euphoria Script', cursive;
-  letter-spacing: 0.5px;
-  color: rgba(255, 255, 255, 0.92);
-text-shadow: 0 1px 4px rgba(0,0,0,0.45);
-font-size: 1.15rem;
-
-}
-.hero::after {
-  content: '';
-  position: absolute; inset: 0;
-  background:
-    linear-gradient(180deg,
-      rgba(0,0,0,0.10) 0%,      /* was heavier */
-      rgba(0,0,0,0.40) 60%,
-      rgba(0,0,0,0.75) 100%);
-}
-.home-hero-overlay {
-  background: linear-gradient(
-    to right,
-    rgba(0,0,0,0.35),
-    rgba(0,0,0,0.05)
-  );
-}
-.brand-mark {
-  font-size: 1.6rem;   /* down from 1.9–2.0 */
-}
-.hp-header {
-  padding: 0.9rem 2rem;
-}
-.hp-header {
-  grid-template-columns: auto 1fr auto;
-}
-.hp-nav {
-  justify-content: center;
-}
-.row-title {
-  font-family: "Poppins", system-ui, sans-serif;
-  font-weight: 700;
-  font-size: 1.35rem;
-}
-/* ===== Hoichoi-style two-column body ===== */
-
-.hp-body {
-  display: grid;
-  grid-template-columns: 64px minmax(0, 1fr); /* left strip + content */
-  gap: 1.5rem;
-  padding: 0 2rem 2.5rem;
-}
-
-/* Main column wrapper */
-.hp-main {
-  min-width: 0; /* let content shrink nicely */
-}
-
-/* Let hero sit inside right column, not touching page edges */
-.hp-main .hero {
-  margin: 0 0 1.8rem;
-}
-/* Left vertical strip (Hoichoi style) */
-.side-dock {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  padding-top: 1.5rem;
-  padding-bottom: 2rem;
-}
-
-.side-icon {
-  width: 42px;
-  height: 42px;
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(18, 18, 22, 0.9);
-  color: #f5f5f5;
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-  font-size: 1.1rem;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
-  transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
-}
-
-.side-icon:hover {
-  transform: translateY(-1px);
-  background: rgba(35, 35, 40, 0.98);
-  border-color: rgba(255, 255, 255, 0.32);
-}
-
-/* “Free” pill */
-.side-pill {
-  margin-top: 0.3rem;
-  padding: 0.1rem 0.6rem;
-  border-radius: 999px;
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #000;
-  background: #ffd54f;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
-}
-
-/* Accent icons */
-.side-profile {
-  background: linear-gradient(145deg, #ff3366, #ff6f61);
-}
-
-.side-lang {
-  margin-top: auto; /* push language to the bottom */
-  background: rgba(22, 22, 26, 0.95);
-}
-/* ===== Header brand: lowercase hoichoi-style ===== */
-
+/* logo block */
 .brand {
   display: flex;
   flex-direction: column;
@@ -1139,40 +35,387 @@ font-size: 1.15rem;
 
 .brand-mark {
   font-family: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
-  font-size: 1.6rem;
+  font-size: 1.65rem;         /* smaller, Hoichoi-ish */
   font-weight: 700;
   text-transform: lowercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
 }
 
-.tp-primary,
+.tp-primary {
+  color: #ff1744;             /* hoichoi-style red */
+}
+
 .tp-secondary {
-  color: #ffffff;
+  color: #ffd54f;             /* warm yellow for “play” */
 }
 
-.tp-secondary {
-  font-weight: 700;
-}
-
-/* Slogan directly under logo */
+/* tiny, soft tagline under logo */
 .brand-sub.tagline {
-  margin-top: 0.3rem;
+  margin-top: 0.2rem;
   display: flex;
   gap: 0.25rem;
 }
 
 .tag-soft {
   font-family: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 400;
-  color: rgba(230, 230, 230, 0.92);
+  color: rgba(230, 230, 230, 0.9);
 }
 
-/* Slightly de-emphasise dots on the tagline */
-.tag-soft::after {
-  content: '';
+/* center nav */
+.hp-nav {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
 }
+
+.nav-link {
+  background: transparent;
+  border: 0;
+  color: #d6d6d6;
+  font-size: 0.95rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.nav-link:hover,
+.nav-link:focus-visible {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  outline: none;
+}
+
+/* right badge */
+.right-ctls {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.fm-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  color: #e8f3ff;
+  background: linear-gradient(180deg, rgba(14, 165, 233, 0.18), rgba(14, 165, 233, 0.1));
+  border: 1px solid rgba(14, 165, 233, 0.4);
+  box-shadow: 0 4px 14px rgba(14, 165, 233, 0.15);
+}
+
+.fm-icon {
+  width: 16px;
+  height: 16px;
+  color: #0ea5e9;
+}
+
+/* ========== BODY LAYOUT (SIDE STRIP + MAIN) ========== */
+
+.hp-body {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr); /* left strip + content */
+  gap: 1.75rem;
+  padding: 0 2rem 2.5rem;
+}
+
+/* right column wrapper */
+.hp-main {
+  min-width: 0; /* important so hero/rows can shrink on smaller screens */
+}
+
+/* ========== HOICHOI-STYLE SIDE STRIP ========== */
+
+.side-dock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;   /* icons grouped vertically */
+  padding-top: 1.5rem;
+  padding-bottom: 2rem;
+}
+
+.side-dock-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* icon buttons */
+.side-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(18, 18, 22, 0.95);
+  color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.35rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.55);
+  transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+.side-icon span {
+  pointer-events: none;
+}
+
+.side-icon:hover {
+  transform: translateY(-2px);
+  background: rgba(35, 35, 40, 0.98);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* profile = pink pill */
+.side-profile {
+  background: radial-gradient(circle at 30% 20%, #ff4b86, #c2185b);
+}
+
+/* FREE pill */
+.side-pill {
+  margin: 0.2rem 0;
+  padding: 0.28rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #111;
+  background: #ffd54f;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+}
+
+/* push language icon to the bottom of the stack */
+.side-lang {
+  margin-top: 0.4rem;
+}
+
+/* kill the old vertical line if any was left */
+.side-dock::before {
+  display: none !important;
+}
+
+/* ========== HERO AREA ========== */
+
+.hero {
+  position: relative;
+  margin: 0 0 2rem;
+  height: 45vh;
+  min-height: 280px;
+  border-radius: 1rem;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.15) 0%,
+    rgba(0, 0, 0, 0.55) 60%,
+    rgba(0, 0, 0, 0.85) 100%
+  );
+}
+
+.home-hero-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2rem;
+  z-index: 1;
+}
+
+.hero-title {
+  font-family: "Oswald", "Montserrat", system-ui, sans-serif;
+  font-size: 2.6rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin: 0 0 0.4rem;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+}
+
+.hero-tagline {
+  font-family: "Montserrat", system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #e0e0e0;
+  margin: 0 0 0.9rem;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 0.8rem;
+}
+
+/* buttons */
+.btn {
+  border: 0;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  font-weight: 600;
+  font-family: inherit;
+}
+
+.btn-primary {
+  background: #3b82f6;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.1);
+}
+
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ========== ROWS & THUMBNAILS ========== */
+
+.rows {
+  display: grid;
+  gap: 1.5rem;
+  padding-bottom: 2rem;
+}
+
+.row {
+  padding-bottom: 0.25rem;
+}
+
+.row-title {
+  font-family: "Poppins", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: #fff;
+  margin: 0 0 0.6rem;
+}
+
+/* horizontal scroller */
+.thumbnail-row {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+  touch-action: pan-x;
+}
+
+.thumbnail-row::-webkit-scrollbar {
+  height: 8px;
+}
+
+.thumbnail-row::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 10px;
+}
+
+.thumbnail-row::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.thumbnail-row {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+}
+
+.thumbnail-item {
+  flex: 0 0 auto;
+  width: 14rem;
+  cursor: pointer;
+  text-align: left;
+  scroll-snap-align: start;
+}
+
+.thumbnail-image {
+  width: 100%;
+  height: 8rem;
+  object-fit: cover;
+  border-radius: 0.75rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.55);
+  display: block;
+}
+
+.fm-chip {
+  position: relative;
+  top: -1.5rem;
+  left: 0.5rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 0.5rem;
+  font-size: 0.7rem;
+  background: #3b82f6;
+  color: #fff;
+}
+
+.thumbnail-title {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #f2f2f2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ========== FOOTER CTA ========== */
+
+.hp-footer {
+  padding: 1.5rem 0 2.5rem;
+}
+
+.hp-footer .cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 0 0;
+  padding: 1rem 1.25rem;
+  border-radius: 1rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* ========== RESPONSIVE ========== */
+
 @media (max-width: 900px) {
+  .hp-header {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "brand right"
+      "nav nav";
+    row-gap: 0.4rem;
+  }
+
+  .brand {
+    grid-area: brand;
+  }
+
+  .hp-nav {
+    grid-area: nav;
+    justify-content: flex-start;
+    overflow-x: auto;
+  }
+
+  .right-ctls {
+    grid-area: right;
+  }
+
   .hp-body {
     grid-template-columns: minmax(0, 1fr);
     padding-inline: 1rem;
@@ -1186,202 +429,3 @@ font-size: 1.15rem;
     margin-top: 0.5rem;
   }
 }
-/* Make the left strip feel full-height, Hoichoi-style */
-.hp-body {
-  display: grid;
-  grid-template-columns: 64px minmax(0, 1fr);
-  gap: 1.5rem;
-  padding: 0 2rem 2.5rem;
-  align-items: flex-start;
-}
-
-.side-dock {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  padding-top: 1.5rem;
-  padding-bottom: 2rem;
-  min-height: calc(100vh - 90px); /* viewport height minus header area */
-}
-
-/* optional: a faint vertical bar behind the icons */
-.side-dock::before {
-  content: "";
-  position: absolute;
-  top: 0.5rem;
-  bottom: 0.5rem;
-  left: 50%;
-  width: 2px;
-  transform: translateX(-50%);
-  background: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0.12),
-    rgba(0, 0, 0, 0.0),
-    rgba(255, 255, 255, 0.12)
-  );
-  pointer-events: none;
-}
-.hp-header {
-  padding: 1rem 2rem 0.75rem 2rem;
-}
-
-/* tiny shift so logo lines up nicely with the strip */
-.brand {
-  margin-left: 0.1rem;
-}
-/* Header brand: lowercase hoichoi-style */
-
-.brand-mark {
-  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
-  font-size: 1.8rem;
-  font-weight: 700;
-  text-transform: lowercase;
-  letter-spacing: 0.03em;
-}
-
-/* Hoichoi-like brand colors */
-.tp-primary {
-  color: #ff1744; /* hoichoi-ish red */
-}
-
-.tp-secondary {
-  color: #ffe082; /* warm accent for "play" (can also be #ffffff if you prefer) */
-}
-
-/* slogan */
-.brand-sub.tagline {
-  margin-top: 0.25rem;
-  display: flex;
-  gap: 0.25rem;
-}
-
-.tag-soft {
-  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
-  font-size: 0.85rem;
-  font-weight: 400;
-  color: rgba(230, 230, 230, 0.92);
-}
-/* 2-column layout: left strip + main content */
-.hp-body {
-  display: grid;
-  grid-template-columns: 68px minmax(0, 1fr); /* strip width + main */
-  gap: 1.5rem;
-  padding: 0 2rem 2.5rem;
-}
-
-
-/* Accent for first + last icons */
-.side-profile {
-  background: linear-gradient(145deg, #ff3366, #ff6f61);
-}
-/* Mobile: hide the strip, keep layout simple */
-@media (max-width: 900px) {
-  .hp-body {
-    grid-template-columns: minmax(0, 1fr);
-    padding-inline: 1rem;
-  }
-  .hp-main .hero {
-    margin-top: 0.5rem;
-  }
-}
-/* ==== Side dock (Hoichoi-style) ==== */
-
-.side-dock {
-  position: fixed;
-  left: 0;
-  top: 72px;              /* roughly header height – adjust to 64/80px if needed */
-  bottom: 0;              /* makes it full-height under the header */
-  width: 72px;
-
-  display: flex;
-  justify-content: center; /* centres the icon stack vertically */
-  z-index: 15;
-  pointer-events: none;    /* container ignores clicks */
-}
-
-.side-dock-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.75rem;            /* controls distance between icons */
-  pointer-events: auto;    /* actual buttons are clickable */
-}
-
-/* individual icon buttons */
-.side-icon {
-  width: 56px;
-  height: 56px;
-  border-radius: 18px;
-  border: 0;
-  background: radial-gradient(circle at 30% 20%, #ff4b86, #c2185b);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
-}
-
-.side-icon span {
-  font-size: 1.4rem;
-}
-
-.side-icon:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.07);
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.55);
-}
-
-/* secondary icons (search, home, TV, lang) a bit subtler */
-.side-icon:not(.side-profile) {
-  background: rgba(255, 255, 255, 0.06);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
-}
-
-/* FREE pill */
-.side-pill {
-  margin-top: 0.3rem;
-  margin-bottom: 0.3rem;
-  padding: 0.35rem 0.75rem;
-  border-radius: 999px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: #111;
-  background: #ffd54f;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
-}
-
-/* language icon */
-.side-lang {
-  margin-top: 0.4rem;
-}
-
-/* make sure nothing draws that vertical line any more */
-.side-dock::before {
-  display: none !important;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
