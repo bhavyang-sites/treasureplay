@@ -1263,44 +1263,6 @@ font-size: 1.15rem;
   font-weight: 400;
   color: rgba(230, 230, 230, 0.92);
 }
-/* Full-height left strip */
-.side-dock {
-  width: 64px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-
-  /* full height like Hoichoi */
-  min-height: calc(100vh - 90px);
-
-  /* ensures icons don't stretch apart */
-  position: relative;
-}
-
-/* center the icons block */
-.side-dock-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.8rem; /* keeps icons close like Hoichoi */
-  margin-top: auto;
-  margin-bottom: auto;
-}
-
-/* optional: vertical spine */
-.side-dock::before {
-  content: "";
-  position: absolute;
-  top: 0.5rem;
-  bottom: 0.5rem;
-  left: 50%;
-  width: 2px;
-  background: rgba(255,255,255,0.1);
-  transform: translateX(-50%);
-  pointer-events: none;
-}
 /* 2-column layout: left strip + main content */
 .hp-body {
   display: grid;
@@ -1309,98 +1271,100 @@ font-size: 1.15rem;
   padding: 0 2rem 2.5rem;
 }
 
-/* Sticky, full-height-ish side strip */
-.side-dock {
-  position: sticky;
-  top: 72px;                 /* roughly header height */
-  align-self: flex-start;
-
-  width: 64px;
-  display: flex;
-  justify-content: center;   /* centers .side-dock-content vertically */
-}
-
-/* Icons column – keeps icons close together */
-.side-dock-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.8rem;               /* similar spacing to Hoichoi */
-}
-
-/* Icon buttons */
-.side-icon {
-  width: 42px;
-  height: 42px;
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(18, 18, 22, 0.9);
-  color: #f5f5f5;
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-  font-size: 1.1rem;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
-  transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
-}
-
-.side-icon:hover {
-  transform: translateY(-1px);
-  background: rgba(35, 35, 40, 0.98);
-  border-color: rgba(255, 255, 255, 0.32);
-}
 
 /* Accent for first + last icons */
 .side-profile {
   background: linear-gradient(145deg, #ff3366, #ff6f61);
 }
-
-.side-lang {
-  margin-top: 0.5rem;
-  background: rgba(22, 22, 26, 0.95);
-}
-
-/* “Free” pill */
-.side-pill {
-  margin-top: 0.3rem;
-  padding: 0.1rem 0.6rem;
-  border-radius: 999px;
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #000;
-  background: #ffd54f;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
-}
-
-/* OPTIONAL vertical spine – remove this block if you don't want the line */
-.side-dock::before {
-  content: "";
-  position: absolute;
-  top: 0;                     /* full height of the sticky area */
-  bottom: 0;
-  left: 50%;
-  width: 2px;
-  transform: translateX(-50%);
-  background: rgba(255, 255, 255, 0.12);
-  pointer-events: none;
-}
-
 /* Mobile: hide the strip, keep layout simple */
 @media (max-width: 900px) {
   .hp-body {
     grid-template-columns: minmax(0, 1fr);
     padding-inline: 1rem;
   }
-
-  .side-dock {
-    display: none;
-  }
-
   .hp-main .hero {
     margin-top: 0.5rem;
   }
 }
+/* ==== Side dock (Hoichoi-style) ==== */
+
+.side-dock {
+  position: fixed;
+  left: 0;
+  top: 72px;              /* roughly header height – adjust to 64/80px if needed */
+  bottom: 0;              /* makes it full-height under the header */
+  width: 72px;
+
+  display: flex;
+  justify-content: center; /* centres the icon stack vertically */
+  z-index: 15;
+  pointer-events: none;    /* container ignores clicks */
+}
+
+.side-dock-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;            /* controls distance between icons */
+  pointer-events: auto;    /* actual buttons are clickable */
+}
+
+/* individual icon buttons */
+.side-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  border: 0;
+  background: radial-gradient(circle at 30% 20%, #ff4b86, #c2185b);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+
+.side-icon span {
+  font-size: 1.4rem;
+}
+
+.side-icon:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.07);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.55);
+}
+
+/* secondary icons (search, home, TV, lang) a bit subtler */
+.side-icon:not(.side-profile) {
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+}
+
+/* FREE pill */
+.side-pill {
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #111;
+  background: #ffd54f;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+}
+
+/* language icon */
+.side-lang {
+  margin-top: 0.4rem;
+}
+
+/* make sure nothing draws that vertical line any more */
+.side-dock::before {
+  display: none !important;
+}
+
 
 
 

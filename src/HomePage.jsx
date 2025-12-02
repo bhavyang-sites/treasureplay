@@ -98,9 +98,9 @@ const HomePage = () => {
       {/* Body: left dock + main content */}
       <div className="hp-body">
         {/* Hoichoi-like side strip */}
-     <aside className="side-dock" aria-label="Secondary navigation">
+     {/* Left side dock */}
+<aside className="side-dock" aria-label="Secondary navigation">
   <div className="side-dock-content">
-
     <button className="side-icon side-profile" aria-label="Profile">
       <span>👤</span>
     </button>
@@ -117,14 +117,14 @@ const HomePage = () => {
       <span>📺</span>
     </button>
 
-    <div className="side-pill">Free</div>
+    <div className="side-pill">FREE</div>
 
     <button className="side-icon side-lang" aria-label="Language">
       <span>अ</span>
     </button>
-
   </div>
 </aside>
+
 
 
         {/* Main column: hero + rows + footer */}
