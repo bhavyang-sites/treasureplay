@@ -27,6 +27,15 @@
   backdrop-filter: blur(6px);
 }
 
+/* On desktop: shift header content to align with main column (right of side icons) */
+@media (min-width: 900px) {
+  .hp-header {
+    /* 3.5rem body padding-left + 56px side column + 1.4rem gap */
+    padding-left: calc(3.5rem + 56px + 1.4rem);
+    padding-right: 3.5rem;
+  }
+}
+
 /* Logo area */
 .brand {
   display: flex;
@@ -112,8 +121,9 @@
 
 .hp-body {
   display: grid;
-  grid-template-columns: 72px minmax(0, 1fr); /* left strip + main */
-  gap: 1.8rem;
+  /* narrower side column + tighter gap */
+  grid-template-columns: 56px minmax(0, 1fr); /* left strip + main */
+  gap: 1.4rem;
   padding: 0 3.5rem 2.7rem;
   margin-top: 0.3rem;
 }
@@ -144,8 +154,8 @@
 
 /* Icon buttons */
 .side-icon {
-  width: 52px;
-  height: 52px;
+  width: 44px;   /* was 52px */
+  height: 44px;  /* was 52px */
   border-radius: 18px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   background: #0b0c12;
@@ -153,7 +163,7 @@
   align-items: center;
   justify-content: center;
   color: #f9fafb;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.65);
   cursor: pointer;
   transition:
@@ -164,7 +174,7 @@
 }
 
 .side-icon span {
-  font-size: 1.35rem;
+  font-size: 1.25rem;
 }
 
 .side-icon:hover {
@@ -419,7 +429,7 @@
       "brand right"
       "nav nav";
     row-gap: 0.35rem;
-    padding-inline: 1.2rem;
+    padding-inline: 1.2rem; /* overrides desktop padding */
   }
 
   .brand {
