@@ -60,11 +60,11 @@ const HomePage = () => {
             <span className="tp-primary">treasure</span>
             <span className="tp-secondary">play</span>
           </div>
-          <div className="brand-sub tagline">
+          {/* <div className="brand-sub tagline">
             <span className="tag-soft">Smooth.</span>
             <span className="tag-soft">Smart.</span>
             <span className="tag-soft">Streaming.</span>
-          </div>
+          </div> */}
         </div>
 
         {/* Center nav */}
