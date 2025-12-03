@@ -693,8 +693,9 @@
 /* hide strip on small screens */
 @media (max-width: 900px) {
   .side-dock {
-    display: none;
-  }
+  left: 2rem !important;   /* match hp-header left padding */
+  top: 72px;               /* your existing header height is ~70–75px */
+}
 }
 .brand-sub {
   display: none;
@@ -763,5 +764,50 @@
 .brand-sub {
   display: none;
 }
+/* --- FIX: let logo breathe & left-align it --- */
+.brand {
+  width: auto !important;        /* no tiny box */
+  overflow: visible !important;  /* don't cut "treasureplay" */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;       /* left edge aligned */
+}
+
+.brand-mark {
+  font-size: 1.5rem;             /* small enough but readable */
+  font-weight: 700;
+  text-transform: lowercase;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+/* --- FIX: solid, consistent icon buttons --- */
+.side-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(12, 12, 18, 0.96); /* solid, not transparent */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.side-icon span {
+  font-size: 1.35rem;  /* makes ⌂ and 📺 look proper size */
+}
+
+/* profile gets the bright gradient */
+.side-icon.side-profile {
+  background: linear-gradient(145deg, #ff3366, #ff6f61);
+}
+
+/* language stays at the bottom but same look */
+.side-lang {
+  background: rgba(12, 12, 18, 0.96);
+}
+
 
 
