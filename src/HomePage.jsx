@@ -63,7 +63,7 @@ const HomePage = () => {
       <aside className="side-rail" aria-label="Main navigation">
         <div className="side-rail-inner">
           {/* Stylized logo: tall "t" + reasure / play */}
-          <button
+          {/* <button
             className="side-logo"
             type="button"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
@@ -73,7 +73,16 @@ const HomePage = () => {
               <span className="side-logo-reasure">reasure</span>
               <span className="side-logo-play">play</span>
             </span>
-          </button>
+          </button> */}
+          <button className="side-logo" type="button">
+  <div className="side-logo-row">
+    <span className="side-logo-t">t</span>
+    <span className="side-logo-reasure">reasure</span>
+  </div>
+
+  <span className="side-logo-play">play</span>
+</button>
+
 
           {/* Nav icons + labels */}
           <nav className="side-nav">
