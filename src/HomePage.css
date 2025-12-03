@@ -585,4 +585,157 @@
 .tag-soft {
   color: inherit;
 }
+/* === Final layout: side column + main content === */
+.hp-body {
+  display: grid !important;
+  grid-template-columns: 80px minmax(0, 1fr);  /* 80px strip + main area */
+  gap: 1.5rem;
+  padding: 0 2rem 2.5rem;
+  align-items: flex-start;
+}
+
+/* main content just uses the right-hand column */
+.hp-main {
+  min-width: 0;
+}
+
+/* hero now lives *inside* the main column, no extra side margin */
+.hp-main .hero {
+  margin: 0 0 1.8rem;
+}
+/* === Final Hoichoi-style side dock === */
+
+.side-dock {
+  position: sticky !important;
+  top: 140px;                     /* vertical start; tweak 120–160px if you like */
+  align-self: flex-start;        /* stick to top of the column */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding-top: 0;
+  padding-bottom: 2rem;
+}
+
+/* make sure we use the inner stack; keep it simple */
+.side-dock-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Icon buttons = solid, same size */
+.side-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: #111827;           /* solid dark */
+  color: #f9fafb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.3rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+/* emoji glyphs all same scale */
+.side-icon span {
+  font-size: 1.4rem;
+}
+
+/* hover effect */
+.side-icon:hover {
+  transform: translateY(-2px);
+  background: #1f2937;
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.75);
+}
+
+/* highlight the top profile icon */
+.side-profile {
+  background: linear-gradient(135deg, #ff3366, #ff6f61);
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+/* FREE pill */
+.side-pill {
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #111;
+  background: #ffd54f;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+}
+
+/* language icon sits towards the bottom of the stack */
+.side-lang {
+  margin-top: 0.35rem;
+}
+
+/* kill any old vertical lines */
+.side-dock::before {
+  display: none !important;
+}
+
+/* hide strip on small screens */
+@media (max-width: 900px) {
+  .side-dock {
+    display: none;
+  }
+}
+.brand-sub {
+  display: none;
+}
+/* === Final header logo sizing === */
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.05;
+}
+
+/* treasureplay – small hoichoi-like text */
+.brand-mark {
+  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 1.6rem;         /* adjust to 1.4 if you want even smaller */
+  font-weight: 700;
+  text-transform: lowercase;
+  letter-spacing: 0.04em;
+}
+
+.brand-mark .tp-primary {
+  color: #ff1744;            /* red */
+}
+
+.brand-mark .tp-secondary {
+  color: #ffe082;            /* warm yellow */
+}
+
+/* tagline style (only if you keep it) */
+.brand-sub.tagline {
+  margin-top: 0.25rem;
+  display: flex;
+  gap: 0.25rem;
+}
+
+.tag-soft {
+  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: rgba(230, 230, 230, 0.92);
+}
 
