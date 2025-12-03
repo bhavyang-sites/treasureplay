@@ -17,20 +17,20 @@ const HomePage = () => {
     fetch("/video_metadata.json")
       .then((res) => res.json())
       .then((data) => setVideoMetadata(Array.isArray(data) ? data : []))
-      .catch((err) => console.error("Failed to load video metadata:", err));
+      .catch((err) =>
+        console.error("Failed to load video metadata:", err)
+      );
   }, []);
 
   useEffect(() => {
     localStorage.setItem("familyMode", JSON.stringify(familyMode));
   }, [familyMode]);
 
-  // hero: prefer featured
   const hero = useMemo(() => {
     if (!videoMetadata.length) return null;
     return videoMetadata.find((v) => v.featured) || videoMetadata[0];
   }, [videoMetadata]);
 
-  // rows by category
   const rows = useMemo(() => {
     if (!videoMetadata.length) return [];
     const hasCategory = videoMetadata.some((v) => v.category);
@@ -43,29 +43,25 @@ const HomePage = () => {
       if (!map.has(key)) map.set(key, []);
       map.get(key).push(v);
     }
-    return Array.from(map.entries()).map(([title, items]) => ({ title, items }));
+    return Array.from(map.entries()).map(([title, items]) => ({
+      title,
+      items,
+    }));
   }, [videoMetadata]);
 
   const onThumbActivate = (id) => navigate(`/video/${id}`);
 
   return (
     <div className="homepage-container">
-      {/* HEADER */}
+      {/* HEADER (nav + family mode only) */}
       <header className="hp-header">
-        {/* Logo / brand (Hoichoi-like text logo) */}
-        <div className="brand">
-          <div className="brand-mark">
-            <span className="tp-primary">treasure</span>
-            <span className="tp-secondary">play</span>
-          </div>
-        </div>
-
-        {/* Center nav */}
         <nav className="hp-nav" aria-label="Primary">
           {NAV_ITEMS.map((label) => (
             <button
               key={label}
-              className={`nav-link ${label === "Home" ? "nav-link-active" : ""}`}
+              className={`nav-link ${
+                label === "Home" ? "nav-link-active" : ""
+              }`}
               type="button"
             >
               {label}
@@ -73,7 +69,6 @@ const HomePage = () => {
           ))}
         </nav>
 
-        {/* Right side: Family Mode pill (acting like a Hoichoi-style CTA) */}
         <div className="right-ctls">
           <button
             type="button"
@@ -103,16 +98,24 @@ const HomePage = () => {
         </div>
       </header>
 
-      {/* BODY: left side dock + main content */}
       <div className="hp-body">
-        {/* LEFT SIDE STRIP (Hoichoi-style) */}
+        {/* SIDE RAIL with logo + icons */}
         <aside className="side-dock" aria-label="Secondary navigation">
+          <div className="side-logo">
+            <span className="side-logo-main">treasure</span>
+            <span className="side-logo-sub">play</span>
+          </div>
+
           <div className="side-dock-content">
             <button className="side-icon side-profile" aria-label="Profile">
               <span>👤</span>
             </button>
 
-            <button className="side-icon" aria-label="Search">
+            <button
+              className="side-icon"
+              aria-label="Search"
+              onClick={() => navigate("/search")}
+            >
               <span>🔍</span>
             </button>
 
@@ -126,7 +129,7 @@ const HomePage = () => {
 
             <button
               className="side-icon"
-              aria-label="TV"
+              aria-label="SmartSkips info"
               onClick={() => navigate("/about-smartskips")}
             >
               <span>📺</span>
@@ -140,9 +143,8 @@ const HomePage = () => {
           </div>
         </aside>
 
-        {/* MAIN COLUMN: hero + rows + footer */}
+        {/* MAIN CONTENT: hero + rows + footer */}
         <div className="hp-main">
-          {/* HERO AREA (full-width Hoichoi-style banner) */}
           {hero && (
             <section
               className="hero"
@@ -169,12 +171,14 @@ const HomePage = () => {
                   <button
                     className="btn btn-primary"
                     onClick={() => onThumbActivate(hero.id)}
+                    type="button"
                   >
                     ▶ Play
                   </button>
                   <button
                     className="btn btn-ghost"
                     onClick={() => navigate("/about-smartskips")}
+                    type="button"
                   >
                     What is SmartSkips?
                   </button>
@@ -183,7 +187,6 @@ const HomePage = () => {
             </section>
           )}
 
-          {/* ROWS */}
           <main className="rows">
             {rows.map((row) => (
               <ThumbRow
@@ -196,13 +199,13 @@ const HomePage = () => {
             ))}
           </main>
 
-          {/* FOOTER CTA (similar minimal strip) */}
           <footer className="hp-footer">
             <div className="cta">
               <span>Ready to try SmartSkips on your catalog?</span>
               <button
                 className="btn btn-outline"
                 onClick={() => navigate("/demo-request")}
+                type="button"
               >
                 Get a live demo
               </button>
