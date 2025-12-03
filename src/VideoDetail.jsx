@@ -1,256 +1,288 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "./HomePage.css";
-import { motion } from "framer-motion";
+// VideoDetail.jsx
+import React, { useEffect, useRef, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import "./VideoDetail.css";
 
-const NAV_ITEMS = ["Home", "Movies", "Shows", "Kids"];
-
-const HomePage = () => {
-  const [videoMetadata, setVideoMetadata] = useState([]);
-  const [familyMode, setFamilyMode] = useState(
-    () => JSON.parse(localStorage.getItem("familyMode") || "false")
-  );
-
+const VideoDetail = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
+  const normalizedId = id.toLowerCase();
 
+  const [video, setVideo] = useState();
+  const [skipMap, setSkipMap] = useState([]);
+  const [familyMode, setFamilyMode] = useState(false);
+  const [filteringProfile, setFilteringProfile] = useState("Strict");
+  const [customProfile, setCustomProfile] = useState("");
+  const [showProfileCard, setShowProfileCard] = useState(false);
+
+  const customProfiles = ["Kids Safe", "Teens", "Religious"];
+  const videoRef = useRef(null);
+
+  // Load metadata
   useEffect(() => {
     fetch("/video_metadata.json")
       .then((res) => res.json())
-      .then((data) => setVideoMetadata(Array.isArray(data) ? data : []))
-      .catch((err) => console.error("Failed to load video metadata:", err));
+      .then((json) => {
+        const arr = Array.isArray(json)
+          ? json
+          : json.videos && Array.isArray(json.videos)
+          ? json.videos
+          : [json];
+
+        const found =
+          arr.find((v) => v.id.toLowerCase() === normalizedId) || null;
+        setVideo(found);
+      })
+      .catch(() => setVideo(null));
+  }, [normalizedId]);
+
+  // Remember last profile
+  useEffect(() => {
+    const saved = localStorage.getItem("lastProfile");
+    if (saved) setFilteringProfile(saved);
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("familyMode", JSON.stringify(familyMode));
-  }, [familyMode]);
+    localStorage.setItem("lastProfile", filteringProfile);
+  }, [filteringProfile]);
 
-  // hero: prefer featured
-  const hero = useMemo(() => {
-    if (!videoMetadata.length) return null;
-    return videoMetadata.find((v) => v.featured) || videoMetadata[0];
-  }, [videoMetadata]);
+  const handleProfileChange = (e) => {
+    const val = e.target.value;
+    setFilteringProfile(val);
+    setShowProfileCard(true); // show when profile changes
 
-  // rows by category
-  const rows = useMemo(() => {
-    if (!videoMetadata.length) return [];
-    const hasCategory = videoMetadata.some((v) => v.category);
-    if (!hasCategory) {
-      return [{ title: "All Titles", items: videoMetadata }];
+    if (val !== "Custom") {
+      setCustomProfile("");
     }
-    const map = new Map();
-    for (const v of videoMetadata) {
-      const key = v.category || "Other";
-      if (!map.has(key)) map.set(key, []);
-      map.get(key).push(v);
-    }
-    return Array.from(map.entries()).map(([title, items]) => ({ title, items }));
-  }, [videoMetadata]);
+  };
 
-  const onThumbActivate = (id) => navigate(`/video/${id}`);
+  // Load skip map for selected profile
+  useEffect(() => {
+    if (!video) return;
+
+    const raw = video.skipMapUrl;
+    let url = null;
+
+    if (typeof raw === "string") {
+      url = raw;
+    } else if (raw && typeof raw === "object") {
+      if (filteringProfile === "Custom" && customProfile) {
+        const key = "custom_" + customProfile.toLowerCase().replace(/ /g, "_");
+        url = raw[key];
+      } else {
+        url = raw[filteringProfile.toLowerCase()];
+      }
+    }
+
+    if (!url) {
+      setSkipMap([]);
+      return;
+    }
+
+    fetch(url)
+      .then((r) => r.json())
+      .then((data) => {
+        const arr = Array.isArray(data)
+          ? data
+          : Array.isArray(data?.segments)
+          ? data.segments
+          : [];
+
+        const normalized = arr
+          .map((s) => ({
+            start: +s.start > 1000 ? +s.start / 1000 : +s.start,
+            end: +s.end > 1000 ? +s.end / 1000 : +s.end,
+            action: s.action || "skip",
+          }))
+          .filter((s) => s.end > s.start);
+
+        setSkipMap(normalized);
+      })
+      .catch(() => setSkipMap([]));
+  }, [video, filteringProfile, customProfile]);
+
+  // Skip logic
+  useEffect(() => {
+    const vid = videoRef.current;
+    if (!vid) return;
+
+    const segs = (skipMap || [])
+      .filter((s) => (s.action || "skip") === "skip")
+      .sort((a, b) => a.start - b.start);
+
+    if (!familyMode || segs.length === 0) return;
+
+    let lastJumpAt = -1;
+    const EPS_START = 0.12;
+    const EPS_END = 0.04;
+
+    const jumpIfNeeded = () => {
+      if (!familyMode) return;
+      const t = vid.currentTime || 0;
+
+      if (t < lastJumpAt - 0.2) lastJumpAt = -1;
+
+      for (let s of segs) {
+        if (t >= s.start - EPS_START && t < s.end - EPS_END) {
+          const target = Math.min(s.end + 0.02, vid.duration - 0.05);
+          if (Math.abs(target - t) > 0.01) {
+            vid.currentTime = target;
+            lastJumpAt = target;
+          }
+          break;
+        }
+      }
+    };
+
+    const interval = setInterval(jumpIfNeeded, 100);
+    vid.addEventListener("seeking", jumpIfNeeded);
+    vid.addEventListener("seeked", jumpIfNeeded);
+    vid.addEventListener("timeupdate", jumpIfNeeded);
+
+    return () => {
+      clearInterval(interval);
+      vid.removeEventListener("seeking", jumpIfNeeded);
+      vid.removeEventListener("seeked", jumpIfNeeded);
+      vid.removeEventListener("timeupdate", jumpIfNeeded);
+    };
+  }, [skipMap, familyMode]);
+
+  // Auto-hide profile card after a few seconds
+  useEffect(() => {
+    if (!familyMode || !showProfileCard) return;
+
+    const timer = setTimeout(() => {
+      setShowProfileCard(false);
+    }, 5000); // 5s; tweak if you want longer/shorter
+
+    return () => clearTimeout(timer);
+  }, [familyMode, showProfileCard]);
+
+  // Loading / error states
+  if (video === undefined) {
+    return <div className="video-loading">Loading...</div>;
+  }
+  if (!video) {
+    return <div className="video-loading">Video not found.</div>;
+  }
 
   return (
-    <div className="homepage-container">
-      {/* HEADER */}
-      <header className="hp-header">
-        {/* Logo / brand (Hoichoi-like text logo) */}
-        <div className="brand">
-          <div className="brand-mark">
-            <span className="tp-primary">treasure</span>
-            <span className="tp-secondary">play</span>
-          </div>
-        </div>
+    <div className="video-detail-page">
+      {/* Back arrow */}
+      <button className="back-arrow" onClick={() => navigate("/")}>
+        <span className="arrow-icon">←</span>
+      </button>
 
-        {/* Center nav */}
-        <nav className="hp-nav" aria-label="Primary">
-          {NAV_ITEMS.map((label) => (
-            <button
-              key={label}
-              className={`nav-link ${label === "Home" ? "nav-link-active" : ""}`}
-              type="button"
-            >
-              {label}
-            </button>
-          ))}
-        </nav>
+      {/* Fullscreen-style hero */}
+      <div
+        className="hero-bg"
+        style={{ backgroundImage: `url(${video.thumbnail || ""})` }}
+      >
+        <div className="hero-overlay" />
 
-        {/* Right side: Family Mode pill (acting like a Hoichoi-style CTA) */}
-        <div className="right-ctls">
-          <button
-            type="button"
-            className="fm-badge"
-            onClick={() => setFamilyMode((prev) => !prev)}
-          >
-            <svg className="fm-icon" viewBox="0 0 24 24" aria-hidden="true">
-              <circle
-                cx="12"
-                cy="12"
-                r="10"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.6"
-              />
-              <path
-                d="M8.5 12.5 11 15l4.5-6"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            <span>{familyMode ? "Family Mode: On" : "Family Mode: Off"}</span>
-          </button>
-        </div>
-      </header>
+        <div className="hero-content">
+          <video
+            ref={videoRef}
+            className="video-player"
+            src={video.videoUrl}
+            poster={video.thumbnail}
+            controls
+            preload="metadata"
+          />
 
-      {/* BODY: left side dock + main content */}
-      <div className="hp-body">
-        {/* LEFT SIDE STRIP (Hoichoi-style) */}
-        <aside className="side-dock" aria-label="Secondary navigation">
-          <div className="side-dock-content">
-            <button className="side-icon side-profile" aria-label="Profile">
-              <span>👤</span>
-            </button>
+          {/* SmartSkips bottom overlay bar */}
+          <div className="player-overlay">
+            <div className="overlay-row">
+              {/* Centered movie-style title */}
+              <div className="overlay-title">{video.title}</div>
 
-            <button className="side-icon" aria-label="Search">
-              <span>🔍</span>
-            </button>
-
-            <button
-              className="side-icon"
-              aria-label="Home"
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            >
-              <span>⌂</span>
-            </button>
-
-            <button
-              className="side-icon"
-              aria-label="TV"
-              onClick={() => navigate("/about-smartskips")}
-            >
-              <span>📺</span>
-            </button>
-
-            <div className="side-pill">FREE</div>
-
-            <button className="side-icon side-lang" aria-label="Language">
-              <span>अ</span>
-            </button>
-          </div>
-        </aside>
-
-        {/* MAIN COLUMN: hero + rows + footer */}
-        <div className="hp-main">
-          {/* HERO AREA (full-width Hoichoi-style banner) */}
-          {hero && (
-            <section
-              className="hero"
-              style={{
-                backgroundImage: `url(${hero.backdrop || hero.thumbnail})`,
-              }}
-            >
-              <div className="hero-gradient" />
-              <div className="home-hero-overlay">
-                <motion.h2
-                  className="hero-title"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.15 }}
-                >
-                  {hero.title}
-                </motion.h2>
-
-                {hero.tagline ? (
-                  <p className="hero-tagline">{hero.tagline}</p>
-                ) : null}
-
-                <div className="hero-actions">
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => onThumbActivate(hero.id)}
-                  >
-                    ▶ Play
-                  </button>
-                  <button
-                    className="btn btn-ghost"
-                    onClick={() => navigate("/about-smartskips")}
-                  >
-                    What is SmartSkips?
-                  </button>
+              {/* Family Mode block on the right */}
+              <div className="overlay-family">
+                <div className="family-toggle-row">
+                  <input
+                    id="family-toggle"
+                    type="checkbox"
+                    className="toggle-checkbox"
+                    checked={familyMode}
+                    onChange={(e) => {
+                      const on = e.target.checked;
+                      setFamilyMode(on);
+                      if (on) {
+                        setFilteringProfile("Strict");
+                        setCustomProfile("");
+                        setShowProfileCard(true);
+                      } else {
+                        setShowProfileCard(false);
+                      }
+                    }}
+                  />
+                  <label htmlFor="family-toggle" className="toggle-switch" />
+                  <span className="toggle-status">
+                    {familyMode ? "Family Mode: On" : "Family Mode: Off"}
+                  </span>
                 </div>
+
+                {/* Popover card (conditional, auto-hides) */}
+                {familyMode && showProfileCard && (
+                  <div className="profile-card family-popover">
+                    <div className="profile-row elegant-dropdown">
+                      <span>
+                        Active Profile: <strong>{filteringProfile}</strong>
+                      </span>
+                      <select
+                        className="select-elegant"
+                        value={filteringProfile}
+                        onChange={handleProfileChange}
+                      >
+                        <option value="Mild">Mild</option>
+                        <option value="Strict">Strict</option>
+                        <option value="Custom">Custom</option>
+                      </select>
+                    </div>
+
+                    {filteringProfile === "Custom" && (
+                      <div className="profile-row elegant-dropdown">
+                        <select
+                          className="select-elegant"
+                          value={customProfile}
+                          onChange={(e) => {
+                            setCustomProfile(e.target.value);
+                            setShowProfileCard(true);
+                          }}
+                        >
+                          <option value="">Select sub-profile…</option>
+                          {customProfiles.map((p) => (
+                            <option key={p} value={p}>
+                              {p}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    )}
+
+                    {skipMap && skipMap.length > 0 && (
+                      <p className="profile-skips">Skips: {skipMap.length}</p>
+                    )}
+
+                    <p className="profile-desc">
+                      {filteringProfile === "Mild" &&
+                        "Blocks only explicit content. Ideal for general audiences."}
+                      {filteringProfile === "Strict" &&
+                        "Strictly filters nudity, suggestive content, and violence. Best for young kids."}
+                      {filteringProfile === "Custom" &&
+                        (customProfile
+                          ? `Custom settings applied: ${customProfile}`
+                          : "Please select a custom profile to apply.")}
+                    </p>
+                  </div>
+                )}
               </div>
-            </section>
-          )}
-
-          {/* ROWS */}
-          <main className="rows">
-            {rows.map((row) => (
-              <ThumbRow
-                key={row.title}
-                title={row.title}
-                items={row.items}
-                familyMode={familyMode}
-                onThumbActivate={onThumbActivate}
-              />
-            ))}
-          </main>
-
-          {/* FOOTER CTA (similar minimal strip) */}
-          <footer className="hp-footer">
-            <div className="cta">
-              <span>Ready to try SmartSkips on your catalog?</span>
-              <button
-                className="btn btn-outline"
-                onClick={() => navigate("/demo-request")}
-              >
-                Get a live demo
-              </button>
             </div>
-          </footer>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-function ThumbRow({ title, items, familyMode, onThumbActivate }) {
-  if (!items || !items.length) return null;
-
-  return (
-    <section className="row">
-      <div className="row-header">
-        <h3 className="row-title">{title}</h3>
-      </div>
-      <div className="thumbnail-row">
-        {items.map((video) => (
-          <article
-            key={video.id}
-            className="thumbnail-item"
-            tabIndex={0}
-            onClick={() => onThumbActivate(video.id)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                onThumbActivate(video.id);
-              }
-            }}
-          >
-            <div className="thumbnail-wrapper">
-              <img
-                src={video.thumbnail}
-                alt={video.title}
-                className="thumbnail-image"
-                loading="lazy"
-              />
-              {familyMode && <span className="fm-chip">FM</span>}
-            </div>
-            <p className="thumbnail-title">{video.title}</p>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-export default HomePage;
+export default VideoDetail;
