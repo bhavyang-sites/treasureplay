@@ -1,0 +1,813 @@
+/* ========== PAGE BACKGROUND ========== */
+.homepage-container {
+  background: radial-gradient(1200px 600px at 10% -10%, #1a1c22 0%, #0c0d10 55%, #090a0d 100%);
+  color: #fff;
+  min-height: 100vh;
+}
+
+/* ========== HEADER (LOGO + NAV + BADGE) ========== */
+
+.hp-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  padding: 0.9rem 2rem;
+  padding-left: 96px;
+  gap: 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.85),
+    rgba(0, 0, 0, 0.55) 60%,
+    rgba(0, 0, 0, 0)
+  );
+  backdrop-filter: blur(6px);
+}
+
+/* logo block */
+/* === Header brand: hoichoi-like lowercase logo === */
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.05;
+}
+
+.brand-mark {
+  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 1.7rem;          /* smaller than before */
+  font-weight: 700;
+  text-transform: lowercase;  /* hoichoi feel */
+  letter-spacing: 0.03em;
+}
+
+.tp-primary {
+  color: #ff1744;             /* hoichoi-ish red */
+}
+
+.tp-secondary {
+  color: #ffd95b;             /* warm golden accent */
+}
+
+/* tagline directly under logo */
+.brand-sub.tagline {
+  margin-top: 0.2rem;
+  display: flex;
+  gap: 0.25rem;
+}
+
+.tag-soft {
+  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: rgba(230, 230, 230, 0.9);
+}
+
+
+/* center nav */
+.hp-nav {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.nav-link {
+  background: transparent;
+  border: 0;
+  color: #d6d6d6;
+  font-size: 0.95rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.nav-link:hover,
+.nav-link:focus-visible {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  outline: none;
+}
+
+/* right badge */
+.right-ctls {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.fm-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  color: #e8f3ff;
+  background: linear-gradient(180deg, rgba(14, 165, 233, 0.18), rgba(14, 165, 233, 0.1));
+  border: 1px solid rgba(14, 165, 233, 0.4);
+  box-shadow: 0 4px 14px rgba(14, 165, 233, 0.15);
+}
+
+.fm-icon {
+  width: 16px;
+  height: 16px;
+  color: #0ea5e9;
+}
+
+/* ========== BODY LAYOUT (SIDE STRIP + MAIN) ========== */
+
+.hp-body {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr); /* left strip + content */
+  gap: 1.75rem;
+  padding: 0 2rem 2.5rem;
+}
+
+/* right column wrapper */
+.hp-main {
+  min-width: 0; /* important so hero/rows can shrink on smaller screens */
+}
+
+/* === Hoichoi-style side strip, simple + predictable === */
+
+/* Whole strip: fixed on the left, under the header */
+.side-dock {
+  position: fixed;
+  left: 18px;           /* a bit inside from the very edge */
+  top: 210px;           /* tweak this until it's aligned with "Recommended For You" */
+  width: 64px;
+  z-index: 30;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Stack of icons – we keep them close, not stretched */
+.side-dock-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;         /* distance between icons */
+}
+
+/* Icon buttons */
+.side-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  font-size: 1.25rem;
+  color: #f5f5f5;
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+/* Top “profile” icon a bit more punchy */
+.side-icon.side-profile {
+  background: linear-gradient(145deg, #ff3366, #ff6f61);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Hover effect */
+.side-icon:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.6);
+}
+
+/* FREE pill between icons */
+.side-pill {
+  margin: 0.2rem 0;
+  padding: 0.25rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  color: #111;
+  background: #ffd54f;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+}
+
+/* Language icon at the end of the stack */
+.side-lang {
+  margin-top: 0.4rem;
+}
+
+/* Make sure there is NO vertical line from older CSS */
+.side-dock::before {
+  display: none !important;
+}
+
+/* ========== HERO AREA ========== */
+
+.hero {
+  position: relative;
+  margin: 0 0 2rem;
+  height: 45vh;
+  min-height: 280px;
+  border-radius: 1rem;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.15) 0%,
+    rgba(0, 0, 0, 0.55) 60%,
+    rgba(0, 0, 0, 0.85) 100%
+  );
+}
+
+.home-hero-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2rem;
+  z-index: 1;
+}
+
+.hero-title {
+  font-family: "Oswald", "Montserrat", system-ui, sans-serif;
+  font-size: 2.6rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin: 0 0 0.4rem;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+}
+
+.hero-tagline {
+  font-family: "Montserrat", system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #e0e0e0;
+  margin: 0 0 0.9rem;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 0.8rem;
+}
+
+/* buttons */
+.btn {
+  border: 0;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  font-weight: 600;
+  font-family: inherit;
+}
+
+.btn-primary {
+  background: #3b82f6;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.1);
+}
+
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ========== ROWS & THUMBNAILS ========== */
+
+.rows {
+  display: grid;
+  gap: 1.5rem;
+  padding-bottom: 2rem;
+}
+
+.row {
+  padding-bottom: 0.25rem;
+}
+
+.row-title {
+  font-family: "Poppins", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: #fff;
+  margin: 0 0 0.6rem;
+}
+
+/* horizontal scroller */
+.thumbnail-row {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+  touch-action: pan-x;
+}
+
+.thumbnail-row::-webkit-scrollbar {
+  height: 8px;
+}
+
+.thumbnail-row::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 10px;
+}
+
+.thumbnail-row::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.thumbnail-row {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+}
+
+.thumbnail-item {
+  flex: 0 0 auto;
+  width: 14rem;
+  cursor: pointer;
+  text-align: left;
+  scroll-snap-align: start;
+}
+
+.thumbnail-image {
+  width: 100%;
+  height: 8rem;
+  object-fit: cover;
+  border-radius: 0.75rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.55);
+  display: block;
+}
+
+.fm-chip {
+  position: relative;
+  top: -1.5rem;
+  left: 0.5rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 0.5rem;
+  font-size: 0.7rem;
+  background: #3b82f6;
+  color: #fff;
+}
+
+.thumbnail-title {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #f2f2f2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ========== FOOTER CTA ========== */
+
+.hp-footer {
+  padding: 1.5rem 0 2.5rem;
+}
+
+.hp-footer .cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 0 0;
+  padding: 1rem 1.25rem;
+  border-radius: 1rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* ========== RESPONSIVE ========== */
+
+@media (max-width: 900px) {
+  .hp-header {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "brand right"
+      "nav nav";
+    row-gap: 0.4rem;
+  }
+
+  .brand {
+    grid-area: brand;
+  }
+
+  .hp-nav {
+    grid-area: nav;
+    justify-content: flex-start;
+    overflow-x: auto;
+  }
+
+  .right-ctls {
+    grid-area: right;
+  }
+
+  .hp-body {
+    grid-template-columns: minmax(0, 1fr);
+    padding-inline: 1rem;
+  }
+
+  .side-dock {
+    display: none;
+  }
+
+  .hp-main .hero {
+    margin-top: 0.5rem;
+  }
+}
+/* === Reset hp-body layout (no grid) === */
+.hp-body {
+  position: relative;
+  display: block;              /* kill the grid layout */
+  padding: 0 2rem 2.5rem;      /* nice left/right padding */
+  max-width: 100%;
+}
+
+/* main column gets full width, aside is fixed so it won't push layout */
+.hp-main {
+  max-width: 100%;
+}
+/* === Hoichoi-style left floating dock (FINAL) === */
+
+.side-dock {
+  position: fixed;
+  left: 1.5rem;          /* distance from left edge */
+  top: 150px;            /* vertical start – tweak 130–190px to line up with your heading */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  z-index: 30;           /* above hero + rows */
+}
+
+/* If you keep .side-dock-content wrapper, keep it simple */
+.side-dock-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Icon buttons */
+.side-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f5f5f5;
+  font-size: 1.2rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.55);
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+
+.side-icon span {
+  font-size: 1.3rem;
+}
+
+.side-icon:hover {
+  transform: translateY(-2px);
+  background: rgba(0, 0, 0, 0.82);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.7);
+}
+
+/* Pink profile icon at the top */
+.side-profile {
+  background: linear-gradient(135deg, #ff3366, #ff6f61);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* FREE pill */
+.side-pill {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #111;
+  background: #ffd54f;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.55);
+}
+
+/* language icon – small extra gap below FREE */
+.side-lang {
+  margin-top: 0.35rem;
+}
+
+/* Nuke any old vertical line / spine */
+.side-dock::before {
+  display: none !important;
+}
+
+/* Hide dock on mobile */
+@media (max-width: 900px) {
+  .side-dock {
+    display: none;
+  }
+}
+/* === Header logo reset (FINAL) === */
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.05;
+}
+
+/* “treasureplay” text – hoichoi-ish */
+.brand-mark {
+  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 1.6rem;      /* smaller like hoichoi */
+  font-weight: 700;
+  text-transform: lowercase;
+  letter-spacing: 0.04em;
+}
+
+/* treasure (red) */
+.brand-mark .tp-primary {
+  color: #ff1744;         /* hoichoi-style red */
+}
+
+/* play (warm yellow) */
+.brand-mark .tp-secondary {
+  color: #ffe082;         /* warm accent for play */
+}
+
+/* tagline under logo */
+.brand-sub {
+  margin-top: 0.25rem;
+  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: rgba(230, 230, 230, 0.92);
+}
+
+.tag-soft {
+  color: inherit;
+}
+/* === Final layout: side column + main content === */
+.hp-body {
+  display: grid !important;
+  grid-template-columns: 80px minmax(0, 1fr);  /* 80px strip + main area */
+  gap: 1.5rem;
+  padding: 0 2rem 2.5rem;
+  align-items: flex-start;
+}
+
+/* main content just uses the right-hand column */
+.hp-main {
+  min-width: 0;
+}
+
+/* hero now lives *inside* the main column, no extra side margin */
+.hp-main .hero {
+  margin: 0 0 1.8rem;
+}
+/* === Final Hoichoi-style side dock === */
+
+.side-dock {
+  position: sticky !important;
+  top: 140px;                     /* vertical start; tweak 120–160px if you like */
+  align-self: flex-start;        /* stick to top of the column */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding-top: 0;
+  padding-bottom: 2rem;
+}
+
+/* make sure we use the inner stack; keep it simple */
+.side-dock-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Icon buttons = solid, same size */
+.side-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: #111827;           /* solid dark */
+  color: #f9fafb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.3rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+/* emoji glyphs all same scale */
+.side-icon span {
+  font-size: 1.4rem;
+}
+
+/* hover effect */
+.side-icon:hover {
+  transform: translateY(-2px);
+  background: #1f2937;
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.75);
+}
+
+/* highlight the top profile icon */
+.side-profile {
+  background: linear-gradient(135deg, #ff3366, #ff6f61);
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+/* FREE pill */
+.side-pill {
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #111;
+  background: #ffd54f;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+}
+
+/* language icon sits towards the bottom of the stack */
+.side-lang {
+  margin-top: 0.35rem;
+}
+
+/* kill any old vertical lines */
+.side-dock::before {
+  display: none !important;
+}
+
+/* hide strip on small screens */
+@media (max-width: 900px) {
+  .side-dock {
+  left: 2rem !important;   /* match hp-header left padding */
+  top: 72px;               /* your existing header height is ~70–75px */
+}
+}
+.brand-sub {
+  display: none;
+}
+/* === Final header logo sizing === */
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.05;
+}
+
+/* treasureplay – small hoichoi-like text */
+.brand-mark {
+  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 1.6rem;         /* adjust to 1.4 if you want even smaller */
+  font-weight: 700;
+  text-transform: lowercase;
+  letter-spacing: 0.04em;
+}
+
+.brand-mark .tp-primary {
+  color: #ff1744;            /* red */
+}
+
+.brand-mark .tp-secondary {
+  color: #ffe082;            /* warm yellow */
+}
+
+/* tagline style (only if you keep it) */
+.brand-sub.tagline {
+  margin-top: 0.25rem;
+  display: flex;
+  gap: 0.25rem;
+}
+
+.tag-soft {
+  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: rgba(230, 230, 230, 0.92);
+}
+/* Make brand block align to left strip width */
+.brand {
+  width: 72px;                /* EXACT width of side-dock */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;    /* align left edge */
+  overflow: hidden;           /* prevent spill */
+  margin-left: 0;             /* perfect alignment */
+}
+
+/* Make treasureplay fit inside 72px */
+.brand-mark {
+  font-size: 1.05rem;         /* resized to fit column */
+  line-height: 1.1;
+  font-weight: 700;
+  text-transform: lowercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;    /* ensures it never spills */
+}
+
+/* Optional: remove tagline to avoid overflow */
+.brand-sub {
+  display: none;
+}
+/* --- FIX: let logo breathe & left-align it --- */
+.brand {
+  width: auto !important;        /* no tiny box */
+  overflow: visible !important;  /* don't cut "treasureplay" */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;       /* left edge aligned */
+}
+
+.brand-mark {
+  font-size: 1.5rem;             /* small enough but readable */
+  font-weight: 700;
+  text-transform: lowercase;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+/* --- FIX: solid, consistent icon buttons --- */
+.side-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(12, 12, 18, 0.96); /* solid, not transparent */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.side-icon span {
+  font-size: 1.35rem;  /* makes ⌂ and 📺 look proper size */
+}
+
+/* profile gets the bright gradient */
+.side-icon.side-profile {
+  background: linear-gradient(145deg, #ff3366, #ff6f61);
+}
+
+/* language stays at the bottom but same look */
+.side-lang {
+  background: rgba(12, 12, 18, 0.96);
+}
+
+
+

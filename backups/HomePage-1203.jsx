@@ -1,27 +1,29 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "./HomePage.css";
+import React, { useEffect, useMemo, useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './HomePage.css';
 import { motion } from "framer-motion";
+import FunkyLogo from "./components/FunkyLogo";
 
-const NAV_ITEMS = ["Home", "Movies", "Shows", "Kids"];
+
+const NAV_ITEMS = ['Home', 'Movies', 'Shows', 'Kids'];
 
 const HomePage = () => {
   const [videoMetadata, setVideoMetadata] = useState([]);
   const [familyMode, setFamilyMode] = useState(
-    () => JSON.parse(localStorage.getItem("familyMode") || "false")
+    () => JSON.parse(localStorage.getItem('familyMode') || 'false')
   );
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("/video_metadata.json")
+    fetch('/video_metadata.json')
       .then((res) => res.json())
       .then((data) => setVideoMetadata(Array.isArray(data) ? data : []))
-      .catch((err) => console.error("Failed to load video metadata:", err));
+      .catch((err) => console.error('Failed to load video metadata:', err));
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("familyMode", JSON.stringify(familyMode));
+    localStorage.setItem('familyMode', JSON.stringify(familyMode));
   }, [familyMode]);
 
   // hero: prefer featured
@@ -30,16 +32,16 @@ const HomePage = () => {
     return videoMetadata.find((v) => v.featured) || videoMetadata[0];
   }, [videoMetadata]);
 
-  // rows by category
+  // rows: by category, fallback to All Titles
   const rows = useMemo(() => {
     if (!videoMetadata.length) return [];
     const hasCategory = videoMetadata.some((v) => v.category);
     if (!hasCategory) {
-      return [{ title: "All Titles", items: videoMetadata }];
+      return [{ title: 'All Titles', items: videoMetadata }];
     }
     const map = new Map();
     for (const v of videoMetadata) {
-      const key = v.category || "Other";
+      const key = v.category || 'Other';
       if (!map.has(key)) map.set(key, []);
       map.get(key).push(v);
     }
@@ -50,45 +52,35 @@ const HomePage = () => {
 
   return (
     <div className="homepage-container">
-      {/* HEADER */}
+      {/* Header / Nav */}
       <header className="hp-header">
-        {/* Logo / brand (Hoichoi-like text logo) */}
+        {/* Brand block (hoichoi-style, lowercase) */}
         <div className="brand">
           <div className="brand-mark">
             <span className="tp-primary">treasure</span>
             <span className="tp-secondary">play</span>
           </div>
+          {/* <div className="brand-sub tagline">
+            <span className="tag-soft">Smooth.</span>
+            <span className="tag-soft">Smart.</span>
+            <span className="tag-soft">Streaming.</span>
+          </div> */}
         </div>
 
         {/* Center nav */}
         <nav className="hp-nav" aria-label="Primary">
           {NAV_ITEMS.map((label) => (
-            <button
-              key={label}
-              className={`nav-link ${label === "Home" ? "nav-link-active" : ""}`}
-              type="button"
-            >
+            <button key={label} className="nav-link" type="button">
               {label}
             </button>
           ))}
         </nav>
 
-        {/* Right side: Family Mode pill (acting like a Hoichoi-style CTA) */}
+        {/* Right badge */}
         <div className="right-ctls">
-          <button
-            type="button"
-            className="fm-badge"
-            onClick={() => setFamilyMode((prev) => !prev)}
-          >
+          <span className="fm-badge" role="note">
             <svg className="fm-icon" viewBox="0 0 24 24" aria-hidden="true">
-              <circle
-                cx="12"
-                cy="12"
-                r="10"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.6"
-              />
+              <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" strokeWidth="1.6" />
               <path
                 d="M8.5 12.5 11 15l4.5-6"
                 fill="none"
@@ -98,59 +90,51 @@ const HomePage = () => {
                 strokeLinejoin="round"
               />
             </svg>
-            <span>{familyMode ? "Family Mode: On" : "Family Mode: Off"}</span>
-          </button>
+            Family Mode {familyMode ? 'On' : 'Available'}
+          </span>
         </div>
       </header>
 
-      {/* BODY: left side dock + main content */}
+      {/* Body: left dock + main content */}
       <div className="hp-body">
-        {/* LEFT SIDE STRIP (Hoichoi-style) */}
-        <aside className="side-dock" aria-label="Secondary navigation">
-          <div className="side-dock-content">
-            <button className="side-icon side-profile" aria-label="Profile">
-              <span>👤</span>
-            </button>
+        {/* Hoichoi-like side strip */}
+     {/* Left side dock */}
+<aside className="side-dock" aria-label="Secondary navigation">
+  <div className="side-dock-content">
+    <button className="side-icon side-profile" aria-label="Profile">
+      <span>👤</span>
+    </button>
 
-            <button className="side-icon" aria-label="Search">
-              <span>🔍</span>
-            </button>
+    <button className="side-icon" aria-label="Search">
+      <span>🔍</span>
+    </button>
 
-            <button
-              className="side-icon"
-              aria-label="Home"
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            >
-              <span>⌂</span>
-            </button>
+    <button className="side-icon" aria-label="Home">
+      <span>⌂</span>
+    </button>
 
-            <button
-              className="side-icon"
-              aria-label="TV"
-              onClick={() => navigate("/about-smartskips")}
-            >
-              <span>📺</span>
-            </button>
+    <button className="side-icon" aria-label="TV">
+      <span>📺</span>
+    </button>
 
-            <div className="side-pill">FREE</div>
+    <div className="side-pill">FREE</div>
 
-            <button className="side-icon side-lang" aria-label="Language">
-              <span>अ</span>
-            </button>
-          </div>
-        </aside>
+    <button className="side-icon side-lang" aria-label="Language">
+      <span>अ</span>
+    </button>
+  </div>
+</aside>
 
-        {/* MAIN COLUMN: hero + rows + footer */}
+
+
+        {/* Main column: hero + rows + footer */}
         <div className="hp-main">
-          {/* HERO AREA (full-width Hoichoi-style banner) */}
+          {/* Hero */}
           {hero && (
             <section
               className="hero"
-              style={{
-                backgroundImage: `url(${hero.backdrop || hero.thumbnail})`,
-              }}
+              style={{ backgroundImage: `url(${hero.backdrop || hero.thumbnail})` }}
             >
-              <div className="hero-gradient" />
               <div className="home-hero-overlay">
                 <motion.h2
                   className="hero-title"
@@ -161,9 +145,7 @@ const HomePage = () => {
                   {hero.title}
                 </motion.h2>
 
-                {hero.tagline ? (
-                  <p className="hero-tagline">{hero.tagline}</p>
-                ) : null}
+                {hero.tagline ? <p className="hero-tagline">{hero.tagline}</p> : null}
 
                 <div className="hero-actions">
                   <button
@@ -174,7 +156,7 @@ const HomePage = () => {
                   </button>
                   <button
                     className="btn btn-ghost"
-                    onClick={() => navigate("/about-smartskips")}
+                    onClick={() => navigate('/about-smartskips')}
                   >
                     What is SmartSkips?
                   </button>
@@ -183,7 +165,7 @@ const HomePage = () => {
             </section>
           )}
 
-          {/* ROWS */}
+          {/* Rows */}
           <main className="rows">
             {rows.map((row) => (
               <ThumbRow
@@ -196,13 +178,13 @@ const HomePage = () => {
             ))}
           </main>
 
-          {/* FOOTER CTA (similar minimal strip) */}
+          {/* Footer CTA */}
           <footer className="hp-footer">
             <div className="cta">
-              <span>Ready to try SmartSkips on your catalog?</span>
+              <span>Ready to try a pilot?</span>
               <button
                 className="btn btn-outline"
-                onClick={() => navigate("/demo-request")}
+                onClick={() => navigate('/demo-request')}
               >
                 Get a live demo
               </button>
@@ -212,17 +194,15 @@ const HomePage = () => {
       </div>
     </div>
   );
-};
+}
 
+
+/* --- helper row with arrows + smooth scroll --- */
 function ThumbRow({ title, items, familyMode, onThumbActivate }) {
-  if (!items || !items.length) return null;
-
   return (
     <section className="row">
-      <div className="row-header">
-        <h3 className="row-title">{title}</h3>
-      </div>
-      <div className="thumbnail-row">
+      <h3 className="row-title">{title}</h3>
+      <div className="thumbnail-row">  {/* <- same class as your old working build */}
         {items.map((video) => (
           <article
             key={video.id}
@@ -230,21 +210,11 @@ function ThumbRow({ title, items, familyMode, onThumbActivate }) {
             tabIndex={0}
             onClick={() => onThumbActivate(video.id)}
             onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                onThumbActivate(video.id);
-              }
+              if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onThumbActivate(video.id); }
             }}
           >
-            <div className="thumbnail-wrapper">
-              <img
-                src={video.thumbnail}
-                alt={video.title}
-                className="thumbnail-image"
-                loading="lazy"
-              />
-              {familyMode && <span className="fm-chip">FM</span>}
-            </div>
+            <img src={video.thumbnail} alt={video.title} className="thumbnail-image" loading="lazy" />
+            {familyMode && <span className="fm-chip">FM</span>}
             <p className="thumbnail-title">{video.title}</p>
           </article>
         ))}
