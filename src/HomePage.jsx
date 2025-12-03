@@ -74,12 +74,19 @@ const HomePage = () => {
               <span className="side-logo-play">play</span>
             </span>
           </button> */}
-         <button className="side-logo" type="button">
+   <button
+  className="side-logo"
+  type="button"
+  onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+>
   <div className="side-logo-top">
     <span className="side-logo-t">t</span>
     <span className="side-logo-reasure">reasure</span>
   </div>
-  <span className="side-logo-play">play</span>
+
+  <div className="side-logo-play-pill">
+    <span className="side-logo-play-text">play</span>
+  </div>
 </button>
 
 
