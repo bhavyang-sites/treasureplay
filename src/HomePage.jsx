@@ -74,14 +74,14 @@ const HomePage = () => {
               <span className="side-logo-play">play</span>
             </span>
           </button> */}
-          <button className="side-logo" type="button">
-  <div className="side-logo-row">
+         <button className="side-logo" type="button">
+  <div className="side-logo-top">
     <span className="side-logo-t">t</span>
     <span className="side-logo-reasure">reasure</span>
   </div>
-
   <span className="side-logo-play">play</span>
 </button>
+
 
 
           {/* Nav icons + labels */}
