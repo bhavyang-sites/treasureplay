@@ -17,7 +17,7 @@
   grid-template-columns: auto 1fr auto;
   align-items: center;
   column-gap: 1.5rem;
-  padding: 0.8rem 3.5rem;
+  padding: 0.8rem 3.5rem; /* stays left-aligned with side icons */
   background: linear-gradient(
     180deg,
     rgba(0, 0, 0, 0.92) 0%,
@@ -25,15 +25,6 @@
     rgba(0, 0, 0, 0.0) 100%
   );
   backdrop-filter: blur(6px);
-}
-
-/* On desktop: shift header content to align with main column (right of side icons) */
-@media (min-width: 900px) {
-  .hp-header {
-    /* 3.5rem body padding-left + 56px side column + 1.4rem gap */
-    padding-left: calc(3.5rem + 56px + 1.4rem);
-    padding-right: 3.5rem;
-  }
 }
 
 /* Logo area */
@@ -154,8 +145,8 @@
 
 /* Icon buttons */
 .side-icon {
-  width: 44px;   /* was 52px */
-  height: 44px;  /* was 52px */
+  width: 44px;
+  height: 44px;
   border-radius: 18px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   background: #0b0c12;
@@ -429,7 +420,7 @@
       "brand right"
       "nav nav";
     row-gap: 0.35rem;
-    padding-inline: 1.2rem; /* overrides desktop padding */
+    padding-inline: 1.2rem;
   }
 
   .brand {
