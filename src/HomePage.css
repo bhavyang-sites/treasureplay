@@ -738,4 +738,30 @@
   font-weight: 400;
   color: rgba(230, 230, 230, 0.92);
 }
+/* Make brand block align to left strip width */
+.brand {
+  width: 72px;                /* EXACT width of side-dock */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;    /* align left edge */
+  overflow: hidden;           /* prevent spill */
+  margin-left: 0;             /* perfect alignment */
+}
+
+/* Make treasureplay fit inside 72px */
+.brand-mark {
+  font-size: 1.05rem;         /* resized to fit column */
+  line-height: 1.1;
+  font-weight: 700;
+  text-transform: lowercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;    /* ensures it never spills */
+}
+
+/* Optional: remove tagline to avoid overflow */
+.brand-sub {
+  display: none;
+}
+
 
