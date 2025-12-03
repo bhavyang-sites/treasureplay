@@ -445,3 +445,144 @@
     margin-top: 0.5rem;
   }
 }
+/* === Reset hp-body layout (no grid) === */
+.hp-body {
+  position: relative;
+  display: block;              /* kill the grid layout */
+  padding: 0 2rem 2.5rem;      /* nice left/right padding */
+  max-width: 100%;
+}
+
+/* main column gets full width, aside is fixed so it won't push layout */
+.hp-main {
+  max-width: 100%;
+}
+/* === Hoichoi-style left floating dock (FINAL) === */
+
+.side-dock {
+  position: fixed;
+  left: 1.5rem;          /* distance from left edge */
+  top: 150px;            /* vertical start – tweak 130–190px to line up with your heading */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  z-index: 30;           /* above hero + rows */
+}
+
+/* If you keep .side-dock-content wrapper, keep it simple */
+.side-dock-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Icon buttons */
+.side-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f5f5f5;
+  font-size: 1.2rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.55);
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+
+.side-icon span {
+  font-size: 1.3rem;
+}
+
+.side-icon:hover {
+  transform: translateY(-2px);
+  background: rgba(0, 0, 0, 0.82);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.7);
+}
+
+/* Pink profile icon at the top */
+.side-profile {
+  background: linear-gradient(135deg, #ff3366, #ff6f61);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* FREE pill */
+.side-pill {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #111;
+  background: #ffd54f;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.55);
+}
+
+/* language icon – small extra gap below FREE */
+.side-lang {
+  margin-top: 0.35rem;
+}
+
+/* Nuke any old vertical line / spine */
+.side-dock::before {
+  display: none !important;
+}
+
+/* Hide dock on mobile */
+@media (max-width: 900px) {
+  .side-dock {
+    display: none;
+  }
+}
+/* === Header logo reset (FINAL) === */
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.05;
+}
+
+/* “treasureplay” text – hoichoi-ish */
+.brand-mark {
+  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 1.6rem;      /* smaller like hoichoi */
+  font-weight: 700;
+  text-transform: lowercase;
+  letter-spacing: 0.04em;
+}
+
+/* treasure (red) */
+.brand-mark .tp-primary {
+  color: #ff1744;         /* hoichoi-style red */
+}
+
+/* play (warm yellow) */
+.brand-mark .tp-secondary {
+  color: #ffe082;         /* warm accent for play */
+}
+
+/* tagline under logo */
+.brand-sub {
+  margin-top: 0.25rem;
+  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: rgba(230, 230, 230, 0.92);
+}
+
+.tag-soft {
+  color: inherit;
+}
+
