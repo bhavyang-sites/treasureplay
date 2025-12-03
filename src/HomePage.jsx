@@ -59,7 +59,7 @@ const HomePage = () => {
 
   return (
     <div className="homepage-container">
-      {/* HOICHOI-STYLE SIDE RAIL WITH TREASUREPLAY LOGO */}
+      {/* SIDE RAIL WITH TREASUREPLAY LOGO */}
       <aside className="side-rail" aria-label="Main navigation">
         <div className="side-rail-inner">
           {/* Stylized logo: tall "t" + reasure / play */}
@@ -75,14 +75,7 @@ const HomePage = () => {
             </span>
           </button>
 
-          <button
-            className="side-subscribe"
-            type="button"
-            onClick={() => navigate("/demo-request")}
-          >
-            Demo
-          </button>
-
+          {/* Nav icons + labels */}
           <nav className="side-nav">
             {SIDE_ITEMS.map((item) => (
               <button
@@ -114,7 +107,6 @@ const HomePage = () => {
               backgroundImage: `url(${hero.backdrop || hero.thumbnail})`,
             }}
           >
-            {/* No dimming overlay – pure bright image */}
             <div className="home-hero-overlay">
               <motion.h2
                 className="hero-title"
