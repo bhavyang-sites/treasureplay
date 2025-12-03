@@ -3,28 +3,26 @@ import { useNavigate } from "react-router-dom";
 import "./HomePage.css";
 import { motion } from "framer-motion";
 
-const NAV_ITEMS = ["Home", "Movies", "Shows", "Kids"];
+const SIDE_ITEMS = [
+  { key: "my", label: "My TreasurePlay", icon: "👤", type: "scrollTop" },
+  { key: "search", label: "Search", icon: "🔍", type: "route", to: "/search" },
+  { key: "home", label: "Home", icon: "⌂", type: "scrollTop" },
+  { key: "movies", label: "Movies", icon: "🎬", type: "noop" },
+  { key: "shows", label: "Shows", icon: "📺", type: "route", to: "/about-smartskips" },
+  { key: "free", label: "Free", icon: null, type: "noop" },
+  { key: "lang", label: "Hindi", icon: "अ", type: "noop" },
+];
 
 const HomePage = () => {
   const [videoMetadata, setVideoMetadata] = useState([]);
-  const [familyMode, setFamilyMode] = useState(
-    () => JSON.parse(localStorage.getItem("familyMode") || "false")
-  );
-
   const navigate = useNavigate();
 
   useEffect(() => {
     fetch("/video_metadata.json")
       .then((res) => res.json())
       .then((data) => setVideoMetadata(Array.isArray(data) ? data : []))
-      .catch((err) =>
-        console.error("Failed to load video metadata:", err)
-      );
+      .catch((err) => console.error("Failed to load video metadata:", err));
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem("familyMode", JSON.stringify(familyMode));
-  }, [familyMode]);
 
   const hero = useMemo(() => {
     if (!videoMetadata.length) return null;
@@ -51,173 +49,138 @@ const HomePage = () => {
 
   const onThumbActivate = (id) => navigate(`/video/${id}`);
 
+  const handleSideClick = (item) => {
+    if (item.type === "route" && item.to) {
+      navigate(item.to);
+    } else if (item.type === "scrollTop") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+    // type "noop" doesn't do anything for now (like Movies / Free / Hindi)
+  };
+
   return (
     <div className="homepage-container">
-      {/* HEADER (nav + family mode only) */}
-      <header className="hp-header">
-        <nav className="hp-nav" aria-label="Primary">
-          {NAV_ITEMS.map((label) => (
-            <button
-              key={label}
-              className={`nav-link ${
-                label === "Home" ? "nav-link-active" : ""
-              }`}
-              type="button"
-            >
-              {label}
-            </button>
-          ))}
-        </nav>
-
-        <div className="right-ctls">
+      {/* HOICHOI-STYLE SIDE RAIL */}
+      <aside className="side-rail" aria-label="Main navigation">
+        <div className="side-rail-inner">
+          {/* Logo */}
           <button
+            className="side-logo"
             type="button"
-            className="fm-badge"
-            onClick={() => setFamilyMode((prev) => !prev)}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
-            <svg className="fm-icon" viewBox="0 0 24 24" aria-hidden="true">
-              <circle
-                cx="12"
-                cy="12"
-                r="10"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.6"
-              />
-              <path
-                d="M8.5 12.5 11 15l4.5-6"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            <span>{familyMode ? "Family Mode: On" : "Family Mode: Off"}</span>
-          </button>
-        </div>
-      </header>
-
-      <div className="hp-body">
-        {/* SIDE RAIL with logo + icons */}
-        <aside className="side-dock" aria-label="Secondary navigation">
-          <div className="side-logo">
             <span className="side-logo-main">treasure</span>
             <span className="side-logo-sub">play</span>
-          </div>
+          </button>
 
-          <div className="side-dock-content">
-            <button className="side-icon side-profile" aria-label="Profile">
-              <span>👤</span>
-            </button>
+          {/* Subscribe-style button (optional, like Hoichoi) */}
+          <button
+            className="side-subscribe"
+            type="button"
+            onClick={() => navigate("/demo-request")}
+          >
+            Demo
+          </button>
 
-            <button
-              className="side-icon"
-              aria-label="Search"
-              onClick={() => navigate("/search")}
-            >
-              <span>🔍</span>
-            </button>
-
-            <button
-              className="side-icon"
-              aria-label="Home"
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            >
-              <span>⌂</span>
-            </button>
-
-            <button
-              className="side-icon"
-              aria-label="SmartSkips info"
-              onClick={() => navigate("/about-smartskips")}
-            >
-              <span>📺</span>
-            </button>
-
-            <div className="side-pill">FREE</div>
-
-            <button className="side-icon side-lang" aria-label="Language">
-              <span>अ</span>
-            </button>
-          </div>
-        </aside>
-
-        {/* MAIN CONTENT: hero + rows + footer */}
-        <div className="hp-main">
-          {hero && (
-            <section
-              className="hero"
-              style={{
-                backgroundImage: `url(${hero.backdrop || hero.thumbnail})`,
-              }}
-            >
-              <div className="hero-gradient" />
-              <div className="home-hero-overlay">
-                <motion.h2
-                  className="hero-title"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.15 }}
-                >
-                  {hero.title}
-                </motion.h2>
-
-                {hero.tagline ? (
-                  <p className="hero-tagline">{hero.tagline}</p>
-                ) : null}
-
-                <div className="hero-actions">
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => onThumbActivate(hero.id)}
-                    type="button"
-                  >
-                    ▶ Play
-                  </button>
-                  <button
-                    className="btn btn-ghost"
-                    onClick={() => navigate("/about-smartskips")}
-                    type="button"
-                  >
-                    What is SmartSkips?
-                  </button>
-                </div>
-              </div>
-            </section>
-          )}
-
-          <main className="rows">
-            {rows.map((row) => (
-              <ThumbRow
-                key={row.title}
-                title={row.title}
-                items={row.items}
-                familyMode={familyMode}
-                onThumbActivate={onThumbActivate}
-              />
-            ))}
-          </main>
-
-          <footer className="hp-footer">
-            <div className="cta">
-              <span>Ready to try SmartSkips on your catalog?</span>
+          {/* Nav icons + labels */}
+          <nav className="side-nav">
+            {SIDE_ITEMS.map((item) => (
               <button
-                className="btn btn-outline"
-                onClick={() => navigate("/demo-request")}
+                key={item.key}
                 type="button"
+                className={`side-nav-item side-nav-item-${item.key}`}
+                onClick={() => handleSideClick(item)}
               >
-                Get a live demo
+                <div className="side-nav-icon-wrap">
+                  {item.icon ? (
+                    <span className="side-nav-icon">{item.icon}</span>
+                  ) : (
+                    <span className="side-nav-pill">Free</span>
+                  )}
+                </div>
+                <span className="side-nav-label">{item.label}</span>
               </button>
-            </div>
-          </footer>
+            ))}
+          </nav>
         </div>
-      </div>
+      </aside>
+
+      {/* MAIN CONTENT: hero + rows + footer */}
+      <main className="hp-main">
+        {/* HERO */}
+        {hero && (
+          <section
+            className="hero"
+            style={{
+              backgroundImage: `url(${hero.backdrop || hero.thumbnail})`,
+            }}
+          >
+            <div className="hero-gradient" />
+            <div className="home-hero-overlay">
+              <motion.h2
+                className="hero-title"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.15 }}
+              >
+                {hero.title}
+              </motion.h2>
+
+              {hero.tagline ? (
+                <p className="hero-tagline">{hero.tagline}</p>
+              ) : null}
+
+              <div className="hero-actions">
+                <button
+                  className="btn btn-primary"
+                  onClick={() => onThumbActivate(hero.id)}
+                  type="button"
+                >
+                  ▶ Play
+                </button>
+                <button
+                  className="btn btn-ghost"
+                  onClick={() => navigate("/about-smartskips")}
+                  type="button"
+                >
+                  What is SmartSkips?
+                </button>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ROWS */}
+        <section className="rows">
+          {rows.map((row) => (
+            <ThumbRow
+              key={row.title}
+              title={row.title}
+              items={row.items}
+              onThumbActivate={onThumbActivate}
+            />
+          ))}
+        </section>
+
+        {/* FOOTER CTA */}
+        <footer className="hp-footer">
+          <div className="cta">
+            <span>Ready to try SmartSkips on your catalog?</span>
+            <button
+              className="btn btn-outline"
+              onClick={() => navigate("/demo-request")}
+              type="button"
+            >
+              Get a live demo
+            </button>
+          </div>
+        </footer>
+      </main>
     </div>
   );
 };
 
-function ThumbRow({ title, items, familyMode, onThumbActivate }) {
+function ThumbRow({ title, items, onThumbActivate }) {
   if (!items || !items.length) return null;
 
   return (
@@ -246,7 +209,6 @@ function ThumbRow({ title, items, familyMode, onThumbActivate }) {
                 className="thumbnail-image"
                 loading="lazy"
               />
-              {familyMode && <span className="fm-chip">FM</span>}
             </div>
             <p className="thumbnail-title">{video.title}</p>
           </article>

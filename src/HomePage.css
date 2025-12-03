@@ -1,205 +1,179 @@
-/* ========== PAGE BACKGROUND ========== */
+/* ========== GLOBAL BACKGROUND ========== */
 
 .homepage-container {
-  background: radial-gradient(1100px 500px at 10% -10%, #14151b 0%, #050509 55%, #020308 100%);
-  color: #fff;
   min-height: 100vh;
+  background: radial-gradient(1100px 500px at 10% -10%, #14151b 0%, #050509 55%, #020308 100%);
+  color: #ffffff;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  position: relative;
+  overflow-x: hidden;
 }
 
-/* ========== HEADER (NAV + FAMILY MODE) ========== */
+/* ========== SIDE RAIL (HOICHOI STYLE) ========== */
 
-.hp-header {
-  position: sticky;
+.side-rail {
+  position: fixed;
   top: 0;
+  left: 0;
+  width: 76px;                  /* collapsed width: only icons */
+  height: 100vh;
   z-index: 40;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.8rem 3.5rem;
   background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.92) 0%,
-    rgba(0, 0, 0, 0.7) 40%,
+    90deg,
+    rgba(0, 0, 0, 0.96) 0%,
+    rgba(0, 0, 0, 0.9) 30%,
+    rgba(0, 0, 0, 0.7) 55%,
     rgba(0, 0, 0, 0.0) 100%
   );
-  backdrop-filter: blur(6px);
+  transition: width 0.2s ease;
 }
 
-/* Center nav */
-.hp-nav {
-  display: flex;
-  gap: 1.2rem;
-}
-
-.nav-link {
-  border: 0;
-  padding: 0.35rem 0.7rem;
-  border-radius: 999px;
-  background: transparent;
-  color: #d5d5d5;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition:
-    background 0.15s ease,
-    color 0.15s ease;
-}
-
-.nav-link:hover,
-.nav-link:focus-visible {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.08);
-  outline: none;
-}
-
-.nav-link-active {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.16);
-}
-
-/* Right side controls */
-.right-ctls {
-  display: flex;
-  justify-content: flex-end;
-}
-
-/* Family mode badge */
-.fm-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  padding: 0.3rem 0.8rem;
-  border-radius: 999px;
-  font-size: 0.85rem;
-  border: 1px solid rgba(56, 189, 248, 0.45);
-  background: linear-gradient(180deg, rgba(14, 165, 233, 0.24), rgba(14, 165, 233, 0.12));
-  color: #e0f4ff;
-  box-shadow: 0 4px 14px rgba(14, 165, 233, 0.24);
-  cursor: pointer;
-}
-
-.fm-icon {
-  width: 16px;
-  height: 16px;
-}
-
-/* ========== BODY WRAPPER (NO GRID) ========== */
-
-.hp-body {
-  position: relative;
-  padding: 0 3.5rem 2.7rem;
-  margin-top: 0.3rem;
-}
-
-/* main column */
-.hp-main {
-  min-width: 0;
-}
-
-/* ========== SIDE DOCK (overlay column with logo + icons) ========== */
-
-.side-dock {
-  position: fixed;
-  top: 120px;
-  left: 3.5rem; /* aligned with page padding */
-  z-index: 35;
+.side-rail-inner {
+  height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  padding: 0.9rem 0.7rem 1.4rem 1.2rem;
 }
 
-/* logo at top of rail */
+/* expand on hover to show text */
+.side-rail:hover {
+  width: 230px;
+}
+
+/* logo at top */
 .side-logo {
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 1.3rem;
-  line-height: 1.05;
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin-bottom: 0.8rem;
+  cursor: pointer;
 }
 
 .side-logo-main {
-  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
-  font-size: 1.5rem;
+  font-family: "Poppins", system-ui, sans-serif;
+  font-size: 1.45rem;
   font-weight: 700;
+  letter-spacing: 0.05em;
   text-transform: lowercase;
-  letter-spacing: 0.04em;
   color: #ff1744;
 }
 
 .side-logo-sub {
-  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
-  font-size: 1.3rem;
+  font-family: "Poppins", system-ui, sans-serif;
+  font-size: 1.25rem;
   font-weight: 700;
+  letter-spacing: 0.05em;
   text-transform: lowercase;
-  letter-spacing: 0.04em;
   color: #ffe082;
 }
 
-.side-dock-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.75rem;
+/* subscribe / demo pill like Hoichoi's button */
+.side-subscribe {
+  align-self: flex-start;
+  margin-bottom: 1.2rem;
+  padding: 0.25rem 0.85rem;
+  border-radius: 999px;
+  border: none;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: #fbbf24;
+  color: #111827;
+  cursor: pointer;
 }
 
-/* Icon buttons */
-.side-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: #0b0c12;
+/* nav items */
+.side-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+/* icon circle */
+.side-nav-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.95);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #f9fafb;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.8);
+}
+
+.side-nav-icon {
   font-size: 1.2rem;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.65);
-  cursor: pointer;
-  transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease,
-    background 0.15s ease,
-    border-color 0.15s ease;
 }
 
-.side-icon span {
-  font-size: 1.25rem;
-}
-
-.side-icon:hover {
-  transform: translateY(-2px);
-  background: #151724;
-  border-color: rgba(255, 255, 255, 0.4);
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.85);
-}
-
-/* Highlight top profile icon */
-.side-profile {
-  background: linear-gradient(135deg, #ff3366, #ff6f61);
-  border-color: rgba(255, 255, 255, 0.6);
-}
-
-/* FREE pill between icons */
-.side-pill {
-  margin: 0.2rem 0;
-  padding: 0.3rem 0.85rem;
+/* "Free" pill instead of icon for that row */
+.side-nav-pill {
+  padding: 0.05rem 0.4rem;
   border-radius: 999px;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: #111;
-  background: #ffd54f;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+  letter-spacing: 0.08em;
+  color: #111827;
+  background: #facc15;
 }
 
-/* language icon near bottom */
-.side-lang {
-  margin-top: 0.35rem;
+/* whole row (icon + label) */
+.side-nav-item {
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.15rem 0.3rem;
+  border-radius: 999px;
+  color: #e5e7eb;
+  cursor: pointer;
 }
 
-/* ========== HERO AREA (banner) ========== */
+/* labels are hidden/collapsed by default */
+.side-nav-label {
+  opacity: 0;
+  max-width: 0;
+  transform: translateX(-4px);
+  white-space: nowrap;
+  overflow: hidden;
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease,
+    max-width 0.18s ease;
+  font-size: 0.9rem;
+}
+
+/* when rail is expanded, show labels */
+.side-rail:hover .side-nav-label {
+  opacity: 1;
+  max-width: 160px;
+  transform: translateX(0);
+}
+
+/* hover effect on row */
+.side-nav-item:hover .side-nav-icon-wrap {
+  background: rgba(30, 64, 175, 0.9);
+}
+
+/* extra spacing before language */
+.side-nav-item-lang {
+  margin-top: 0.4rem;
+}
+
+/* ========== MAIN CONTENT ========== */
+
+.hp-main {
+  /* leave room for the side rail visually */
+  padding: 1.2rem 3.5rem 2.7rem 3.5rem;
+  margin-left: 0; /* hero sits under gradient; no hard offset */
+}
+
+/* HERO */
 
 .hero {
   position: relative;
@@ -224,13 +198,14 @@
   );
 }
 
+/* shift hero text to the right so rail/icons never overlap it */
 .home-hero-overlay {
   position: absolute;
   inset: 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 2rem 2.25rem;
+  padding: 2rem 2.25rem 2rem 9rem; /* left padding large to clear rail */
 }
 
 .hero-title {
@@ -256,7 +231,8 @@
   gap: 0.9rem;
 }
 
-/* buttons */
+/* BUTTONS */
+
 .btn {
   border: 0;
   padding: 0.55rem 1.25rem;
@@ -294,7 +270,7 @@
   background: rgba(255, 255, 255, 0.08);
 }
 
-/* ========== ROWS & THUMBNAILS ========== */
+/* ROWS & THUMBS */
 
 .rows {
   display: flex;
@@ -321,7 +297,6 @@
   color: #ffffff;
 }
 
-/* horizontal thumbnail scroller */
 .thumbnail-row {
   display: flex;
   flex-wrap: nowrap;
@@ -371,18 +346,6 @@
   display: block;
 }
 
-/* FM chip sits on the thumbnail */
-.fm-chip {
-  position: absolute;
-  top: 0.5rem;
-  left: 0.6rem;
-  padding: 0.1rem 0.45rem;
-  border-radius: 999px;
-  font-size: 0.7rem;
-  background: #3b82f6;
-  color: #ffffff;
-}
-
 .thumbnail-title {
   margin-top: 0.45rem;
   font-size: 0.9rem;
@@ -392,7 +355,7 @@
   text-overflow: ellipsis;
 }
 
-/* ========== FOOTER CTA ========== */
+/* FOOTER CTA */
 
 .hp-footer {
   padding-bottom: 2.4rem;
@@ -413,20 +376,16 @@
 /* ========== RESPONSIVE ========== */
 
 @media (max-width: 900px) {
-  .hp-header {
-    padding-inline: 1.2rem;
+  .side-rail {
+    display: none;
   }
 
-  .hp-nav {
-    overflow-x: auto;
+  .hp-main {
+    padding: 1rem 1.2rem 2rem;
   }
 
-  .hp-body {
-    padding-inline: 1.2rem;
-  }
-
-  .side-dock {
-    display: none; /* hide overlay rail on small screens */
+  .home-hero-overlay {
+    padding: 1.7rem;
   }
 
   .hero {
