@@ -9,14 +9,15 @@
   overflow-x: hidden;
 }
 
-/* ========== SIDE RAIL ========== */
+/* =====================================================
+   SIDE RAIL — NOW WIDER SO LOGO FITS (110px)
+   ===================================================== */
 
-/* was 76px */
 .side-rail {
   position: fixed;
   top: 0;
   left: 0;
-  width: 110px;              /* wider column for logo + icons */
+  width: 110px;                    /* Expanded from 76px → fits logo */
   height: 100vh;
   z-index: 40;
   background: linear-gradient(
@@ -24,74 +25,79 @@
     rgba(0, 0, 0, 0.96) 0%,
     rgba(0, 0, 0, 0.9) 40%,
     rgba(0, 0, 0, 0.7) 70%,
-    rgba(0, 0, 0, 0.0) 100%
+    rgba(0, 0, 0, 0) 100%
   );
-  transition: width 0.2s ease;
+  transition: width 0.25s ease;
 }
 
+/* Hover-expanded menu */
+.side-rail:hover {
+  width: 250px;
+}
+
+/* Inner rail layout */
 .side-rail-inner {
   height: 100%;
   display: flex;
   flex-direction: column;
-  padding: 0.9rem 0.7rem 1.4rem 1.2rem;
+  padding: 1rem 0.7rem 1.4rem 1rem;
 }
 
-/* keep the “expanded” feel, just a bit wider */
-.side-rail:hover {
-  width: 250px;
-}
-/* ========== TREASUREPLAY LOGO – Polished Version ========== */
+/* =====================================================
+   TREASUREPLAY LOGO — PPT STYLE (FINAL POLISHED)
+   ===================================================== */
 
 .side-logo {
   width: 100%;
-  padding: 0.6rem 0.8rem 0.7rem;
+  padding: 0.6rem 0.85rem 0.7rem;
   border-radius: 14px;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.82);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 0.35rem;
   cursor: pointer;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.85);
   overflow: hidden;
 }
 
-/* Row with t + reasure */
+/* t + reasure row */
 .side-logo-top {
   display: flex;
   align-items: baseline;
-  gap: 0.18rem;
+  gap: 0.2rem;
 }
 
-/* Bigger, stronger t */
+/* Big red “t” */
 .side-logo-t {
   font-family: "Poppins", sans-serif;
-  font-size: 2.8rem;              /* slightly taller */
+  font-size: 2.8rem;
   font-weight: 800;
-  line-height: 0.9;
+  line-height: 0.92;
   color: #d81414;
   text-shadow:
-    0 0 6px rgba(216, 20, 20, 0.7),
-    0 0 14px rgba(0, 0, 0, 0.9);
+    0 0 7px rgba(216, 20, 20, 0.7),
+    0 0 15px rgba(0, 0, 0, 0.9);
 }
 
-/* “reasure” */
+/* "reasure" */
 .side-logo-reasure {
   font-family: "Poppins", sans-serif;
   font-size: 1.27rem;
   font-weight: 700;
   letter-spacing: 0.07em;
   color: #e91e24;
-  margin-top: 0.32rem;
+  margin-top: 0.35rem;
   text-shadow:
-    0 0 5px rgba(233, 30, 36, 0.75),
+    0 0 6px rgba(233, 30, 36, 0.75),
     0 0 12px rgba(0, 0, 0, 0.85);
 }
 
-/* Yellow pill – centered under “reasure” */
+/* Yellow pill for "play" */
 .side-logo-play-pill {
   position: relative;
-  margin-left: 2.2rem;            /* moved left from 1.9 -> centers perfectly */
-  margin-top: -0.15rem;           /* tucks closer */
+  margin-left: 2.0rem;              /* Centers under “reasure” */
+  margin-top: -0.12rem;
   padding: 0.33rem 1rem 0.38rem;
   border-radius: 999px;
   background: #ffd91a;
@@ -100,7 +106,7 @@
     0 0 12px rgba(255, 217, 26, 0.7);
 }
 
-/* Centered “play” */
+/* "play" text */
 .side-logo-play-text {
   font-family: "Poppins", sans-serif;
   font-size: 1.02rem;
@@ -111,7 +117,7 @@
   position: relative;
 }
 
-/* CONNECTOR LINES (now visible + aligned) */
+/* WHITE connector lines */
 .side-logo-play-pill::before,
 .side-logo-play-pill::after {
   content: "";
@@ -119,8 +125,8 @@
   top: -0.32rem;
   width: 1rem;
   height: 2px;
-  background: #1f2933;
-  opacity: 0.85;
+  background: rgba(255, 255, 255, 0.9);   /* visible on any hero */
+  box-shadow: 0 0 4px rgba(0,0,0,0.8);
 }
 
 .side-logo-play-pill::before {
@@ -133,17 +139,17 @@
   transform: rotate(15deg);
 }
 
-/* CONNECTOR DOTS */
+/* WHITE connector dots */
 .side-logo-play-text::before,
 .side-logo-play-text::after {
   content: "";
   position: absolute;
   top: -0.52rem;
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background: #1f2933;
-  opacity: 0.9;
+  background: #ffffff;
+  box-shadow: 0 0 6px rgba(0,0,0,0.85);
 }
 
 .side-logo-play-text::before {
@@ -154,45 +160,15 @@
   right: -0.55rem;
 }
 
-
-
-/* (side-subscribe styles kept but unused) */
-.side-subscribe {
-  display: none;
-}
-
-/* NAV ITEMS */
+/* =====================================================
+   SIDE NAV ITEMS (ICONS)
+   ===================================================== */
 
 .side-nav {
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
-}
-
-.side-nav-icon-wrap {
-  width: 40px;
-  height: 40px;
-  border-radius: 999px;
-  background: rgba(15, 23, 42, 0.95);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.8);
-}
-
-.side-nav-icon {
-  font-size: 1.2rem;
-}
-
-.side-nav-pill {
-  padding: 0.05rem 0.4rem;
-  border-radius: 999px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #111827;
-  background: #facc15;
+  gap: 0.6rem;
+  margin-top: 0.7rem;
 }
 
 .side-nav-item {
@@ -200,40 +176,61 @@
   background: transparent;
   display: flex;
   align-items: center;
-  gap: 0.7rem;
-  padding: 0.15rem 0.3rem;
-  border-radius: 999px;
+  gap: 0.75rem;
+  padding: 0.2rem 0.3rem;
+  border-radius: 10px;
   color: #e5e7eb;
   cursor: pointer;
+  white-space: nowrap;
 }
 
+/* Icon circle */
+.side-nav-icon-wrap {
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.8);
+}
+
+.side-nav-icon {
+  font-size: 1.25rem;
+}
+
+.side-nav-pill {
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: #ffd91a;
+  color: #111;
+}
+
+/* Reveal labels on expand */
 .side-nav-label {
   opacity: 0;
   max-width: 0;
   transform: translateX(-4px);
-  white-space: nowrap;
   overflow: hidden;
-  transition:
-    opacity 0.18s ease,
-    transform 0.18s ease,
-    max-width 0.18s ease;
-  font-size: 0.9rem;
+  transition: all 0.18s ease;
+  font-size: 0.95rem;
 }
 
 .side-rail:hover .side-nav-label {
   opacity: 1;
-  max-width: 160px;
+  max-width: 180px;
   transform: translateX(0);
 }
 
-.side-nav-item:hover .side-nav-icon-wrap {
-  background: rgba(30, 64, 175, 0.9);
-}
-
-/* ========== MAIN CONTENT & HERO ========== */
+/* =====================================================
+   HERO SECTION (PUSHED RIGHT TO CLEAR SIDE RAIL)
+   ===================================================== */
 
 .hp-main {
-  padding: 0 0 2.7rem 0;
+  padding: 0 0 2.8rem;
 }
 
 .hero {
@@ -241,173 +238,95 @@
   width: 100vw;
   height: 60vh;
   min-height: 360px;
-  border-radius: 0;
-  overflow: hidden;
   background-size: cover;
   background-position: center;
-  box-shadow: none;
+  border-radius: 0;
+  overflow: hidden;
 }
 
-/* was padding-left: 9rem; adjust for wider rail */
+/* Push hero text right by new rail width */
 .home-hero-overlay {
   position: absolute;
   inset: 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 2rem 3rem 2.3rem 11rem;  /* <-- only change is this 11rem */
+  padding: 2rem 3rem 2.3rem 12rem;   /* updated from 9rem → 12rem */
 }
 
-
 .hero-title {
-  font-family: "Oswald", "Montserrat", system-ui, sans-serif;
-  font-size: 2.6rem;
+  font-family: "Oswald", sans-serif;
+  font-size: 2.7rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
-  margin: 0 0 0.4rem;
   text-transform: uppercase;
-  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.7);
+  text-shadow: 0 3px 10px rgba(0,0,0,0.75);
 }
 
 .hero-tagline {
-  font-family: "Montserrat", system-ui, sans-serif;
   font-size: 1rem;
-  font-weight: 400;
   color: #f9fafb;
-  margin: 0 0 0.9rem;
+  margin: 0.3rem 0 1rem;
 }
 
 .hero-actions {
   display: flex;
-  gap: 0.9rem;
+  gap: 1rem;
 }
-
-/* BUTTONS */
 
 .btn {
-  border: 0;
   padding: 0.55rem 1.25rem;
   border-radius: 0.8rem;
-  cursor: pointer;
   font-weight: 600;
-  font-family: inherit;
+  cursor: pointer;
 }
 
-/* Play button now uses treasure red */
 .btn-primary {
   background: #ff1849;
-  color: #ffffff;
-}
-
-.btn-primary:hover {
-  filter: brightness(1.05);
+  color: #fff;
 }
 
 .btn-ghost {
-  background: rgba(0, 0, 0, 0.55);
-  color: #f9fafb;
+  background: rgba(0,0,0,0.5);
+  color: #fff;
 }
 
-.btn-ghost:hover {
-  background: rgba(0, 0, 0, 0.75);
-}
-
-.btn-outline {
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  background: transparent;
-  color: #ffffff;
-}
-
-.btn-outline:hover {
-  background: rgba(255, 255, 255, 0.08);
-}
-
-/* ROWS & THUMBS */
+/* =====================================================
+   CONTENT ROWS + THUMBNAILS
+   ===================================================== */
 
 .rows {
+  padding: 2rem 3.5rem 2.5rem;
   display: flex;
   flex-direction: column;
-  gap: 1.8rem;
-  padding: 1.8rem 3.5rem 2.2rem;
-}
-
-.row {
-  padding-bottom: 0.3rem;
-}
-
-.row-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.5rem;
+  gap: 2rem;
 }
 
 .row-title {
-  font-family: "Poppins", system-ui, sans-serif;
+  font-size: 1.35rem;
   font-weight: 700;
-  font-size: 1.25rem;
-  color: #ffffff;
 }
 
 .thumbnail-row {
   display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
   gap: 1rem;
-  padding: 0.25rem 0;
-  -webkit-overflow-scrolling: touch;
-  scroll-snap-type: x proximity;
-}
-
-.thumbnail-row::-webkit-scrollbar {
-  height: 7px;
-}
-
-.thumbnail-row::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.25);
-  border-radius: 999px;
-}
-
-.thumbnail-row::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.thumbnail-row {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
-}
-
-.thumbnail-item {
-  flex: 0 0 auto;
-  width: 14rem;
-  cursor: pointer;
-  scroll-snap-align: start;
+  overflow-x: auto;
 }
 
 .thumbnail-wrapper {
-  position: relative;
   border-radius: 0.75rem;
   overflow: hidden;
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.75);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.7);
 }
 
 .thumbnail-image {
-  width: 100%;
+  width: 14rem;
   height: 8rem;
   object-fit: cover;
-  display: block;
 }
 
-.thumbnail-title {
-  margin-top: 0.45rem;
-  font-size: 0.9rem;
-  color: #f3f4f6;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* FOOTER */
+/* =====================================================
+   FOOTER CTA
+   ===================================================== */
 
 .hp-footer {
   padding: 0 3.5rem 2.4rem;
@@ -415,41 +334,28 @@
 
 .hp-footer .cta {
   display: flex;
-  align-items: center;
   justify-content: center;
   gap: 1rem;
-  margin-top: 0;
   padding: 1rem 1.4rem;
   border-radius: 1rem;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
 }
 
-/* RESPONSIVE */
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
 
 @media (max-width: 900px) {
   .side-rail {
     display: none;
   }
-
-  .hp-main {
-    padding: 0 0 2rem 0;
-  }
-
-  .hero {
-    width: 100%;
-    height: 44vh;
-    min-height: 260px;
-  }
-
   .home-hero-overlay {
     padding: 1.7rem;
   }
-
   .rows {
-    padding: 1.6rem 1.2rem 2rem;
+    padding: 1.5rem;
   }
-
   .hp-footer {
     padding: 0 1.2rem 2.4rem;
   }
