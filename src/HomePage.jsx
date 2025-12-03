@@ -55,25 +55,26 @@ const HomePage = () => {
     } else if (item.type === "scrollTop") {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
-    // type "noop" doesn't do anything for now (like Movies / Free / Hindi)
   };
 
   return (
     <div className="homepage-container">
-      {/* HOICHOI-STYLE SIDE RAIL */}
+      {/* HOICHOI-STYLE SIDE RAIL WITH TREASUREPLAY LOGO */}
       <aside className="side-rail" aria-label="Main navigation">
         <div className="side-rail-inner">
-          {/* Logo */}
+          {/* Stylized logo: tall "t" + reasure / play */}
           <button
             className="side-logo"
             type="button"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
-            <span className="side-logo-main">treasure</span>
-            <span className="side-logo-sub">play</span>
+            <span className="side-logo-t">t</span>
+            <span className="side-logo-block">
+              <span className="side-logo-reasure">reasure</span>
+              <span className="side-logo-play">play</span>
+            </span>
           </button>
 
-          {/* Subscribe-style button (optional, like Hoichoi) */}
           <button
             className="side-subscribe"
             type="button"
@@ -82,7 +83,6 @@ const HomePage = () => {
             Demo
           </button>
 
-          {/* Nav icons + labels */}
           <nav className="side-nav">
             {SIDE_ITEMS.map((item) => (
               <button
@@ -105,9 +105,8 @@ const HomePage = () => {
         </div>
       </aside>
 
-      {/* MAIN CONTENT: hero + rows + footer */}
+      {/* MAIN CONTENT: FULL-BLEED HERO + ROWS + FOOTER */}
       <main className="hp-main">
-        {/* HERO */}
         {hero && (
           <section
             className="hero"
@@ -115,7 +114,7 @@ const HomePage = () => {
               backgroundImage: `url(${hero.backdrop || hero.thumbnail})`,
             }}
           >
-            <div className="hero-gradient" />
+            {/* No dimming overlay – pure bright image */}
             <div className="home-hero-overlay">
               <motion.h2
                 className="hero-title"
@@ -150,7 +149,6 @@ const HomePage = () => {
           </section>
         )}
 
-        {/* ROWS */}
         <section className="rows">
           {rows.map((row) => (
             <ThumbRow
@@ -162,7 +160,6 @@ const HomePage = () => {
           ))}
         </section>
 
-        {/* FOOTER CTA */}
         <footer className="hp-footer">
           <div className="cta">
             <span>Ready to try SmartSkips on your catalog?</span>

@@ -15,7 +15,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 76px;                  /* collapsed width: only icons */
+  width: 76px; /* collapsed */
   height: 100vh;
   z-index: 40;
   background: linear-gradient(
@@ -35,42 +35,63 @@
   padding: 0.9rem 0.7rem 1.4rem 1.2rem;
 }
 
-/* expand on hover to show text */
+/* expand on hover to show labels */
 .side-rail:hover {
   width: 230px;
 }
 
-/* logo at top */
+/* ========== TREASUREPLAY LOGO IN RAIL ========== */
+
 .side-logo {
   display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
+  align-items: stretch;
   border: none;
   background: transparent;
   padding: 0;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.9rem;
   cursor: pointer;
 }
 
-.side-logo-main {
+/* tall "t" */
+.side-logo-t {
   font-family: "Poppins", system-ui, sans-serif;
-  font-size: 1.45rem;
+  font-size: 2.7rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: #ff1744;
+  text-transform: lowercase;
+}
+
+/* block with reasure + play (two lines) */
+.side-logo-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 0.15rem;
+}
+
+.side-logo-reasure {
+  font-family: "Poppins", system-ui, sans-serif;
+  font-size: 1.2rem;
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: lowercase;
-  color: #ff1744;
+  color: #ff4b5c;
 }
 
-.side-logo-sub {
+/* right-aligned "play" on second line */
+.side-logo-play {
   font-family: "Poppins", system-ui, sans-serif;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: lowercase;
   color: #ffe082;
+  align-self: flex-end;
 }
 
-/* subscribe / demo pill like Hoichoi's button */
+/* Demo pill like "Subscribe" */
 .side-subscribe {
   align-self: flex-start;
   margin-bottom: 1.2rem;
@@ -87,13 +108,13 @@
 }
 
 /* nav items */
+
 .side-nav {
   display: flex;
   flex-direction: column;
   gap: 0.45rem;
 }
 
-/* icon circle */
 .side-nav-icon-wrap {
   width: 40px;
   height: 40px;
@@ -109,7 +130,6 @@
   font-size: 1.2rem;
 }
 
-/* "Free" pill instead of icon for that row */
 .side-nav-pill {
   padding: 0.05rem 0.4rem;
   border-radius: 999px;
@@ -121,7 +141,6 @@
   background: #facc15;
 }
 
-/* whole row (icon + label) */
 .side-nav-item {
   border: none;
   background: transparent;
@@ -134,7 +153,7 @@
   cursor: pointer;
 }
 
-/* labels are hidden/collapsed by default */
+/* labels start hidden */
 .side-nav-label {
   opacity: 0;
   max-width: 0;
@@ -148,64 +167,46 @@
   font-size: 0.9rem;
 }
 
-/* when rail is expanded, show labels */
+/* show labels when rail expands */
 .side-rail:hover .side-nav-label {
   opacity: 1;
   max-width: 160px;
   transform: translateX(0);
 }
 
-/* hover effect on row */
+/* hover effect */
 .side-nav-item:hover .side-nav-icon-wrap {
   background: rgba(30, 64, 175, 0.9);
 }
 
-/* extra spacing before language */
-.side-nav-item-lang {
-  margin-top: 0.4rem;
-}
-
 /* ========== MAIN CONTENT ========== */
 
+/* hero should hijack top from left, right and top */
 .hp-main {
-  /* leave room for the side rail visually */
-  padding: 1.2rem 3.5rem 2.7rem 3.5rem;
-  margin-left: 0; /* hero sits under gradient; no hard offset */
+  padding: 0 0 2.7rem 0; /* no padding on top/left/right for hero */
 }
 
-/* HERO */
-
+/* full-bleed hero */
 .hero {
   position: relative;
-  width: 100%;
-  height: 52vh;
-  min-height: 320px;
-  border-radius: 0.9rem;
+  width: 100vw;
+  height: 60vh;
+  min-height: 360px;
+  border-radius: 0;            /* no rounded corners */
   overflow: hidden;
   background-size: cover;
   background-position: center;
-  box-shadow: 0 20px 42px rgba(0, 0, 0, 0.55);
+  box-shadow: none;            /* pure image */
 }
 
-.hero-gradient {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.3) 0%,
-    rgba(0, 0, 0, 0.6) 60%,
-    rgba(0, 0, 0, 0.9) 100%
-  );
-}
-
-/* shift hero text to the right so rail/icons never overlap it */
+/* no dimming overlay – just layout / text container */
 .home-hero-overlay {
   position: absolute;
   inset: 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 2rem 2.25rem 2rem 9rem; /* left padding large to clear rail */
+  padding: 2rem 3rem 2.3rem 9rem; /* extra left padding so text clears rail */
 }
 
 .hero-title {
@@ -215,14 +216,14 @@
   letter-spacing: 0.08em;
   margin: 0 0 0.4rem;
   text-transform: uppercase;
-  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.9);
+  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.7); /* just enough for readability */
 }
 
 .hero-tagline {
   font-family: "Montserrat", system-ui, sans-serif;
   font-size: 1rem;
   font-weight: 400;
-  color: #e5e5e5;
+  color: #f9fafb;
   margin: 0 0 0.9rem;
 }
 
@@ -276,7 +277,7 @@
   display: flex;
   flex-direction: column;
   gap: 1.8rem;
-  padding: 1.8rem 0 2.2rem;
+  padding: 1.8rem 3.5rem 2.2rem; /* padding added here instead of on hero */
 }
 
 .row {
@@ -358,7 +359,7 @@
 /* FOOTER CTA */
 
 .hp-footer {
-  padding-bottom: 2.4rem;
+  padding: 0 3.5rem 2.4rem;
 }
 
 .hp-footer .cta {
@@ -381,15 +382,24 @@
   }
 
   .hp-main {
-    padding: 1rem 1.2rem 2rem;
+    padding: 0 0 2rem 0;
+  }
+
+  .hero {
+    width: 100%;
+    height: 44vh;
+    min-height: 260px;
   }
 
   .home-hero-overlay {
     padding: 1.7rem;
   }
 
-  .hero {
-    height: 44vh;
-    min-height: 260px;
+  .rows {
+    padding: 1.6rem 1.2rem 2rem;
+  }
+
+  .hp-footer {
+    padding: 0 1.2rem 2.4rem;
   }
 }
