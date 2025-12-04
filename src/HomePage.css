@@ -19,15 +19,15 @@
   top: 0;
   left: 0;
   width: 76px;
-  height: 100vh; /* Force full viewport height */
+  height: 100vh; 
   z-index: 40;
   
-  /* FIXED: Gradient that is dark enough at the bottom to show full height */
+  /* FIXED: Faded Gradient (Collapsed State) */
   background: linear-gradient(
-    180deg, 
-    rgba(0, 0, 0, 0.95) 0%, 
-    rgba(0, 0, 0, 0.9) 70%, 
-    rgba(0, 0, 0, 0.4) 100%
+    90deg, 
+    rgba(0, 0, 0, 0.98) 0%, 
+    rgba(0, 0, 0, 0.8) 70%, 
+    rgba(0, 0, 0, 0.0) 100%
   );
   
   transition: width 0.25s ease;
@@ -38,10 +38,10 @@
 /* Hover-expanded menu */
 .side-rail:hover {
   width: 250px;
-  /* Darker background on hover for readability */
+  /* FIXED: Dark but slightly faded background for expanded state */
   background: linear-gradient(
-    180deg, 
-    rgba(0, 0, 0, 0.98) 0%, 
+    90deg, 
+    rgba(0, 0, 0, 0.99) 0%, 
     rgba(0, 0, 0, 0.95) 100%
   );
 }
@@ -52,7 +52,6 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  /* Removing right padding ensures logo and icons can use full width */
   padding: 1rem 0; 
   box-sizing: border-box;
 }
@@ -63,12 +62,12 @@
 
 .side-logo {
   display: flex;
-  flex-direction: row; /* Always horizontal */
+  flex-direction: row; 
   align-items: center;
-  justify-content: center; /* Center "tp" in collapsed rail */
+  justify-content: center;
   
   width: 100%;
-  padding-bottom: 2rem; /* Spacing before icons start */
+  padding-bottom: 2rem; 
   cursor: pointer;
   border: none;
   background: transparent;
@@ -91,7 +90,7 @@
   color: #d81414;
   line-height: 1;
   text-shadow: 0 0 10px rgba(0,0,0,0.5);
-  margin-right: 1px; /* Tiny spacing between t and p */
+  margin-right: 1px;
 }
 
 /* 2. The Red "reasure" (Hidden by default) */
@@ -108,10 +107,9 @@
   position: relative;
   background: #ffd91a;
   border-radius: 4px;
-  /* Collapsed dimensions */
   padding: 0 4px; 
   height: 22px;
-  margin-top: 6px; /* Align visually with the crossbar of "t" */
+  margin-top: 6px; 
   
   display: flex;
   align-items: center;
@@ -127,7 +125,7 @@
   content: "p"; /* Inject "p" for collapsed mode */
   font-family: "Poppins", sans-serif;
   font-weight: 700;
-  color: #111;
+  color: #111; /* Confirmed Black */
   font-size: 1.1rem;
   line-height: 1;
 }
@@ -140,7 +138,7 @@
 .side-logo-play-pill::after {
   content: "";
   position: absolute;
-  display: none; /* Hidden */
+  display: none; 
   top: -6px;
   width: 2px;
   height: 8px;
@@ -150,34 +148,30 @@
 .side-logo-play-pill::before { left: 4px; transform: rotate(-30deg); transform-origin: bottom center; }
 .side-logo-play-pill::after  { right: 4px; transform: rotate(30deg); transform-origin: bottom center; }
 
-/* Dots on antenna */
-.side-logo-play-text::after { /* Using after for dots to avoid conflict with 'p' hack */
-  content: "";
-  display: none;
-}
 
 /* =====================================================
    EXPANDED STATE OVERRIDES (ON HOVER)
    ===================================================== */
 
 .side-rail:hover .side-logo {
-  justify-content: flex-start; /* Align left */
-  padding-left: 1.5rem; /* Indent from left edge */
+  justify-content: flex-start;
+  padding-left: 1.5rem;
 }
 
 .side-rail:hover .side-logo-reasure {
-  display: block; /* Show "reasure" */
+  display: block; 
 }
 
 /* Adjust the yellow box for the full word "play" */
 .side-rail:hover .side-logo-play-pill {
   padding: 0 10px;
-  margin-left: 4px; /* Tiny gap after "Treasure" */
-  margin-top: 4px;  /* Align baseline with text */
+  margin-left: 4px;
+  margin-top: 4px;
 }
 
 /* Restore the word "play" */
 .side-rail:hover .side-logo-play-text {
+  color: #111; /* Confirmed Black */
   font-size: 0.95rem; 
 }
 .side-rail:hover .side-logo-play-text::before {
@@ -191,17 +185,16 @@
 }
 
 /* =====================================================
-   SIDE NAVIGATION ICONS (Full Height Fix)
+   SIDE NAVIGATION ICONS
    ===================================================== */
 
 .side-nav {
   display: flex;
   flex-direction: column;
-  /* FIXED: Large gap spreads icons out to cover more height */
-  gap: 1.5rem; 
+  gap: 1.5rem; /* Spreads icons out to cover more height */
   width: 100%;
   margin-top: 1rem;
-  flex-grow: 1; /* Occupy remaining space */
+  flex-grow: 1; 
 }
 
 .side-nav-item {
@@ -210,7 +203,6 @@
   display: flex;
   align-items: center;
   width: 100%;
-  /* Padding aligns icon in center of collapsed rail (76px / 2 = center) */
   padding: 0.5rem 0 0.5rem 1.1rem; 
   cursor: pointer;
   color: #e5e7eb;
@@ -282,7 +274,6 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  /* Push content right to clear collapsed rail */
   padding: 2rem 3rem 2.5rem 6rem; 
   background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
 }
@@ -311,7 +302,7 @@
 .btn-ghost { background: rgba(255,255,255,0.2); color: #fff; }
 
 .rows {
-  padding: 2rem 2rem 2rem 6rem; /* Left padding for rail */
+  padding: 2rem 2rem 2rem 6rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
