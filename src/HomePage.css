@@ -10,14 +10,15 @@
 }
 
 /* =====================================================
-   SIDE RAIL — NOW A STANDARD COLLAPSED WIDTH (76px)
+   SIDE RAIL — STANDARD COLLAPSED WIDTH (76px)
+   (Fixed from 110px)
    ===================================================== */
 
 .side-rail {
   position: fixed;
   top: 0;
   left: 0;
-  width: 76px;                    /* ADJUSTED from 110px to a standard collapsed rail width */
+  width: 76px;                    /* Standard collapsed rail width */
   height: 100vh;
   z-index: 40;
   background: linear-gradient(
@@ -44,74 +45,75 @@
 }
 
 /* =====================================================
-   TREASUREPLAY LOGO — RESIZED AND STACKED FOR 76PX RAIL
+   TREASUREPLAY LOGO — OTT MINIMAL STYLE
+   (Improvised for compact, icon-like look)
    ===================================================== */
 
 .side-logo {
   width: 100%;
-  padding: 0.5rem 0.5rem 0.5rem; /* Reduced padding for narrower rail */
+  padding: 0.8rem 0.5rem 0.6rem; /* Adjusted padding for better vertical fit */
   border-radius: 14px;
   background: rgba(0, 0, 0, 0.82);
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centered for narrow rail */
-  gap: 0.2rem; /* Reduced vertical gap */
+  align-items: center; /* Center everything in the narrow rail */
+  gap: 0.1rem; /* Reduced vertical gap */
   cursor: pointer;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.8); /* Reduced shadow */
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.8);
   overflow: hidden;
 }
 
-/* t + reasure row */
+/* t + reasure row (now stacked) */
 .side-logo-top {
   display: flex;
-  flex-direction: column; /* Stacks 't' and 'reasure' vertically for narrow rail */
-  align-items: center;
-  gap: 0; /* Removed gap */
+  flex-direction: column; /* Changed to column for vertical stacking */
+  align-items: center; /* Center the letters */
+  gap: 0;
 }
 
 /* Big red “t” */
 .side-logo-t {
   font-family: "Poppins", sans-serif;
-  font-size: 2.2rem; /* Reduced from 2.8rem */
+  font-size: 1.6rem; /* REDUCED for minimal style (was 2.8rem) */
   font-weight: 800;
-  line-height: 0.8; /* Reduced line height for compression */
+  line-height: 0.8; /* Tighten up spacing */
   color: #d81414;
   text-shadow:
-    0 0 7px rgba(216, 20, 20, 0.7),
-    0 0 10px rgba(0, 0, 0, 0.9);
+    0 0 5px rgba(216, 20, 20, 0.7),
+    0 0 8px rgba(0, 0, 0, 0.9);
   margin-bottom: -0.2rem; /* Pull up closer to "reasure" */
 }
 
 /* "reasure" */
 .side-logo-reasure {
   font-family: "Poppins", sans-serif;
-  font-size: 0.8rem; /* Reduced from 1.27rem */
+  font-size: 0.7rem; /* REDUCED for minimal style (was 1.27rem) */
   font-weight: 700;
   letter-spacing: 0.05em;
   color: #e91e24;
-  margin-top: 0; /* Removed margin */
+  margin-top: 0; /* Remove top margin */
   text-shadow:
-    0 0 5px rgba(233, 30, 36, 0.75),
-    0 0 8px rgba(0, 0, 0, 0.85);
+    0 0 3px rgba(233, 30, 36, 0.75),
+    0 0 5px rgba(0, 0, 0, 0.85);
 }
 
 /* Yellow pill for "play" */
 .side-logo-play-pill {
   position: relative;
-  margin-left: 0;              /* REMOVED horizontal centering margin (was 2.0rem) */
-  margin-top: 0.1rem; /* Adjusted vertical margin */
-  padding: 0.2rem 0.6rem 0.25rem; /* Reduced padding */
+  margin-left: 0; /* REMOVED complex horizontal centering margin */
+  margin-top: 0.1rem;
+  padding: 0.15rem 0.5rem 0.2rem; /* Reduced padding for smaller pill */
   border-radius: 999px;
   background: #ffd91a;
   box-shadow:
-    0 2px 6px rgba(0, 0, 0, 0.7), /* Reduced shadow */
-    0 0 8px rgba(255, 217, 26, 0.7);
+    0 1px 4px rgba(0, 0, 0, 0.7),
+    0 0 6px rgba(255, 217, 26, 0.7);
 }
 
 /* "play" text */
 .side-logo-play-text {
   font-family: "Poppins", sans-serif;
-  font-size: 0.8rem; /* Reduced from 1.02rem */
+  font-size: 0.75rem; /* Reduced from 1.02rem */
   font-weight: 700;
   color: #111;
   letter-spacing: 0.02em;
@@ -119,13 +121,13 @@
   position: relative;
 }
 
-/* WHITE connector lines (Removed for thin rail) */
+/* WHITE connector lines (REMOVED FOR MINIMAL OTT STYLE) */
 .side-logo-play-pill::before,
 .side-logo-play-pill::after {
   content: none;
 }
 
-/* WHITE connector dots (Removed for thin rail) */
+/* WHITE connector dots (REMOVED FOR MINIMAL OTT STYLE) */
 .side-logo-play-text::before,
 .side-logo-play-text::after {
   content: none;
@@ -198,6 +200,7 @@
 
 /* =====================================================
    HERO SECTION (PUSHED RIGHT TO CLEAR SIDE RAIL)
+   (Fixed from 12rem)
    ===================================================== */
 
 .hp-main {
