@@ -18,16 +18,10 @@
   top: 0;
   left: 0;
   width: 76px;                    /* Standard collapsed width */
-  height: 100vh;
+  height: 100vh;                  /* 100% viewport height */
   z-index: 40;
-  /* Faded background for expanded state */
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 0.96) 0%,
-    rgba(0, 0, 0, 0.9) 40%,
-    rgba(0, 0, 0, 0.7) 70%,
-    rgba(0, 0, 0, 0) 100%
-  );
+  /* FIXED: Use a near-solid color to make it visually span 100vh */
+  background: rgba(0, 0, 0, 0.96); 
   transition: width 0.25s ease;
 }
 
@@ -45,17 +39,16 @@
 }
 
 /* =====================================================
-   TREASUREPLAY LOGO — FINAL LAYOUT
+   TREASUREPLAY LOGO
    ===================================================== */
 
 .side-logo {
   width: 100%;
-  padding: 0.8rem 0.5rem 0.8rem; /* Padding for collapsed vertical view */
+  padding: 0.8rem 0.5rem 0.8rem; 
   border-radius: 14px;
-  /* No background/shadow by default for transparent look on hover */
   display: flex;
-  flex-direction: column; /* FIXED: Vertical stack for collapsed mode */
-  align-items: center; /* FIXED: Center elements horizontally in collapsed mode */
+  flex-direction: column; /* Vertical stack for collapsed mode */
+  align-items: center; 
   gap: 0;
   cursor: pointer;
   overflow: hidden;
@@ -102,8 +95,8 @@
 .side-logo-play-pill {
   display: block; 
   position: relative;
-  margin-left: 0; /* Reset margin for collapsed mode */
-  margin-top: -0.1rem; /* Adjust positioning under 't' */
+  margin-left: 0; 
+  margin-top: -0.1rem; 
   padding: 0.33rem 1rem 0.38rem;
   border-radius: 6px;
   background: #ffd91a;
@@ -123,12 +116,12 @@
   position: relative;
 }
 
-/* WHITE connector lines - Antenna arms (FINAL ALIGNMENT) */
+/* WHITE connector lines - Antenna arms */
 .side-logo-play-pill::before,
 .side-logo-play-pill::after {
   content: "";
   position: absolute;
-  display: none; /* HIDDEN in collapsed state (76px) */
+  display: none; 
   top: -0.32rem; 
   width: 1rem;
   height: 2px;
@@ -147,12 +140,12 @@
   transform: rotate(-30deg);
 }
 
-/* WHITE connector dots - Antenna tips (FINAL ALIGNMENT) */
+/* WHITE connector dots - Antenna tips */
 .side-logo-play-text::before,
 .side-logo-play-text::after {
   content: "";
   position: absolute;
-  display: none; /* HIDDEN in collapsed state (76px) */
+  display: none; 
   top: -1.0rem; 
   width: 7px;
   height: 7px;
@@ -174,8 +167,8 @@
    ===================================================== */
 
 .side-rail:hover .side-logo {
-  padding: 0.6rem 0.85rem 0.7rem; /* Adjusted padding for full logo */
-  flex-direction: row; /* FIXED: Horizontal layout for full logo */
+  padding: 0.6rem 0.85rem 0.7rem; 
+  flex-direction: row; /* Horizontal layout for full logo */
   align-items: flex-start;
   /* Background Fix: Apply transparent background only on hover */
   background: rgba(0, 0, 0, 0.6);
@@ -184,12 +177,13 @@
 }
 
 .side-rail:hover .side-logo-reasure {
-  display: inline; /* SHOW 'reasure' on hover */
+  display: inline; 
 }
 
 .side-rail:hover .side-logo-play-pill {
-  margin-left: 1.5rem; /* FIXED: Position 'play' box next to 'treasure' */
-  margin-top: -0.12rem; /* Vertical alignment with 'treasure' */
+  /* FIXED: Adjusted margin to pull 'play' box closer to 'treasure' */
+  margin-left: 1.0rem; 
+  margin-top: 0.1rem; /* FIXED: Vertical alignment adjustment */
 }
 
 /* SHOW antenna parts on hover */
@@ -213,6 +207,7 @@
   flex-direction: column;
   gap: 0.6rem;
   margin-top: 0.7rem;
+  flex-grow: 1; /* FIXED: Allows the nav to stretch and fill available height */
 }
 
 .side-nav-item {
