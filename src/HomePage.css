@@ -121,12 +121,13 @@
   position: relative;
 }
 
-/* Connector lines and dots remain hidden unless expanded */
+/* WHITE connector lines - NOW POINTING UP LIKE AN ANTENNA */
 .side-logo-play-pill::before,
 .side-logo-play-pill::after {
   content: "";
   position: absolute;
-  top: -0.32rem;
+  /* CHANGED: Anchor to the bottom of the pill */
+  bottom: 0.2rem;
   width: 1rem;
   height: 2px;
   background: rgba(255, 255, 255, 0.9);
@@ -135,19 +136,21 @@
 
 .side-logo-play-pill::before {
   left: 0.4rem;
-  transform: rotate(-15deg);
+  transform: rotate(15deg); /* Adjusted rotation for upright antenna */
 }
 
 .side-logo-play-pill::after {
   right: 0.4rem;
-  transform: rotate(15deg);
+  transform: rotate(-15deg); /* Adjusted rotation for upright antenna */
 }
 
+/* WHITE connector dots - NOW POSITIONED ABOVE THE ANTENNA LINES */
 .side-logo-play-text::before,
 .side-logo-play-text::after {
   content: "";
   position: absolute;
-  top: -0.52rem;
+  /* CHANGED: Positioned above the pill */
+  top: -0.72rem; /* moved up to sit above the antenna lines */
   width: 7px;
   height: 7px;
   border-radius: 50%;
