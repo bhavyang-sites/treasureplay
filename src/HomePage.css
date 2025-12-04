@@ -22,12 +22,12 @@
   height: 100vh; 
   z-index: 40;
   
-  /* FIXED: Faded Gradient (Collapsed State) - Intensified fade */
+  /* FIXED: Faded Gradient (Collapsed State) - aggressive fade for 76px */
   background: linear-gradient(
     90deg, 
-    rgba(0, 0, 0, 0.95) 0%, /* Slightly less opaque start */
-    rgba(0, 0, 0, 0.6) 75%, /* Quicker transition to transparency */
-    rgba(0, 0, 0, 0.0) 100% /* Fades to fully transparent */
+    rgba(0, 0, 0, 0.95) 0%, 
+    rgba(0, 0, 0, 0.6) 75%, 
+    rgba(0, 0, 0, 0.0) 100% 
   );
   
   transition: width 0.25s ease;
@@ -37,14 +37,14 @@
 
 /* Hover-expanded menu */
 .side-rail:hover {
-  /* FIXED: Reduced width from 250px to 200px to fit content better */
+  /* Reduced width to 200px */
   width: 200px; 
   
-  /* Dark but slightly faded background for expanded state */
+  /* FIXED: Faded Gradient (Expanded State) - subtle fade for wider rail */
   background: linear-gradient(
     90deg, 
-    rgba(0, 0, 0, 0.99) 0%, 
-    rgba(0, 0, 0, 0.95) 100%
+    rgba(0, 0, 0, 0.99) 0%, /* Starts near black */
+    rgba(0, 0, 0, 0.92) 100% /* Fades to a slightly lighter dark color */
   );
 }
 
@@ -205,7 +205,6 @@
   display: flex;
   align-items: center;
   width: 100%;
-  /* Padding aligns icon in center of collapsed rail, and maintains alignment when expanded */
   padding: 0.5rem 0 0.5rem 1.1rem; 
   cursor: pointer;
   color: #e5e7eb;
