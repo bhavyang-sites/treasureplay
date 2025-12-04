@@ -10,16 +10,17 @@
 }
 
 /* =====================================================
-   SIDE RAIL — COLLAPSED WIDTH (110px)
+   SIDE RAIL — COLLAPSED WIDTH (76px)
    ===================================================== */
 
 .side-rail {
   position: fixed;
   top: 0;
   left: 0;
-  width: 110px;                    /* Base width for 't' + 'reasure play' logo to fit horizontally */
+  width: 76px;                    /* FIXED: Reverted to standard collapsed width */
   height: 100vh;
   z-index: 40;
+  /* Faded background for expanded state */
   background: linear-gradient(
     90deg,
     rgba(0, 0, 0, 0.96) 0%,
@@ -44,17 +45,17 @@
 }
 
 /* =====================================================
-   TREASUREPLAY LOGO — FINAL FIXED STYLES
+   TREASUREPLAY LOGO — VISIBILITY LOGIC IMPLEMENTED
    ===================================================== */
 
 .side-logo {
   width: 100%;
-  padding: 0.8rem 0.5rem 0.8rem; /* Padding for collapsed state */
+  padding: 0.6rem 0.5rem 0.7rem; /* Tight padding for collapsed horizontal view */
   border-radius: 14px;
-  /* Background/Shadow removed to allow side-rail transparency to show through */
+  /* No background/shadow by default for transparent look on hover */
   display: flex;
-  flex-direction: column;
-  align-items: center; /* Center 't' in collapsed view */
+  flex-direction: row; /* FIXED: Horizontal for 't' and 'play' in collapsed mode */
+  align-items: center; /* Vertically center items */
   gap: 0;
   cursor: pointer;
   overflow: hidden;
@@ -66,7 +67,7 @@
 /* t + reasure container */
 .side-logo-top {
   display: flex;
-  flex-direction: row; /* Default to row layout for the 110px width */
+  flex-direction: row; /* t and reasure are side-by-side in this container */
   align-items: baseline;
   gap: 0.2rem;
 }
@@ -85,6 +86,7 @@
 
 /* "reasure" */
 .side-logo-reasure {
+  display: none; /* FIXED: HIDDEN in collapsed state (76px) */
   font-family: "Poppins", sans-serif;
   font-size: 1.27rem;
   font-weight: 700;
@@ -98,11 +100,12 @@
 
 /* Yellow rectangle for "play" */
 .side-logo-play-pill {
+  display: block; /* Visible in collapsed mode */
   position: relative;
-  margin-left: 2.0rem; 
-  margin-top: -0.12rem;
+  margin-left: 0.1rem; /* Positioning for side-by-side with 't' */
+  margin-top: -0.22rem; /* FIXED: Vertical alignment with 't' */
   padding: 0.33rem 1rem 0.38rem;
-  border-radius: 6px; /* Rectangle look */
+  border-radius: 6px;
   background: #ffd91a;
   box-shadow:
     0 4px 10px rgba(0, 0, 0, 0.7),
@@ -120,12 +123,13 @@
   position: relative;
 }
 
-/* WHITE connector lines - Antenna arms (FINAL FIX) */
+/* WHITE connector lines - Antenna arms (FIXED POSITION) */
 .side-logo-play-pill::before,
 .side-logo-play-pill::after {
   content: "";
   position: absolute;
-  top: -0.32rem; /* FIXED: Adjusts base position for clean rotation from edge */
+  display: none; /* FIXED: HIDDEN in collapsed state (76px) */
+  top: -0.32rem; /* Antenna Fix: Base position for clean rotation from edge */
   width: 1rem;
   height: 2px;
   background: rgba(255, 255, 255, 0.9);
@@ -143,12 +147,13 @@
   transform: rotate(-30deg);
 }
 
-/* WHITE connector dots - Antenna tips (FINAL FIX) */
+/* WHITE connector dots - Antenna tips (FIXED POSITION) */
 .side-logo-play-text::before,
 .side-logo-play-text::after {
   content: "";
   position: absolute;
-  top: -1.0rem; /* FIXED: Connects to the higher tip of the rotated line */
+  display: none; /* FIXED: HIDDEN in collapsed state (76px) */
+  top: -1.0rem; /* Antenna Fix: Connects to the higher tip of the rotated line */
   width: 7px;
   height: 7px;
   border-radius: 50%;
@@ -168,19 +173,37 @@
    EXPANDED LOGO STATE (ON HOVER)
    ===================================================== */
 
-.side-rail:hover .side-logo-top {
-  flex-direction: row; /* Horizontal layout for 't reasure' */
-  align-items: baseline;
-}
-
-/* When rail is fully expanded, re-apply padding and background/border for a soft look */
 .side-rail:hover .side-logo {
-  padding: 0.6rem 0.85rem 0.7rem; 
+  padding: 0.6rem 0.85rem 0.7rem; /* Adjusted padding for full logo */
   align-items: flex-start;
   /* Background Fix: Apply transparent background only on hover */
-  background: rgba(0, 0, 0, 0.6); 
+  background: rgba(0, 0, 0, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 0 16px rgba(0, 0, 0, 0.85);
+}
+
+.side-rail:hover .side-logo-top {
+  /* No changes needed here, as default is already row */
+}
+
+.side-rail:hover .side-logo-reasure {
+  display: inline; /* FIXED: SHOW 'reasure' on hover */
+}
+
+.side-rail:hover .side-logo-play-pill {
+  margin-left: 2.0rem; /* Repositions 'play' pill horizontally under 'reasure' */
+  margin-top: -0.12rem; /* Repositions 'play' pill vertically for full logo look */
+}
+
+/* SHOW antenna parts on hover */
+.side-rail:hover .side-logo-play-pill::before,
+.side-rail:hover .side-logo-play-pill::after {
+  display: block;
+}
+
+.side-rail:hover .side-logo-play-text::before,
+.side-rail:hover .side-logo-play-text::after {
+  display: block;
 }
 
 
@@ -275,7 +298,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 2rem 3rem 2.3rem 12rem;   /* updated from 9rem → 12rem */
+  padding: 2rem 3rem 2.3rem 9rem;   /* FIXED: Adjusted back for 76px rail (9rem) */
 }
 
 .hero-title {
