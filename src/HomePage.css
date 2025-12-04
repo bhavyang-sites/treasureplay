@@ -10,14 +10,14 @@
 }
 
 /* =====================================================
-   SIDE RAIL — STANDARD COLLAPSED WIDTH (76px)
+   SIDE RAIL — COLLAPSED WIDTH 76PX (OTT STANDARD)
    ===================================================== */
 
 .side-rail {
   position: fixed;
   top: 0;
   left: 0;
-  width: 76px;                    /* Standard collapsed rail width */
+  width: 76px;                    /* ADJUSTED to 76px for standard collapsed rail */
   height: 100vh;
   z-index: 40;
   background: linear-gradient(
@@ -44,72 +44,143 @@
 }
 
 /* =====================================================
-   TREASUREPLAY LOGO — MINIMAL OTT ICON STYLE (PLAY PILL)
+   TREASUREPLAY LOGO — 'T' ONLY COLLAPSED, FULL LOGO EXPANDED
    ===================================================== */
 
 .side-logo {
   width: 100%;
-  padding: 0.8rem 0.5rem 0.8rem; /* Centered padding */
+  padding: 0.8rem 0.5rem 0.8rem; /* Padding for the 't' icon */
   border-radius: 14px;
-  background: transparent; /* Changed to transparent for a cleaner look */
+  background: rgba(0, 0, 0, 0.82);
   display: flex;
   flex-direction: column;
-  align-items: center; 
-  gap: 0; 
+  align-items: center; /* Center the 't' in collapsed view */
+  gap: 0;
   cursor: pointer;
-  box-shadow: none; /* Removed box shadow from container */
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.85);
   overflow: hidden;
 }
 
-/* t + reasure row — HIDDEN IN COLLAPSED STATE */
+/* t + reasure container */
 .side-logo-top {
-  display: none; /* Hides the complex 't reasure' element when collapsed */
-  align-items: center; 
+  display: flex;
+  flex-direction: column; /* Stacks 't' in the center for collapsed view */
+  align-items: center;
   gap: 0;
 }
 
-/* Big red “t” (Hidden) */
+/* Big red “t” */
 .side-logo-t {
-  display: none;
+  font-family: "Poppins", sans-serif;
+  font-size: 2.8rem;
+  font-weight: 800;
+  line-height: 0.92;
+  color: #d81414;
+  text-shadow:
+    0 0 7px rgba(216, 20, 20, 0.7),
+    0 0 15px rgba(0, 0, 0, 0.9);
+  /* The 't' is visible and prominent in collapsed state */
 }
 
-/* "reasure" (Hidden) */
+/* "reasure" (Hidden in collapsed state) */
 .side-logo-reasure {
-  display: none;
+  display: none; /* HIDDEN in collapsed state */
+  font-family: "Poppins", sans-serif;
+  font-size: 1.27rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  color: #e91e24;
+  margin-top: 0.35rem;
+  text-shadow:
+    0 0 6px rgba(233, 30, 36, 0.75),
+    0 0 12px rgba(0, 0, 0, 0.85);
 }
 
-/* Yellow pill for "play" - THE NEW LOGO ICON */
+/* Yellow pill for "play" (Hidden in collapsed state) */
 .side-logo-play-pill {
+  display: none; /* HIDDEN in collapsed state */
   position: relative;
-  margin-left: 0; 
+  margin-left: 0;
   margin-top: 0;
-  padding: 0.35rem 0.9rem 0.38rem; /* Adjusted size for a prominent icon */
+  padding: 0.33rem 1rem 0.38rem;
   border-radius: 999px;
   background: #ffd91a;
   box-shadow:
-    0 1px 6px rgba(0, 0, 0, 0.7), /* Enhanced shadow */
-    0 0 10px rgba(255, 217, 26, 0.7);
+    0 4px 10px rgba(0, 0, 0, 0.7),
+    0 0 12px rgba(255, 217, 26, 0.7);
 }
 
 /* "play" text */
 .side-logo-play-text {
   font-family: "Poppins", sans-serif;
-  font-size: 0.75rem; 
+  font-size: 1.02rem;
   font-weight: 700;
   color: #111;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
   display: inline-block;
   position: relative;
 }
 
-/* Connector lines and dots removed for clean minimal style */
+/* Connector lines and dots remain hidden unless expanded */
 .side-logo-play-pill::before,
-.side-logo-play-pill::after,
-.side-logo-play-text::before,
-.side-logo-play-text::after {
-  content: none;
+.side-logo-play-pill::after {
+  content: "";
+  position: absolute;
+  top: -0.32rem;
+  width: 1rem;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 4px rgba(0,0,0,0.8);
 }
 
+.side-logo-play-pill::before {
+  left: 0.4rem;
+  transform: rotate(-15deg);
+}
+
+.side-logo-play-pill::after {
+  right: 0.4rem;
+  transform: rotate(15deg);
+}
+
+.side-logo-play-text::before,
+.side-logo-play-text::after {
+  content: "";
+  position: absolute;
+  top: -0.52rem;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 6px rgba(0,0,0,0.85);
+}
+
+.side-logo-play-text::before {
+  left: -0.55rem;
+}
+
+.side-logo-play-text::after {
+  right: -0.55rem;
+}
+
+/* =====================================================
+   EXPANDED LOGO STATE (ON HOVER)
+   ===================================================== */
+
+.side-rail:hover .side-logo-top {
+  flex-direction: row; /* Horizontal layout for 't reasure' */
+  align-items: baseline;
+}
+
+.side-rail:hover .side-logo-reasure {
+  display: inline; /* Show 'reasure' */
+}
+
+.side-rail:hover .side-logo-play-pill {
+  display: block; /* Show 'play' pill */
+  margin-left: 2.0rem; /* Restore full logo position */
+  margin-top: -0.12rem;
+}
 
 /* =====================================================
    SIDE NAV ITEMS (ICONS)
@@ -120,39 +191,6 @@
   flex-direction: column;
   gap: 0.6rem;
   margin-top: 0.7rem;
-}
-
-/* When the rail expands, re-introduce the full logo for branding */
-.side-rail:hover .side-logo {
-  background: rgba(0, 0, 0, 0.82); /* Re-apply background on hover */
-  padding: 0.6rem 0.85rem 0.7rem; 
-  box-shadow: 0 0 16px rgba(0, 0, 0, 0.85);
-  gap: 0.35rem;
-}
-
-.side-rail:hover .side-logo-top {
-  display: flex; /* Show the top element on hover */
-  flex-direction: row; /* Return to original horizontal layout */
-  align-items: baseline;
-  gap: 0.2rem;
-}
-
-.side-rail:hover .side-logo-t {
-  display: inline;
-  font-size: 2.8rem; /* Restore large 't' size */
-  line-height: 0.92;
-}
-
-.side-rail:hover .side-logo-reasure {
-  display: inline;
-  font-size: 1.27rem; /* Restore 'reasure' size */
-  margin-top: 0.35rem;
-}
-
-.side-rail:hover .side-logo-play-pill {
-  margin-left: 2.0rem; /* Restore centering margin */
-  margin-top: -0.12rem;
-  padding: 0.33rem 1rem 0.38rem; /* Restore original pill size */
 }
 
 .side-nav-item {
@@ -228,15 +266,14 @@
   overflow: hidden;
 }
 
-/* Push hero text right by new rail width */
+/* Push hero text right by new rail width (76px + margin) */
 .home-hero-overlay {
   position: absolute;
   inset: 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  /* Retained original 12rem padding here, assuming you want a large offset for the hero content */
-  padding: 2rem 3rem 2.3rem 12rem;   
+  padding: 2rem 3rem 2.3rem 6rem;   /* ADJUSTED to 6rem for the 76px rail */
 }
 
 .hero-title {
