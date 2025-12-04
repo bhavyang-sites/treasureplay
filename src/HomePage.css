@@ -22,7 +22,7 @@
   height: 100vh; 
   z-index: 40;
   
-  /* FIXED: Faded Gradient (Collapsed State) - aggressive fade for 76px */
+  /* Faded Gradient (Collapsed State) - aggressive fade for 76px */
   background: linear-gradient(
     90deg, 
     rgba(0, 0, 0, 0.95) 0%, 
@@ -37,14 +37,14 @@
 
 /* Hover-expanded menu */
 .side-rail:hover {
-  /* FIXED: Reduced width to 200px */
+  /* Reduced width to 200px */
   width: 200px; 
   
-  /* FIXED: Faded Gradient (Expanded State) - subtle fade for wider rail */
+  /* Faded Gradient (Expanded State) - subtle fade for wider rail */
   background: linear-gradient(
     90deg, 
-    rgba(0, 0, 0, 0.95) 0%, /* Dark start */
-    rgba(0, 0, 0, 0.75) 100% /* Fades to a much lighter opacity at the edge */
+    rgba(0, 0, 0, 0.95) 0%, 
+    rgba(0, 0, 0, 0.75) 100% 
   );
 }
 
@@ -141,7 +141,8 @@
   content: "";
   position: absolute;
   display: none; 
-  top: -6px;
+  /* FIXED: Move top of 8px antenna to -8px so its bottom starts at the pill's edge (0px) */
+  top: -8px; 
   width: 2px;
   height: 8px;
   background: rgba(255,255,255,0.9);
@@ -173,7 +174,7 @@
 
 /* Restore the word "play" */
 .side-rail:hover .side-logo-play-text {
-  color: #111; /* Black color */
+  color: #111; 
   font-size: 0.95rem; 
 }
 .side-rail:hover .side-logo-play-text::before {
@@ -205,7 +206,6 @@
   display: flex;
   align-items: center;
   width: 100%;
-  /* Padding aligns icon in center of collapsed rail */
   padding: 0.5rem 0 0.5rem 1.1rem; 
   cursor: pointer;
   color: #e5e7eb;
