@@ -10,14 +10,14 @@
 }
 
 /* =====================================================
-   SIDE RAIL — STANDARD COLLAPSED WIDTH (76px)
+   SIDE RAIL — NOW WIDER SO LOGO FITS (110px)
    ===================================================== */
 
 .side-rail {
   position: fixed;
   top: 0;
   left: 0;
-  width: 76px;                    /* RESTORED: Standard collapsed rail width */
+  width: 110px;                    /* Expanded from 76px → fits logo */
   height: 100vh;
   z-index: 40;
   background: linear-gradient(
@@ -44,29 +44,28 @@
 }
 
 /* =====================================================
-   TREASUREPLAY LOGO — 'T' ONLY COLLAPSED, FULL LOGO EXPANDED
+   TREASUREPLAY LOGO — PPT STYLE (FINAL POLISHED)
    ===================================================== */
 
 .side-logo {
   width: 100%;
-  padding: 0.8rem 0.5rem 0.8rem; /* Padding for the centered 't' icon */
+  padding: 0.6rem 0.85rem 0.7rem;
   border-radius: 14px;
   background: rgba(0, 0, 0, 0.82);
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center the 't' in collapsed view */
-  gap: 0;
+  align-items: flex-start;
+  gap: 0.35rem;
   cursor: pointer;
   box-shadow: 0 0 16px rgba(0, 0, 0, 0.85);
   overflow: hidden;
 }
 
-/* t + reasure container */
+/* t + reasure row */
 .side-logo-top {
   display: flex;
-  flex-direction: column; /* Stacks 't' in the center for collapsed view */
-  align-items: center;
-  gap: 0;
+  align-items: baseline;
+  gap: 0.2rem;
 }
 
 /* Big red “t” */
@@ -83,7 +82,6 @@
 
 /* "reasure" */
 .side-logo-reasure {
-  display: none; /* HIDDEN in collapsed state (76px) */
   font-family: "Poppins", sans-serif;
   font-size: 1.27rem;
   font-weight: 700;
@@ -95,14 +93,13 @@
     0 0 12px rgba(0, 0, 0, 0.85);
 }
 
-/* Yellow rectangle for "play" - TV SCREEN LOOK */
+/* Yellow pill for "play" */
 .side-logo-play-pill {
-  display: none; /* HIDDEN in collapsed state (76px) */
   position: relative;
-  margin-left: 0;
-  margin-top: 0;
+  margin-left: 2.0rem;              /* Centers under “reasure” */
+  margin-top: -0.12rem;
   padding: 0.33rem 1rem 0.38rem;
-  border-radius: 6px; /* Rectangle/TV look */
+  border-radius: 999px; /* Reverting to pill based on provided image */
   background: #ffd91a;
   box-shadow:
     0 4px 10px rgba(0, 0, 0, 0.7),
@@ -120,12 +117,12 @@
   position: relative;
 }
 
-/* WHITE connector lines - Antenna arms (UPRIGHT) */
+/* WHITE connector lines - FIXED: Upright and connected */
 .side-logo-play-pill::before,
 .side-logo-play-pill::after {
   content: "";
   position: absolute;
-  top: -0.1rem; /* Adjusted for rotation shift */
+  top: -0.1rem; /* Adjust slightly down to clear 'reasure' */
   width: 1rem;
   height: 2px;
   background: rgba(255, 255, 255, 0.9);
@@ -134,20 +131,20 @@
 
 .side-logo-play-pill::before {
   left: 0.4rem;
-  transform: rotate(40deg); /* INCREASED TILT for upright antenna */
+  transform: rotate(30deg); /* Balanced upright angle */
 }
 
 .side-logo-play-pill::after {
   right: 0.4rem;
-  transform: rotate(-40deg); /* INCREASED TILT for upright antenna */
+  transform: rotate(-30deg); /* Balanced upright angle */
 }
 
-/* WHITE connector dots - Antenna tips (MOVED UP) */
+/* WHITE connector dots - FIXED: Positioned on the antenna tips */
 .side-logo-play-text::before,
 .side-logo-play-text::after {
   content: "";
   position: absolute;
-  top: -1.3rem; /* MOVED UP to appear above 'reasure' text */
+  top: -0.75rem; /* Adjusted to connect with the 30deg rotated line */
   width: 7px;
   height: 7px;
   border-radius: 50%;
@@ -162,31 +159,6 @@
 .side-logo-play-text::after {
   right: -0.55rem;
 }
-
-/* =====================================================
-   EXPANDED LOGO STATE (ON HOVER)
-   ===================================================== */
-
-.side-rail:hover .side-logo-top {
-  flex-direction: row; /* Horizontal layout for 't reasure' */
-  align-items: baseline;
-}
-
-.side-rail:hover .side-logo-reasure {
-  display: inline; /* SHOW 'reasure' */
-}
-
-.side-rail:hover .side-logo-play-pill {
-  display: block; /* SHOW 'play' rectangle */
-  margin-left: 2.0rem; /* Restore full logo position */
-  margin-top: -0.12rem;
-}
-
-.side-rail:hover .side-logo {
-  padding: 0.6rem 0.85rem 0.7rem; /* Restore full logo padding */
-  align-items: flex-start; /* Restore full logo alignment */
-}
-
 
 /* =====================================================
    SIDE NAV ITEMS (ICONS)
@@ -272,14 +244,14 @@
   overflow: hidden;
 }
 
-/* Push hero text right by new rail width (76px + margin) */
+/* Push hero text right by new rail width */
 .home-hero-overlay {
   position: absolute;
   inset: 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 2rem 3rem 2.3rem 9rem;   /* ADJUSTED to 9rem for the 76px rail */
+  padding: 2rem 3rem 2.3rem 12rem;   /* updated from 9rem → 12rem */
 }
 
 .hero-title {
