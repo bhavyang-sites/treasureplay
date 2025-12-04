@@ -20,7 +20,6 @@
   width: 76px;                    /* Standard collapsed rail width for 't' only view */
   height: 100vh;
   z-index: 40;
-  /* Faded background for expanded state */
   background: linear-gradient(
     90deg,
     rgba(0, 0, 0, 0.96) 0%,
@@ -45,8 +44,7 @@
 }
 
 /* =====================================================
-   TREASUREPLAY LOGO — 'T' ONLY COLLAPSED, FULL LOGO EXPANDED
-   (Background removed to let side-rail transparency show)
+   TREASUREPLAY LOGO — FIXED BACKGROUND & ANTENNA
    ===================================================== */
 
 .side-logo {
@@ -59,8 +57,10 @@
   align-items: center; /* Center the 't' in collapsed view */
   gap: 0;
   cursor: pointer;
-  box-shadow: 0 0 16px rgba(0, 0, 0, 0.85);
+  /* box-shadow: 0 0 16px rgba(0, 0, 0, 0.85); <-- REMOVED DEFAULT SHADOW */
   overflow: hidden;
+  transition: all 0.25s ease; /* Ensure transition works for box-shadow/border change */
+  border: none;
 }
 
 /* t + reasure container */
@@ -122,7 +122,7 @@
   position: relative;
 }
 
-/* WHITE connector lines - Antenna arms (UPRIGHT, CONNECTED, STARTING AT EDGE) */
+/* WHITE connector lines - Antenna arms (FIXED POSITION) */
 .side-logo-play-pill::before,
 .side-logo-play-pill::after {
   content: "";
@@ -145,7 +145,7 @@
   transform: rotate(-30deg); /* Upright angle */
 }
 
-/* WHITE connector dots - Antenna tips (POSITIONED TO CONNECT) */
+/* WHITE connector dots - Antenna tips (FIXED POSITION) */
 .side-logo-play-text::before,
 .side-logo-play-text::after {
   content: "";
@@ -181,14 +181,16 @@
 
 .side-rail:hover .side-logo-play-pill {
   display: block; /* SHOW 'play' rectangle */
-  margin-left: 2.0rem; /* Restore full logo position */
-  margin-top: -0.12rem;
+  margin-left: 2.0rem; /* Restore horizontal position */
+  margin-top: -0.3rem; /* FIXED: Pushes box up so antenna is clear of 'reasure' */
 }
 
 .side-rail:hover .side-logo {
   padding: 0.6rem 0.85rem 0.7rem; /* Restore full logo padding for expanded view */
   align-items: flex-start; /* Restore full logo alignment */
-  box-shadow: none; /* REMOVED BOX-SHADOW on expanded state */
+  /* FIXED: Add border and shadow back on hover for the transparent look */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.85);
 }
 
 
