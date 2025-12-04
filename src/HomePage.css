@@ -11,7 +11,6 @@
 
 /* =====================================================
    SIDE RAIL — STANDARD COLLAPSED WIDTH (76px)
-   (Restored to the minimal width you preferred)
    ===================================================== */
 
 .side-rail {
@@ -96,14 +95,14 @@
     0 0 12px rgba(0, 0, 0, 0.85);
 }
 
-/* Yellow pill for "play" */
+/* Yellow rectangle for "play" - TV SCREEN LOOK */
 .side-logo-play-pill {
   display: none; /* HIDDEN in collapsed state (76px) */
   position: relative;
-  margin-left: 0; /* Centering helper will be added on hover */
+  margin-left: 0;
   margin-top: 0;
   padding: 0.33rem 1rem 0.38rem;
-  border-radius: 999px;
+  border-radius: 6px; /* CHANGED to create a rectangular/TV look */
   background: #ffd91a;
   box-shadow:
     0 4px 10px rgba(0, 0, 0, 0.7),
@@ -121,12 +120,12 @@
   position: relative;
 }
 
-/* WHITE connector lines - FIXED to be upright antenna */
+/* WHITE connector lines - Antenna arms */
 .side-logo-play-pill::before,
 .side-logo-play-pill::after {
   content: "";
   position: absolute;
-  top: -0.2rem; /* Positioned at the top edge of the pill */
+  top: -0.2rem; /* Positioned at the top edge of the rectangle */
   width: 1rem;
   height: 2px;
   background: rgba(255, 255, 255, 0.9);
@@ -143,7 +142,7 @@
   transform: rotate(-15deg); /* Pointing up/left */
 }
 
-/* WHITE connector dots - FIXED to be at the antenna tips */
+/* WHITE connector dots - Antenna tips */
 .side-logo-play-text::before,
 .side-logo-play-text::after {
   content: "";
@@ -169,7 +168,7 @@
    ===================================================== */
 
 .side-rail:hover .side-logo-top {
-  flex-direction: row; /* RESTORED: Horizontal layout for 't reasure' */
+  flex-direction: row; /* Horizontal layout for 't reasure' */
   align-items: baseline;
 }
 
@@ -178,7 +177,7 @@
 }
 
 .side-rail:hover .side-logo-play-pill {
-  display: block; /* SHOW 'play' pill */
+  display: block; /* SHOW 'play' rectangle */
   margin-left: 2.0rem; /* Restore full logo position */
   margin-top: -0.12rem;
 }
