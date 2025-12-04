@@ -10,14 +10,14 @@
 }
 
 /* =====================================================
-   SIDE RAIL — COLLAPSED WIDTH 76PX (OTT STANDARD)
+   SIDE RAIL — NOW WIDER SO LOGO FITS (110px)
    ===================================================== */
 
 .side-rail {
   position: fixed;
   top: 0;
   left: 0;
-  width: 76px;                    /* ADJUSTED to 76px for standard collapsed rail */
+  width: 110px;                    /* Expanded from 76px → fits logo */
   height: 100vh;
   z-index: 40;
   background: linear-gradient(
@@ -44,29 +44,28 @@
 }
 
 /* =====================================================
-   TREASUREPLAY LOGO — 'T' ONLY COLLAPSED, FULL LOGO EXPANDED
+   TREASUREPLAY LOGO — PPT STYLE (FINAL POLISHED)
    ===================================================== */
 
 .side-logo {
   width: 100%;
-  padding: 0.8rem 0.5rem 0.8rem; /* Padding for the 't' icon */
+  padding: 0.6rem 0.85rem 0.7rem;
   border-radius: 14px;
   background: rgba(0, 0, 0, 0.82);
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center the 't' in collapsed view */
-  gap: 0;
+  align-items: flex-start;
+  gap: 0.35rem;
   cursor: pointer;
   box-shadow: 0 0 16px rgba(0, 0, 0, 0.85);
   overflow: hidden;
 }
 
-/* t + reasure container */
+/* t + reasure row */
 .side-logo-top {
   display: flex;
-  flex-direction: column; /* Stacks 't' in the center for collapsed view */
-  align-items: center;
-  gap: 0;
+  align-items: baseline;
+  gap: 0.2rem;
 }
 
 /* Big red “t” */
@@ -79,12 +78,10 @@
   text-shadow:
     0 0 7px rgba(216, 20, 20, 0.7),
     0 0 15px rgba(0, 0, 0, 0.9);
-  /* The 't' is visible and prominent in collapsed state */
 }
 
-/* "reasure" (Hidden in collapsed state) */
+/* "reasure" */
 .side-logo-reasure {
-  display: none; /* HIDDEN in collapsed state */
   font-family: "Poppins", sans-serif;
   font-size: 1.27rem;
   font-weight: 700;
@@ -96,12 +93,11 @@
     0 0 12px rgba(0, 0, 0, 0.85);
 }
 
-/* Yellow pill for "play" (Hidden in collapsed state) */
+/* Yellow pill for "play" */
 .side-logo-play-pill {
-  display: none; /* HIDDEN in collapsed state */
   position: relative;
-  margin-left: 0;
-  margin-top: 0;
+  margin-left: 2.0rem;              /* Centers under “reasure” */
+  margin-top: -0.12rem;
   padding: 0.33rem 1rem 0.38rem;
   border-radius: 999px;
   background: #ffd91a;
@@ -121,36 +117,36 @@
   position: relative;
 }
 
-/* WHITE connector lines - NOW POINTING UP LIKE AN ANTENNA */
+/* WHITE connector lines - FIXED TO LOOK LIKE AN UPWARD-POINTING ANTENNA */
 .side-logo-play-pill::before,
 .side-logo-play-pill::after {
   content: "";
   position: absolute;
-  /* CHANGED: Anchor to the bottom of the pill */
-  bottom: 0.2rem;
+  /* FIXED: Anchor to the top edge of the pill and push up */
+  top: -0.2rem;
   width: 1rem;
   height: 2px;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.9);   /* visible on any hero */
   box-shadow: 0 0 4px rgba(0,0,0,0.8);
 }
 
 .side-logo-play-pill::before {
   left: 0.4rem;
-  transform: rotate(15deg); /* Adjusted rotation for upright antenna */
+  transform: rotate(15deg); /* Rotated to point up/right */
 }
 
 .side-logo-play-pill::after {
   right: 0.4rem;
-  transform: rotate(-15deg); /* Adjusted rotation for upright antenna */
+  transform: rotate(-15deg); /* Rotated to point up/left */
 }
 
-/* WHITE connector dots - NOW POSITIONED ABOVE THE ANTENNA LINES */
+/* WHITE connector dots - POSITIONED AT THE ENDS OF THE ANTENNA LINES */
 .side-logo-play-text::before,
 .side-logo-play-text::after {
   content: "";
   position: absolute;
-  /* CHANGED: Positioned above the pill */
-  top: -0.72rem; /* moved up to sit above the antenna lines */
+  /* FIXED: Moved up to sit at the end of the antenna lines */
+  top: -0.8rem;
   width: 7px;
   height: 7px;
   border-radius: 50%;
@@ -164,25 +160,6 @@
 
 .side-logo-play-text::after {
   right: -0.55rem;
-}
-
-/* =====================================================
-   EXPANDED LOGO STATE (ON HOVER)
-   ===================================================== */
-
-.side-rail:hover .side-logo-top {
-  flex-direction: row; /* Horizontal layout for 't reasure' */
-  align-items: baseline;
-}
-
-.side-rail:hover .side-logo-reasure {
-  display: inline; /* Show 'reasure' */
-}
-
-.side-rail:hover .side-logo-play-pill {
-  display: block; /* Show 'play' pill */
-  margin-left: 2.0rem; /* Restore full logo position */
-  margin-top: -0.12rem;
 }
 
 /* =====================================================
@@ -269,14 +246,14 @@
   overflow: hidden;
 }
 
-/* Push hero text right by new rail width (76px + margin) */
+/* Push hero text right by new rail width */
 .home-hero-overlay {
   position: absolute;
   inset: 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 2rem 3rem 2.3rem 6rem;   /* ADJUSTED to 6rem for the 76px rail */
+  padding: 2rem 3rem 2.3rem 12rem;   /* updated from 9rem → 12rem */
 }
 
 .hero-title {
