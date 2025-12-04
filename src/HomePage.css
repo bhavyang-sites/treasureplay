@@ -102,7 +102,7 @@
   margin-left: 0;
   margin-top: 0;
   padding: 0.33rem 1rem 0.38rem;
-  border-radius: 6px; /* CHANGED to create a rectangular/TV look */
+  border-radius: 6px; /* Rectangle/TV look */
   background: #ffd91a;
   box-shadow:
     0 4px 10px rgba(0, 0, 0, 0.7),
@@ -120,12 +120,12 @@
   position: relative;
 }
 
-/* WHITE connector lines - Antenna arms */
+/* WHITE connector lines - Antenna arms (UPRIGHT) */
 .side-logo-play-pill::before,
 .side-logo-play-pill::after {
   content: "";
   position: absolute;
-  top: -0.2rem; /* Positioned at the top edge of the rectangle */
+  top: -0.1rem; /* Adjusted for rotation shift */
   width: 1rem;
   height: 2px;
   background: rgba(255, 255, 255, 0.9);
@@ -134,20 +134,20 @@
 
 .side-logo-play-pill::before {
   left: 0.4rem;
-  transform: rotate(15deg); /* Pointing up/right */
+  transform: rotate(40deg); /* INCREASED TILT for upright antenna */
 }
 
 .side-logo-play-pill::after {
   right: 0.4rem;
-  transform: rotate(-15deg); /* Pointing up/left */
+  transform: rotate(-40deg); /* INCREASED TILT for upright antenna */
 }
 
-/* WHITE connector dots - Antenna tips */
+/* WHITE connector dots - Antenna tips (MOVED UP) */
 .side-logo-play-text::before,
 .side-logo-play-text::after {
   content: "";
   position: absolute;
-  top: -0.8rem; /* Positioned at the tips of the antenna lines */
+  top: -1.3rem; /* MOVED UP to appear above 'reasure' text */
   width: 7px;
   height: 7px;
   border-radius: 50%;
