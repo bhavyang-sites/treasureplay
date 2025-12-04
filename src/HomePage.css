@@ -10,14 +10,14 @@
 }
 
 /* =====================================================
-   SIDE RAIL — NOW WIDER SO LOGO FITS (110px)
+   SIDE RAIL — NOW A STANDARD COLLAPSED WIDTH (76px)
    ===================================================== */
 
 .side-rail {
   position: fixed;
   top: 0;
   left: 0;
-  width: 110px;                    /* Expanded from 76px → fits logo */
+  width: 76px;                    /* ADJUSTED from 110px to a standard collapsed rail width */
   height: 100vh;
   z-index: 40;
   background: linear-gradient(
@@ -44,120 +44,91 @@
 }
 
 /* =====================================================
-   TREASUREPLAY LOGO — PPT STYLE (FINAL POLISHED)
+   TREASUREPLAY LOGO — RESIZED AND STACKED FOR 76PX RAIL
    ===================================================== */
 
 .side-logo {
   width: 100%;
-  padding: 0.6rem 0.85rem 0.7rem;
+  padding: 0.5rem 0.5rem 0.5rem; /* Reduced padding for narrower rail */
   border-radius: 14px;
   background: rgba(0, 0, 0, 0.82);
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 0.35rem;
+  align-items: center; /* Centered for narrow rail */
+  gap: 0.2rem; /* Reduced vertical gap */
   cursor: pointer;
-  box-shadow: 0 0 16px rgba(0, 0, 0, 0.85);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.8); /* Reduced shadow */
   overflow: hidden;
 }
 
 /* t + reasure row */
 .side-logo-top {
   display: flex;
-  align-items: baseline;
-  gap: 0.2rem;
+  flex-direction: column; /* Stacks 't' and 'reasure' vertically for narrow rail */
+  align-items: center;
+  gap: 0; /* Removed gap */
 }
 
 /* Big red “t” */
 .side-logo-t {
   font-family: "Poppins", sans-serif;
-  font-size: 2.8rem;
+  font-size: 2.2rem; /* Reduced from 2.8rem */
   font-weight: 800;
-  line-height: 0.92;
+  line-height: 0.8; /* Reduced line height for compression */
   color: #d81414;
   text-shadow:
     0 0 7px rgba(216, 20, 20, 0.7),
-    0 0 15px rgba(0, 0, 0, 0.9);
+    0 0 10px rgba(0, 0, 0, 0.9);
+  margin-bottom: -0.2rem; /* Pull up closer to "reasure" */
 }
 
 /* "reasure" */
 .side-logo-reasure {
   font-family: "Poppins", sans-serif;
-  font-size: 1.27rem;
+  font-size: 0.8rem; /* Reduced from 1.27rem */
   font-weight: 700;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.05em;
   color: #e91e24;
-  margin-top: 0.35rem;
+  margin-top: 0; /* Removed margin */
   text-shadow:
-    0 0 6px rgba(233, 30, 36, 0.75),
-    0 0 12px rgba(0, 0, 0, 0.85);
+    0 0 5px rgba(233, 30, 36, 0.75),
+    0 0 8px rgba(0, 0, 0, 0.85);
 }
 
 /* Yellow pill for "play" */
 .side-logo-play-pill {
   position: relative;
-  margin-left: 2.0rem;              /* Centers under “reasure” */
-  margin-top: -0.12rem;
-  padding: 0.33rem 1rem 0.38rem;
+  margin-left: 0;              /* REMOVED horizontal centering margin (was 2.0rem) */
+  margin-top: 0.1rem; /* Adjusted vertical margin */
+  padding: 0.2rem 0.6rem 0.25rem; /* Reduced padding */
   border-radius: 999px;
   background: #ffd91a;
   box-shadow:
-    0 4px 10px rgba(0, 0, 0, 0.7),
-    0 0 12px rgba(255, 217, 26, 0.7);
+    0 2px 6px rgba(0, 0, 0, 0.7), /* Reduced shadow */
+    0 0 8px rgba(255, 217, 26, 0.7);
 }
 
 /* "play" text */
 .side-logo-play-text {
   font-family: "Poppins", sans-serif;
-  font-size: 1.02rem;
+  font-size: 0.8rem; /* Reduced from 1.02rem */
   font-weight: 700;
   color: #111;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.02em;
   display: inline-block;
   position: relative;
 }
 
-/* WHITE connector lines */
+/* WHITE connector lines (Removed for thin rail) */
 .side-logo-play-pill::before,
 .side-logo-play-pill::after {
-  content: "";
-  position: absolute;
-  top: -0.32rem;
-  width: 1rem;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.9);   /* visible on any hero */
-  box-shadow: 0 0 4px rgba(0,0,0,0.8);
+  content: none;
 }
 
-.side-logo-play-pill::before {
-  left: 0.4rem;
-  transform: rotate(-15deg);
-}
-
-.side-logo-play-pill::after {
-  right: 0.4rem;
-  transform: rotate(15deg);
-}
-
-/* WHITE connector dots */
+/* WHITE connector dots (Removed for thin rail) */
 .side-logo-play-text::before,
 .side-logo-play-text::after {
-  content: "";
-  position: absolute;
-  top: -0.52rem;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #ffffff;
-  box-shadow: 0 0 6px rgba(0,0,0,0.85);
-}
-
-.side-logo-play-text::before {
-  left: -0.55rem;
-}
-
-.side-logo-play-text::after {
-  right: -0.55rem;
+  content: none;
 }
 
 /* =====================================================
@@ -251,7 +222,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 2rem 3rem 2.3rem 12rem;   /* updated from 9rem → 12rem */
+  padding: 2rem 3rem 2.3rem 6rem;   /* ADJUSTED from 12rem → 6rem for narrower 76px rail */
 }
 
 .hero-title {
