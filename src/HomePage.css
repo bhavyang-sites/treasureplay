@@ -329,11 +329,13 @@
 }
 
 .thumbnail-image {
-  width: 16rem;
-  height: auto;                 /* allow natural vertical height */
-  aspect-ratio: auto;           /* browser decides proper ratio */
-  object-fit: cover;
+  width: 16rem;          /* same card width as before */
+  height: 9rem;          /* fixed height so all titles line up */
+  object-fit: contain;   /* show the whole poster (no cropping) */
+  display: block;        /* avoids baseline quirks */
+  background-color: #000;/* optional: nice letterbox bars for vertical art */
 }
+
 
 
 .hp-footer { padding: 2rem; text-align: center; margin-left: 6rem; }
