@@ -330,9 +330,11 @@
 
 .thumbnail-image {
   width: 16rem;
-  height: 9rem;
+  height: auto;                 /* allow natural vertical height */
+  aspect-ratio: auto;           /* browser decides proper ratio */
   object-fit: cover;
 }
+
 
 .hp-footer { padding: 2rem; text-align: center; margin-left: 6rem; }
 
