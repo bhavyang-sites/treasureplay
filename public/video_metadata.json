@@ -1,101 +1,101 @@
 [
   {
-    "id": "rapid_merged",
-    "title": "Moments of Truth",
-    "videoUrl": "/videos/rapid_merged.mp4",
-    "skipMapUrl": "/skipmaps/rapid_merged.json",
-    "thumbnail": "/thumbnails/rapid_merged.jpg",
+    "id": "A_Paris_Promise",
+    "title": "A Paris Promise",
+    "videoUrl": "/videos/A_Paris_Promise.mp4",
+    "skipMapUrl": "/skipmaps/A_Paris_Promise.json",
+    "thumbnail": "/thumbnails/A_Paris_Promise.jpg",
     "category": "Recommended For You"
   },
   {
-    "id": "Adult_video_new_req_1",
-    "title": "Cinematic Journey",
-    "videoUrl": "/videos/Adult_video_new_req_1.mp4",
+    "id": "Accidental_Heroes",
+    "title": "Accidental Heroes",
+    "videoUrl": "/videos/Accidental_Heroes.mp4",
     "skipMapUrl": {
-      "mild": "/skipmaps/Adult_video_new_req_1_mild.json",
-      "strict": "/skipmaps/Adult_video_new_req_1_strict.json",
-      "custom_kids_safe": "/skipmaps/Adult_video_new_req_1_custom_kids_safe.json",
-      "custom_teens": "/skipmaps/Adult_video_new_req_1_custom_teens.json",
-      "custom_religious": "/skipmaps/Adult_video_new_req_1_custom_religious.json"
+      "mild": "/skipmaps/Accidental_Heroes_mild.json",
+      "strict": "/skipmaps/Accidental_Heroes_strict.json",
+      "custom_kids_safe": "/skipmaps/Accidental_Heroes_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Accidental_Heroes_custom_teens.json",
+      "custom_religious": "/skipmaps/Accidental_Heroes_custom_religious.json"
     },
-    "thumbnail": "/thumbnails/Adult_video_new_req_1/thumb_001.jpg",
+    "thumbnail": "/thumbnails/Accidental_Heroes.jpg",
     "category": "Recommended For You"
   },
   {
-    "id": "argument",
-    "title": "Until the Storm Settles",
-    "videoUrl": "https://pub-3b449d5e44504ca18a0a8be82cbbf64c.r2.dev/argument.mp4",
+    "id": "The_Last_Embrace",
+    "title": "The Last Embrace",
+    "videoUrl": "https://pub-3b449d5e44504ca18a0a8be82cbbf64c.r2.dev/The_Last_Embrace.mp4",
     "skipMapUrl": {
-      "mild": "/skipmaps/argument_mild.json",
-      "strict": "/skipmaps/argument_strict.json",
-      "custom_kids_safe": "/skipmaps/argument_custom_kids_safe.json",
-      "custom_teens": "/skipmaps/argument_custom_teens.json",
-      "custom_religious": "/skipmaps/argument_custom_religious.json"
+      "mild": "/skipmaps/The_Last_Embrace_mild.json",
+      "strict": "/skipmaps/The_Last_Embrace_strict.json",
+      "custom_kids_safe": "/skipmaps/The_Last_Embrace_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/The_Last_Embrace_custom_teens.json",
+      "custom_religious": "/skipmaps/The_Last_Embrace_custom_religious.json"
     },
-    "thumbnail": "/thumbnails/argument.jpg",
+    "thumbnail": "/thumbnails/The_Last_Embrace.jpg",
     "category": "Recommended For You"
   },
   {
-    "id": "Swimwear",
-    "title": "Deep Blue Diary",
-    "videoUrl": "/videos/swimwear.mp4",
-    "thumbnail": "/thumbnails/swimwear.jpg",
+    "id": "City_Of_Dreams",
+    "title": "City Of Dreams",
+    "videoUrl": "/videos/City_Of_Dreams.mp4",
+    "thumbnail": "/thumbnails/City_Of_Dreams.jpg",
     "skipMapUrl": {
-      "mild": "/skipmaps/swimwear_mild.json",
-      "strict": "/skipmaps/swimwear_strict.json",
-      "custom_kids_safe": "/skipmaps/swimwear_custom_kids_safe.json",
-      "custom_teens": "/skipmaps/swimwear_custom_teens.json",
-      "custom_religious": "/skipmaps/swimwear_custom_religious.json"
+      "mild": "/skipmaps/City_Of_Dreams_mild.json",
+      "strict": "/skipmaps/City_Of_Dreams_strict.json",
+      "custom_kids_safe": "/skipmaps/City_Of_Dreams_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/City_Of_Dreams_custom_teens.json",
+      "custom_religious": "/skipmaps/City_Of_Dreams_custom_religious.json"
     },
     "category": "Recommended For You"
   },
   {
-    "id": "Hip_Hop",
-    "title": "Beat Street Stories",
-    "videoUrl": "/videos/Hip_Hop.mp4",
+    "id": "Dhruba",
+    "title": "Dhruba",
+    "videoUrl": "/videos/Dhruba.mp4",
     "skipMapUrl": {
-      "mild": "/skipmaps/Hip_Hop_mild.json",
-      "strict": "/skipmaps/Hip_Hop_strict.json",
-      "custom_kids_safe": "/skipmaps/Hip_Hop_custom_kids_safe.json",
-      "custom_teens": "/skipmaps/Hip_Hop_custom_teens.json",
-      "custom_religious": "/skipmaps/Hip_Hop_custom_religious.json"
+      "mild": "/skipmaps/Dhruba_mild.json",
+      "strict": "/skipmaps/Dhruba_strict.json",
+      "custom_kids_safe": "/skipmaps/Dhruba_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Dhruba_custom_teens.json",
+      "custom_religious": "/skipmaps/Dhruba_custom_religious.json"
     },
-    "thumbnail": "/thumbnails/Hip_Hop/thumb_001.jpg",
+    "thumbnail": "/thumbnails/Dhruba.jpg",
     "category": "Recommended For You"
   },
   {
-    "id": "Distracted_Meditation",
-    "title": "Distracted Meditation",
+    "id": "Genesis_Protocol",
+    "title": "Genesis Protocol",
     "videoUrl": "/videos/Distracted Meditation.mp4",
     "skipMapUrl": {
-      "mild": "/skipmaps/Distracted_Meditation_mild.json",
-      "strict": "/skipmaps/Distracted_Meditation_strict.json",
-      "custom_kids_safe": "/skipmaps/Distracted_Meditation_custom_kids_safe.json",
-      "custom_teens": "/skipmaps/Distracted_Meditation_custom_teens.json",
-      "custom_religious": "/skipmaps/Distracted_Meditation_custom_religious.json"
+      "mild": "/skipmaps/Genesis_Protocol_mild.json",
+      "strict": "/skipmaps/Genesis_Protocol_strict.json",
+      "custom_kids_safe": "/skipmaps/Genesis_Protocol_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Genesis_Protocol_custom_teens.json",
+      "custom_religious": "/skipmaps/Genesis_Protocol_custom_religious.json"
     },
-    "thumbnail": "/thumbnails/Distracted_Meditation/thumb_001.jpg",
+    "thumbnail": "/thumbnails/Genesis_Protocol.jpg",
     "category": "Recommended For You"
   },
   {
-    "id": "rapid_merged_2",
+    "id": "A_Paris_Promise_2",
     "title": "Summer Moments",
-    "videoUrl": "/videos/rapid_merged.mp4",
-    "skipMapUrl": "/skipmaps/rapid_merged.json",
+    "videoUrl": "/videos/A_Paris_Promise.mp4",
+    "skipMapUrl": "/skipmaps/A_Paris_Promise.json",
     "thumbnail": "/thumbnails/summer_thumbnail.jpg",
     "category": "Family Picks"
   },
   {
-    "id": "Swimwear_2",
+    "id": "City_Of_Dreams_2",
     "title": "By the Water",
-    "videoUrl": "/videos/swimwear.mp4",
+    "videoUrl": "/videos/City_Of_Dreams.mp4",
     "thumbnail": "/thumbnails/water.jpg",
     "skipMapUrl": {
-      "mild": "/skipmaps/swimwear_mild.json",
-      "strict": "/skipmaps/swimwear_strict.json",
-      "custom_kids_safe": "/skipmaps/swimwear_custom_kids_safe.json",
-      "custom_teens": "/skipmaps/swimwear_custom_teens.json",
-      "custom_religious": "/skipmaps/swimwear_custom_religious.json"
+      "mild": "/skipmaps/City_Of_Dreams_mild.json",
+      "strict": "/skipmaps/City_Of_Dreams_strict.json",
+      "custom_kids_safe": "/skipmaps/City_Of_Dreams_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/City_Of_Dreams_custom_teens.json",
+      "custom_religious": "/skipmaps/City_Of_Dreams_custom_religious.json"
     },
     "category": "Family Picks"
   },
@@ -130,29 +130,29 @@
   {
     "id": "Adult_video_new_req_2",
     "title": "Cinema Night",
-    "videoUrl": "/videos/Adult_video_new_req_1.mp4",
+    "videoUrl": "/videos/Accidental_Heroes.mp4",
     "skipMapUrl": {
-      "mild": "/skipmaps/Adult_video_new_req_1_mild.json",
-      "strict": "/skipmaps/Adult_video_new_req_1_strict.json",
-      "custom_kids_safe": "/skipmaps/Adult_video_new_req_1_custom_kids_safe.json",
-      "custom_teens": "/skipmaps/Adult_video_new_req_1_custom_teens.json",
-      "custom_religious": "/skipmaps/Adult_video_new_req_1_custom_religious.json"
+      "mild": "/skipmaps/Accidental_Heroes_mild.json",
+      "strict": "/skipmaps/Accidental_Heroes_strict.json",
+      "custom_kids_safe": "/skipmaps/Accidental_Heroes_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Accidental_Heroes_custom_teens.json",
+      "custom_religious": "/skipmaps/Accidental_Heroes_custom_religious.json"
     },
-    "thumbnail": "/thumbnails/Adult_video_new_req_1/thumb_005.jpg",
+    "thumbnail": "/thumbnails/Accidental_Heroes/thumb_005.jpg",
     "category": "Family Picks"
   },
   {
-    "id": "Hip_Hop_2",
+    "id": "Dhruba_2",
     "title": "Music Vibes",
-    "videoUrl": "/videos/Hip_Hop.mp4",
+    "videoUrl": "/videos/Dhruba.mp4",
     "skipMapUrl": {
-      "mild": "/skipmaps/Hip_Hop_mild.json",
-      "strict": "/skipmaps/Hip_Hop_strict.json",
-      "custom_kids_safe": "/skipmaps/Hip_Hop_custom_kids_safe.json",
-      "custom_teens": "/skipmaps/Hip_Hop_custom_teens.json",
-      "custom_religious": "/skipmaps/Hip_Hop_custom_religious.json"
+      "mild": "/skipmaps/Dhruba_mild.json",
+      "strict": "/skipmaps/Dhruba_strict.json",
+      "custom_kids_safe": "/skipmaps/Dhruba_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Dhruba_custom_teens.json",
+      "custom_religious": "/skipmaps/Dhruba_custom_religious.json"
     },
-    "thumbnail": "/thumbnails/Hip_Hop/thumb_008.jpg",
+    "thumbnail": "/thumbnails/Dhruba/thumb_008.jpg",
     "category": "Family Picks"
   },
   {
@@ -184,53 +184,53 @@
     "category": "General Entertainment"
   },
   {
-    "id": "Hip_Hop_3",
+    "id": "Dhruba_3",
     "title": "Star World",
-    "videoUrl": "/videos/Hip_Hop.mp4",
+    "videoUrl": "/videos/Dhruba.mp4",
     "skipMapUrl": {
-      "mild": "/skipmaps/Hip_Hop_mild.json",
-      "strict": "/skipmaps/Hip_Hop_strict.json",
-      "custom_kids_safe": "/skipmaps/Hip_Hop_custom_kids_safe.json",
-      "custom_teens": "/skipmaps/Hip_Hop_custom_teens.json",
-      "custom_religious": "/skipmaps/Hip_Hop_custom_religious.json"
+      "mild": "/skipmaps/Dhruba_mild.json",
+      "strict": "/skipmaps/Dhruba_strict.json",
+      "custom_kids_safe": "/skipmaps/Dhruba_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Dhruba_custom_teens.json",
+      "custom_religious": "/skipmaps/Dhruba_custom_religious.json"
     },
-    "thumbnail": "/thumbnails/Hip_Hop/thumb_004.jpg",
+    "thumbnail": "/thumbnails/Dhruba/thumb_004.jpg",
     "category": "General Entertainment"
   },
   {
     "id": "Adult_video_new_req_3",
     "title": "Movie Time",
-    "videoUrl": "/videos/Adult_video_new_req_1.mp4",
+    "videoUrl": "/videos/Accidental_Heroes.mp4",
     "skipMapUrl": {
-      "mild": "/skipmaps/Adult_video_new_req_1_mild.json",
-      "strict": "/skipmaps/Adult_video_new_req_1_strict.json",
-      "custom_kids_safe": "/skipmaps/Adult_video_new_req_1_custom_kids_safe.json",
-      "custom_teens": "/skipmaps/Adult_video_new_req_1_custom_teens.json",
-      "custom_religious": "/skipmaps/Adult_video_new_req_1_custom_religious.json"
+      "mild": "/skipmaps/Accidental_Heroes_mild.json",
+      "strict": "/skipmaps/Accidental_Heroes_strict.json",
+      "custom_kids_safe": "/skipmaps/Accidental_Heroes_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Accidental_Heroes_custom_teens.json",
+      "custom_religious": "/skipmaps/Accidental_Heroes_custom_religious.json"
     },
-    "thumbnail": "/thumbnails/Adult_video_new_req_1/thumb_001.jpg",
+    "thumbnail": "/thumbnails/Accidental_Heroes/thumb_001.jpg",
     "category": "General Entertainment"
   },
   {
-    "id": "rapid_merged_3",
+    "id": "A_Paris_Promise_3",
     "title": "Highlight Reel",
-    "videoUrl": "/videos/rapid_merged.mp4",
-    "skipMapUrl": "/skipmaps/rapid_merged.json",
+    "videoUrl": "/videos/A_Paris_Promise.mp4",
+    "skipMapUrl": "/skipmaps/A_Paris_Promise.json",
     "thumbnail": "/thumbnails/highlight.jpg",
     "category": "General Entertainment"
   },
   {
-    "id": "Distracted_Meditation_2",
+    "id": "Genesis_Protocol_2",
     "title": "Relaxed Break",
     "videoUrl": "/videos/Distracted Meditation.mp4",
     "skipMapUrl": {
-      "mild": "/skipmaps/Distracted_Meditation_mild.json",
-      "strict": "/skipmaps/Distracted_Meditation_strict.json",
-      "custom_kids_safe": "/skipmaps/Distracted_Meditation_custom_kids_safe.json",
-      "custom_teens": "/skipmaps/Distracted_Meditation_custom_teens.json",
-      "custom_religious": "/skipmaps/Distracted_Meditation_custom_religious.json"
+      "mild": "/skipmaps/Genesis_Protocol_mild.json",
+      "strict": "/skipmaps/Genesis_Protocol_strict.json",
+      "custom_kids_safe": "/skipmaps/Genesis_Protocol_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Genesis_Protocol_custom_teens.json",
+      "custom_religious": "/skipmaps/Genesis_Protocol_custom_religious.json"
     },
-    "thumbnail": "/thumbnails/Distracted_Meditation/thumb_008.jpg",
+    "thumbnail": "/thumbnails/Genesis_Protocol/thumb_008.jpg",
     "category": "General Entertainment"
   },
   {
@@ -250,67 +250,67 @@
     "tagline": "Experience every tale — your way."
   },
   {
-    "id": "Distracted_Meditation_3",
+    "id": "Genesis_Protocol_3",
     "title": "Distracted Meditation",
     "videoUrl": "/videos/Distracted Meditation.mp4",
     "skipMapUrl": {
-      "mild": "/skipmaps/Distracted_Meditation_mild.json",
-      "strict": "/skipmaps/Distracted_Meditation_strict.json",
-      "custom_kids_safe": "/skipmaps/Distracted_Meditation_custom_kids_safe.json",
-      "custom_teens": "/skipmaps/Distracted_Meditation_custom_teens.json",
-      "custom_religious": "/skipmaps/Distracted_Meditation_custom_religious.json"
+      "mild": "/skipmaps/Genesis_Protocol_mild.json",
+      "strict": "/skipmaps/Genesis_Protocol_strict.json",
+      "custom_kids_safe": "/skipmaps/Genesis_Protocol_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Genesis_Protocol_custom_teens.json",
+      "custom_religious": "/skipmaps/Genesis_Protocol_custom_religious.json"
     },
-    "thumbnail": "/thumbnails/Distracted_Meditation/thumb_001.jpg",
+    "thumbnail": "/thumbnails/Genesis_Protocol/thumb_001.jpg",
     "category": "Trending"
   },
   {
-    "id": "rapid_merged_4",
+    "id": "A_Paris_Promise_4",
     "title": "Viral Edit",
-    "videoUrl": "/videos/rapid_merged.mp4",
-    "skipMapUrl": "/skipmaps/rapid_merged.json",
-    "thumbnail": "/thumbnails/rapid_merged.jpg",
+    "videoUrl": "/videos/A_Paris_Promise.mp4",
+    "skipMapUrl": "/skipmaps/A_Paris_Promise.json",
+    "thumbnail": "/thumbnails/A_Paris_Promise.jpg",
     "category": "Trending"
   },
   {
-    "id": "Swimwear_3",
+    "id": "City_Of_Dreams_3",
     "title": "Beach View",
-    "videoUrl": "/videos/swimwear.mp4",
-    "thumbnail": "/thumbnails/swimwear.jpg",
+    "videoUrl": "/videos/City_Of_Dreams.mp4",
+    "thumbnail": "/thumbnails/City_Of_Dreams.jpg",
     "skipMapUrl": {
-      "mild": "/skipmaps/swimwear_mild.json",
-      "strict": "/skipmaps/swimwear_strict.json",
-      "custom_kids_safe": "/skipmaps/swimwear_custom_kids_safe.json",
-      "custom_teens": "/skipmaps/swimwear_custom_teens.json",
-      "custom_religious": "/skipmaps/swimwear_custom_religious.json"
+      "mild": "/skipmaps/City_Of_Dreams_mild.json",
+      "strict": "/skipmaps/City_Of_Dreams_strict.json",
+      "custom_kids_safe": "/skipmaps/City_Of_Dreams_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/City_Of_Dreams_custom_teens.json",
+      "custom_religious": "/skipmaps/City_Of_Dreams_custom_religious.json"
     },
     "category": "Trending"
   },
   {
-    "id": "Hip_Hop_4",
+    "id": "Dhruba_4",
     "title": "Trending Beats",
-    "videoUrl": "/videos/Hip_Hop.mp4",
+    "videoUrl": "/videos/Dhruba.mp4",
     "skipMapUrl": {
-      "mild": "/skipmaps/Hip_Hop_mild.json",
-      "strict": "/skipmaps/Hip_Hop_strict.json",
-      "custom_kids_safe": "/skipmaps/Hip_Hop_custom_kids_safe.json",
-      "custom_teens": "/skipmaps/Hip_Hop_custom_teens.json",
-      "custom_religious": "/skipmaps/Hip_Hop_custom_religious.json"
+      "mild": "/skipmaps/Dhruba_mild.json",
+      "strict": "/skipmaps/Dhruba_strict.json",
+      "custom_kids_safe": "/skipmaps/Dhruba_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Dhruba_custom_teens.json",
+      "custom_religious": "/skipmaps/Dhruba_custom_religious.json"
     },
-    "thumbnail": "/thumbnails/Hip_Hop/thumb_005.jpg",
+    "thumbnail": "/thumbnails/Dhruba/thumb_005.jpg",
     "category": "Trending"
   },
   {
     "id": "Adult_video_new_req_4",
     "title": "Cine Romance",
-    "videoUrl": "/videos/Adult_video_new_req_1.mp4",
+    "videoUrl": "/videos/Accidental_Heroes.mp4",
     "skipMapUrl": {
-      "mild": "/skipmaps/Adult_video_new_req_1_mild.json",
-      "strict": "/skipmaps/Adult_video_new_req_1_strict.json",
-      "custom_kids_safe": "/skipmaps/Adult_video_new_req_1_custom_kids_safe.json",
-      "custom_teens": "/skipmaps/Adult_video_new_req_1_custom_teens.json",
-      "custom_religious": "/skipmaps/Adult_video_new_req_1_custom_religious.json"
+      "mild": "/skipmaps/Accidental_Heroes_mild.json",
+      "strict": "/skipmaps/Accidental_Heroes_strict.json",
+      "custom_kids_safe": "/skipmaps/Accidental_Heroes_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Accidental_Heroes_custom_teens.json",
+      "custom_religious": "/skipmaps/Accidental_Heroes_custom_religious.json"
     },
-    "thumbnail": "/thumbnails/Adult_video_new_req_1/thumb_006.jpg",
+    "thumbnail": "/thumbnails/Accidental_Heroes/thumb_006.jpg",
     "category": "Trending"
   },
   {
