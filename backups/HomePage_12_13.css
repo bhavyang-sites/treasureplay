@@ -19,17 +19,17 @@
   top: 0;
   left: 0;
   width: 76px;
-  height: 100vh;
+  height: 100vh; 
   z-index: 40;
-
-  /* Faded Gradient (Collapsed State) */
+  
+  /* Faded Gradient (Collapsed State) - aggressive fade for 76px */
   background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 0.95) 0%,
-    rgba(0, 0, 0, 0.6) 75%,
-    rgba(0, 0, 0, 0) 100%
+    90deg, 
+    rgba(0, 0, 0, 0.95) 0%, 
+    rgba(0, 0, 0, 0.6) 75%, 
+    rgba(0, 0, 0, 0.0) 100% 
   );
-
+  
   transition: width 0.25s ease;
   display: flex;
   flex-direction: column;
@@ -37,20 +37,24 @@
 
 /* Hover-expanded menu */
 .side-rail:hover {
-  width: 200px;
+  /* Reduced width to 200px */
+  width: 200px; 
+  
+  /* Faded Gradient (Expanded State) - subtle fade for wider rail */
   background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 0.95) 0%,
-    rgba(0, 0, 0, 0.75) 100%
+    90deg, 
+    rgba(0, 0, 0, 0.95) 0%, 
+    rgba(0, 0, 0, 0.75) 100% 
   );
 }
 
+/* Inner rail layout */
 .side-rail-inner {
   height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 1rem 0;
+  padding: 1rem 0; 
   box-sizing: border-box;
 }
 
@@ -60,12 +64,12 @@
 
 .side-logo {
   display: flex;
-  flex-direction: row;
+  flex-direction: row; 
   align-items: center;
   justify-content: center;
-
+  
   width: 100%;
-  padding-bottom: 2rem;
+  padding-bottom: 2rem; 
   cursor: pointer;
   border: none;
   background: transparent;
@@ -73,24 +77,25 @@
   transition: all 0.2s ease;
 }
 
+/* Container for "t" (+ hidden "reasure") */
 .side-logo-top {
   display: flex;
   flex-direction: row;
   align-items: baseline;
 }
 
-/* The red "t" */
+/* 1. The Red "t" */
 .side-logo-t {
   font-family: "Poppins", sans-serif;
   font-size: 2.2rem;
   font-weight: 800;
-  color: #d81414;
+  color: #d81414; /* Red color */
   line-height: 1;
-  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 0 10px rgba(0,0,0,0.5);
   margin-right: 1px;
 }
 
-/* The red "reasure" (hidden by default) */
+/* 2. The Red "reasure" (Hidden by default) */
 .side-logo-reasure {
   display: none;
   font-family: "Poppins", sans-serif;
@@ -99,99 +104,100 @@
   color: #e91e24;
 }
 
-/* Yellow "play" pill */
+/* 3. The Yellow "Play" Box */
 .side-logo-play-pill {
   position: relative;
-  background: #ffd91a;
+  background: #ffd91a; /* Yellow color */
   border-radius: 4px;
-  padding: 0 4px;
+  padding: 0 4px; 
   height: 22px;
-  margin-top: 6px;
-
+  margin-top: 6px; 
+  
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 0 5px rgba(255, 217, 26, 0.4);
 }
 
-/* "p" in collapsed mode */
+/* 4. Text Logic: Swap "play" for "p" in collapsed mode */
 .side-logo-play-text {
-  font-size: 0;
+  font-size: 0; /* Hide the word "play" */
 }
 .side-logo-play-text::before {
-  content: "p";
+  content: "p"; /* Inject "p" for collapsed mode */
   font-family: "Poppins", sans-serif;
   font-weight: 700;
-  color: #111;
+  color: #111; /* Black color */
   font-size: 1.1rem;
   line-height: 1;
 }
 
-/* Antenna (hidden in collapsed) */
+/* =====================================================
+   ANTENNA (Hidden in collapsed)
+   ===================================================== */
+
 .side-logo-play-pill::before,
 .side-logo-play-pill::after {
   content: "";
   position: absolute;
-  display: none;
-  top: -8px;
+  display: none; 
+  /* FIXED: Move top of 8px antenna to -8px so its bottom starts at the pill's edge (0px) */
+  top: -8px; 
   width: 2px;
   height: 8px;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255,255,255,0.9);
   z-index: 10;
 }
-.side-logo-play-pill::before {
-  left: 4px;
-  transform: rotate(-30deg);
-  transform-origin: bottom center;
-}
-.side-logo-play-pill::after {
-  right: 4px;
-  transform: rotate(30deg);
-  transform-origin: bottom center;
-}
+.side-logo-play-pill::before { left: 4px; transform: rotate(-30deg); transform-origin: bottom center; }
+.side-logo-play-pill::after  { right: 4px; transform: rotate(30deg); transform-origin: bottom center; }
 
-/* Expanded state overrides */
+
+/* =====================================================
+   EXPANDED STATE OVERRIDES (ON HOVER)
+   ===================================================== */
+
 .side-rail:hover .side-logo {
   justify-content: flex-start;
   padding-left: 1.5rem;
 }
 
 .side-rail:hover .side-logo-reasure {
-  display: block;
+  display: block; 
 }
 
+/* Adjust the yellow box for the full word "play" */
 .side-rail:hover .side-logo-play-pill {
   padding: 0 10px;
   margin-left: 4px;
   margin-top: 4px;
 }
 
-/* Restore word "play" */
+/* Restore the word "play" */
 .side-rail:hover .side-logo-play-text {
-  color: #111;
-  font-size: 0.95rem;
+  color: #111; 
+  font-size: 0.95rem; 
 }
 .side-rail:hover .side-logo-play-text::before {
-  content: none;
+  content: none; /* Remove "p" */
 }
 
-/* Show antenna */
+/* Show Antenna */
 .side-rail:hover .side-logo-play-pill::before,
 .side-rail:hover .side-logo-play-pill::after {
   display: block;
 }
 
 /* =====================================================
-   SIDE NAVIGATION ICONS
+   SIDE NAVIGATION ICONS (Full Height Coverage)
    ===================================================== */
 
 .side-nav {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.5rem; /* Spreads icons out to cover more height */
   width: 100%;
   margin-top: 1rem;
-  flex-grow: 1;
+  flex-grow: 1; /* Occupy remaining space */
 }
 
 .side-nav-item {
@@ -200,14 +206,14 @@
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 0.5rem 0 0.5rem 1.1rem;
+  padding: 0.5rem 0 0.5rem 1.1rem; 
   cursor: pointer;
   color: #e5e7eb;
 }
 
 .side-nav-item:hover {
   color: #fff;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255,255,255,0.05);
 }
 
 .side-nav-icon-wrap {
@@ -219,7 +225,7 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
 
 .side-nav-icon {
@@ -271,8 +277,9 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 2rem 3rem 2.5rem 6rem;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+  /* Push content right to clear collapsed rail */
+  padding: 2rem 3rem 2.5rem 6rem; 
+  background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
 }
 
 .hero-title {
@@ -280,13 +287,6 @@
   font-size: 3rem;
   font-weight: 700;
   text-transform: uppercase;
-}
-
-.hero-tagline {
-  margin-top: 0.5rem;
-  font-size: 1rem;
-  color: #e5e7eb;
-  max-width: 32rem;
 }
 
 .hero-actions {
@@ -302,52 +302,19 @@
   cursor: pointer;
   border: none;
 }
-
-.btn-primary {
-  background: #ff1849;
-  color: #fff;
-}
-
-.btn-ghost {
-  background: rgba(255, 255, 255, 0.2);
-  color: #fff;
-}
-
-.btn-outline {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  color: #fff;
-}
-
-/* =====================================================
-   RAILS / ROWS
-   ===================================================== */
+.btn-primary { background: #ff1849; color: #fff; }
+.btn-ghost { background: rgba(255,255,255,0.2); color: #fff; }
 
 .rows {
+  /* Add left padding to clear the collapsed rail */
   padding: 2rem 2rem 2rem 6rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
 
-.row {
-  display: flex;
-  flex-direction: column;
-}
+.row-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 0.5rem; }
 
-.row-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 0.75rem;
-}
-
-.row-title {
-  font-size: 1.4rem;
-  font-weight: 700;
-}
-
-/* Base thumbnail row */
 .thumbnail-row {
   display: flex;
   gap: 1rem;
@@ -355,88 +322,27 @@
   padding-bottom: 1rem;
 }
 
-/* Thumbnail card */
-.thumbnail-item {
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
-  outline: none;
-}
-
 .thumbnail-wrapper {
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
 }
 
-/* Default (landscape) thumbnail */
 .thumbnail-image {
-  width: 16rem;
-  height: 9rem;
-  object-fit: contain;
-  display: block;
-  background-color: #000;
+  width: 16rem;          /* same card width as before */
+  height: 9rem;          /* fixed height so all titles line up */
+  object-fit: contain;   /* show the whole poster (no cropping) */
+  display: block;        /* avoids baseline quirks */
+  background-color: #000;/* optional: nice letterbox bars for vertical art */
 }
 
-/* Vertical rail styling */
-.thumbnail-row-vertical .thumbnail-image-vertical {
-  width: 10rem;
-  height: 15rem;
-  object-fit: cover;
-}
 
-/* Square rail styling */
-.thumbnail-row-square .thumbnail-image-square {
-  width: 9rem;
-  height: 9rem;
-  object-fit: cover;
-}
 
-/* Titles under cards */
-.thumbnail-title {
-  margin-top: 0.4rem;
-  font-size: 0.85rem;
-  max-width: 10rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: #e5e7eb;
-}
-
-/* Footer */
-.hp-footer {
-  padding: 2rem;
-  text-align: center;
-  margin-left: 6rem;
-}
-
-.hp-footer .cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 1rem;
-  font-size: 0.95rem;
-  color: #e5e7eb;
-}
-
-/* =====================================================
-   RESPONSIVE
-   ===================================================== */
+.hp-footer { padding: 2rem; text-align: center; margin-left: 6rem; }
 
 @media (max-width: 768px) {
-  .side-rail {
-    display: none;
-  }
-
-  .home-hero-overlay {
-    padding-left: 2rem;
-  }
-
-  .rows {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
-  .hp-footer {
-    margin-left: 0;
-  }
+  .side-rail { display: none; }
+  .home-hero-overlay { padding-left: 2rem; }
+  .rows { padding-left: 1rem; }
+  .hp-footer { margin-left: 0; }
 }

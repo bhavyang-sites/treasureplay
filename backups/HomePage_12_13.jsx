@@ -24,53 +24,28 @@ const HomePage = () => {
       .catch((err) => console.error("Failed to load video metadata:", err));
   }, []);
 
-  // 1️⃣ HERO — pick from landscape / hero rail (or fall back to first item)
   const hero = useMemo(() => {
     if (!videoMetadata.length) return null;
-
-    const heroRail = videoMetadata.filter(
-      (v) => v.rail === "hero" || v.featured === true
-    );
-    if (heroRail.length > 0) return heroRail[0];
-
-    return videoMetadata[0];
+    return videoMetadata.find((v) => v.featured) || videoMetadata[0];
   }, [videoMetadata]);
 
-  // 2️⃣ TOP PICKS — vertical posters row
-  const topPicks = useMemo(
-    () => videoMetadata.filter((v) => v.rail === "top-picks"),
-    [videoMetadata]
-  );
-
-  // 3️⃣ SMARTSKIPS DEMO — vertical posters row
-  const smartSkips = useMemo(
-    () => videoMetadata.filter((v) => v.rail === "Editor’s Safe Choice"),
-    [videoMetadata]
-  );
-
-  // 4️⃣ GENRE SHELVES — square posters grouped by genre/category
-  const genreRows = useMemo(() => {
-    const genreItems = videoMetadata.filter((v) => v.rail === "genre");
-    if (!genreItems.length) return [];
-
+  const rows = useMemo(() => {
+    if (!videoMetadata.length) return [];
+    const hasCategory = videoMetadata.some((v) => v.category);
+    if (!hasCategory) {
+      return [{ title: "All Titles", items: videoMetadata }];
+    }
     const map = new Map();
-    for (const v of genreItems) {
-      const key = v.genre || v.category || "More Stories";
+    for (const v of videoMetadata) {
+      const key = v.category || "Other";
       if (!map.has(key)) map.set(key, []);
       map.get(key).push(v);
     }
-
     return Array.from(map.entries()).map(([title, items]) => ({
       title,
       items,
     }));
   }, [videoMetadata]);
-
-  // 5️⃣ EXTRA ROW — leftover / bonus square posters
-  const extraRow = useMemo(
-    () => videoMetadata.filter((v) => v.rail === "extra"),
-    [videoMetadata]
-  );
 
   const onThumbActivate = (id) => navigate(`/video/${id}`);
 
@@ -87,20 +62,34 @@ const HomePage = () => {
       {/* SIDE RAIL WITH TREASUREPLAY LOGO */}
       <aside className="side-rail" aria-label="Main navigation">
         <div className="side-rail-inner">
-          <button
+          {/* Stylized logo: tall "t" + reasure / play */}
+          {/* <button
             className="side-logo"
             type="button"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
-            <div className="side-logo-top">
-              <span className="side-logo-t">t</span>
+            <span className="side-logo-t">t</span>
+            <span className="side-logo-block">
               <span className="side-logo-reasure">reasure</span>
-            </div>
+              <span className="side-logo-play">play</span>
+            </span>
+          </button> */}
+   <button
+  className="side-logo"
+  type="button"
+  onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+>
+  <div className="side-logo-top">
+    <span className="side-logo-t">t</span>
+    <span className="side-logo-reasure">reasure</span>
+  </div>
 
-            <div className="side-logo-play-pill">
-              <span className="side-logo-play-text">play</span>
-            </div>
-          </button>
+  <div className="side-logo-play-pill">
+    <span className="side-logo-play-text">play</span>
+  </div>
+</button>
+
+
 
           {/* Nav icons + labels */}
           <nav className="side-nav">
@@ -125,15 +114,13 @@ const HomePage = () => {
         </div>
       </aside>
 
-      {/* MAIN CONTENT: HERO + RAILS + FOOTER */}
+      {/* MAIN CONTENT: FULL-BLEED HERO + ROWS + FOOTER */}
       <main className="hp-main">
         {hero && (
           <section
             className="hero"
             style={{
-              backgroundImage: `url(${
-                hero.backdrop || hero.heroImage || hero.thumbnail
-              })`,
+              backgroundImage: `url(${hero.backdrop || hero.thumbnail})`,
             }}
           >
             <div className="home-hero-overlay">
@@ -171,46 +158,14 @@ const HomePage = () => {
         )}
 
         <section className="rows">
-          {/* 2️⃣ Top Picks — vertical */}
-          {topPicks.length > 0 && (
-            <ThumbRow
-              title="Top Picks for You"
-              items={topPicks}
-              variant="vertical"
-              onThumbActivate={onThumbActivate}
-            />
-          )}
-
-          {/* 3️⃣ SmartSkips Demo — vertical */}
-          {smartSkips.length > 0 && (
-            <ThumbRow
-              title="SmartSkips Demo"
-              items={smartSkips}
-              variant="vertical"
-              onThumbActivate={onThumbActivate}
-            />
-          )}
-
-          {/* 4️⃣ Genre shelves — square */}
-          {genreRows.map((row) => (
+          {rows.map((row) => (
             <ThumbRow
               key={row.title}
               title={row.title}
               items={row.items}
-              variant="square"
               onThumbActivate={onThumbActivate}
             />
           ))}
-
-          {/* 5️⃣ Extra row — square */}
-          {extraRow.length > 0 && (
-            <ThumbRow
-              title="More to Explore"
-              items={extraRow}
-              variant="square"
-              onThumbActivate={onThumbActivate}
-            />
-          )}
         </section>
 
         <footer className="hp-footer">
@@ -230,18 +185,15 @@ const HomePage = () => {
   );
 };
 
-function ThumbRow({ title, items, onThumbActivate, variant = "landscape" }) {
+function ThumbRow({ title, items, onThumbActivate }) {
   if (!items || !items.length) return null;
-
-  const rowClassName = `thumbnail-row thumbnail-row-${variant}`;
-  const imageClassName = `thumbnail-image thumbnail-image-${variant}`;
 
   return (
     <section className="row">
       <div className="row-header">
         <h3 className="row-title">{title}</h3>
       </div>
-      <div className={rowClassName}>
+      <div className="thumbnail-row">
         {items.map((video) => (
           <article
             key={video.id}
@@ -259,7 +211,7 @@ function ThumbRow({ title, items, onThumbActivate, variant = "landscape" }) {
               <img
                 src={video.thumbnail}
                 alt={video.title}
-                className={imageClassName}
+                className="thumbnail-image"
                 loading="lazy"
               />
             </div>

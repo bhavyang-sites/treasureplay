@@ -5,7 +5,7 @@
     "videoUrl": "/videos/A_Paris_Promise.mp4",
     "skipMapUrl": "/skipmaps/A_Paris_Promise.json",
     "thumbnail": "/thumbnails/A_Paris_Promise.jpg",
-    "category": "Recommended For You"
+    "rail": "top-picks"
   },
   {
     "id": "Accidental_Heroes",
