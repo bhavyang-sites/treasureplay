@@ -5,21 +5,15 @@
     "videoUrl": "/videos/A_Paris_Promise.mp4",
     "skipMapUrl": "/skipmaps/A_Paris_Promise.json",
     "thumbnail": "/thumbnails/A_Paris_Promise.jpg",
-    "rail": "top-picks"
+    "rail": "hero"
   },
   {
     "id": "Accidental_Heroes",
     "title": "Accidental Heroes",
-    "videoUrl": "/videos/Accidental_Heroes.mp4",
-    "skipMapUrl": {
-      "mild": "/skipmaps/Accidental_Heroes_mild.json",
-      "strict": "/skipmaps/Accidental_Heroes_strict.json",
-      "custom_kids_safe": "/skipmaps/Accidental_Heroes_custom_kids_safe.json",
-      "custom_teens": "/skipmaps/Accidental_Heroes_custom_teens.json",
-      "custom_religious": "/skipmaps/Accidental_Heroes_custom_religious.json"
-    },
+    "videoUrl": "/videos/A_Paris_Promise.mp4",
+    "skipMapUrl": "/skipmaps/A_Paris_Promise.json",
     "thumbnail": "/thumbnails/Accidental_Heroes.jpg",
-    "category": "Recommended For You"
+    "rail": "hero"
   },
   {
     "id": "The_Last_Embrace",
@@ -33,7 +27,217 @@
       "custom_religious": "/skipmaps/The_Last_Embrace_custom_religious.json"
     },
     "thumbnail": "/thumbnails/The_Last_Embrace.jpg",
-    "category": "Recommended For You"
+    "rail": "hero"
+  },
+  {
+    "id": "Eternal_Sunset",
+    "title": "Eternal Sunset",
+    "videoUrl": "/videos/Eternal_Sunset.mp4",
+    "thumbnail": "/thumbnails/Eternal_Sunset.jpg",
+    "skipMapUrl": {
+      "mild": "/skipmaps/City_Of_Dreams_mild.json",
+      "strict": "/skipmaps/City_Of_Dreams_strict.json",
+      "custom_kids_safe": "/skipmaps/City_Of_Dreams_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/City_Of_Dreams_custom_teens.json",
+      "custom_religious": "/skipmaps/City_Of_Dreams_custom_religious.json"
+    },
+    "rail": "top-picks"
+  },
+  {
+    "id": "The_Rescue",
+    "title": "The Rescue",
+    "videoUrl": "/videos/The_Rescue.mp4",
+    "thumbnail": "/thumbnails/The_Rescue.jpg",
+    "skipMapUrl": {
+      "mild": "/skipmaps/City_Of_Dreams_mild.json",
+      "strict": "/skipmaps/City_Of_Dreams_strict.json",
+      "custom_kids_safe": "/skipmaps/City_Of_Dreams_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/City_Of_Dreams_custom_teens.json",
+      "custom_religious": "/skipmaps/City_Of_Dreams_custom_religious.json"
+    },
+    "rail": "top-picks"
+  },
+  {
+    "id": "The_Silent_Echo",
+    "title": "The Silent Echo",
+    "videoUrl": "/videos/The_Silent_Echo.mp4",
+    "thumbnail": "/thumbnails/The_Silent_Echo.jpg",
+    "skipMapUrl": {
+      "mild": "/skipmaps/City_Of_Dreams_mild.json",
+      "strict": "/skipmaps/City_Of_Dreams_strict.json",
+      "custom_kids_safe": "/skipmaps/City_Of_Dreams_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/City_Of_Dreams_custom_teens.json",
+      "custom_religious": "/skipmaps/City_Of_Dreams_custom_religious.json"
+    },
+    "rail": "top-picks"
+  },
+  {
+    "id": "The_Lost_Expedition",
+    "title": "The Lost Expedition",
+    "videoUrl": "/videos/The_Lost_Expedition.mp4",
+    "thumbnail": "/thumbnails/The_Lost_Expedition.jpg",
+    "skipMapUrl": {
+      "mild": "/skipmaps/City_Of_Dreams_mild.json",
+      "strict": "/skipmaps/City_Of_Dreams_strict.json",
+      "custom_kids_safe": "/skipmaps/City_Of_Dreams_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/City_Of_Dreams_custom_teens.json",
+      "custom_religious": "/skipmaps/City_Of_Dreams_custom_religious.json"
+    },
+    "rail": "top-picks"
+  },
+  {
+    "id": "No_Filter_Friday",
+    "title": "No Filter Friday",
+    "videoUrl": "/videos/No_Filter_Friday.mp4",
+    "thumbnail": "/thumbnails/No_Filter_Friday.jpg",
+    "skipMapUrl": {
+      "mild": "/skipmaps/City_Of_Dreams_mild.json",
+      "strict": "/skipmaps/City_Of_Dreams_strict.json",
+      "custom_kids_safe": "/skipmaps/City_Of_Dreams_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/City_Of_Dreams_custom_teens.json",
+      "custom_religious": "/skipmaps/City_Of_Dreams_custom_religious.json"
+    },
+    "rail": "top-picks"
+  },
+  {
+    "id": "Neon_Horizon",
+    "title": "Neon Horizon",
+    "videoUrl": "/videos/Neon_Horizon.mp4",
+    "thumbnail": "/thumbnails/Neon_Horizon.jpg",
+    "skipMapUrl": {
+      "mild": "/skipmaps/City_Of_Dreams_mild.json",
+      "strict": "/skipmaps/City_Of_Dreams_strict.json",
+      "custom_kids_safe": "/skipmaps/City_Of_Dreams_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/City_Of_Dreams_custom_teens.json",
+      "custom_religious": "/skipmaps/City_Of_Dreams_custom_religious.json"
+    },
+    "rail": "top-picks"
+  },
+  {
+    "id": "The_Forgotten_Echo",
+    "title": "The Forgotten Echo",
+    "videoUrl": "/videos/The_Forgotten_Echo.mp4",
+    "thumbnail": "/thumbnails/The_Forgotten_Echo.jpg",
+    "skipMapUrl": {
+      "mild": "/skipmaps/City_Of_Dreams_mild.json",
+      "strict": "/skipmaps/City_Of_Dreams_strict.json",
+      "custom_kids_safe": "/skipmaps/City_Of_Dreams_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/City_Of_Dreams_custom_teens.json",
+      "custom_religious": "/skipmaps/City_Of_Dreams_custom_religious.json"
+    },
+    "rail": "top-picks"
+  },
+  {
+    "id": "The_Silent_Heist",
+    "title": "The Silent Heist",
+    "videoUrl": "/videos/The_Silent_Heist.mp4",
+    "thumbnail": "/thumbnails/The_Silent_Heist.jpg",
+    "skipMapUrl": {
+      "mild": "/skipmaps/City_Of_Dreams_mild.json",
+      "strict": "/skipmaps/City_Of_Dreams_strict.json",
+      "custom_kids_safe": "/skipmaps/City_Of_Dreams_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/City_Of_Dreams_custom_teens.json",
+      "custom_religious": "/skipmaps/City_Of_Dreams_custom_religious.json"
+    },
+    "rail": "top-picks"
+  },
+  {
+    "id": "The_Silver_Lining_Squad",
+    "title": "The Silver Lining Squad",
+    "videoUrl": "/videos/The_Silver_Lining_Squad.mp4",
+    "thumbnail": "/thumbnails/The_Silver_Lining_Squad.jpg",
+    "skipMapUrl": {
+      "mild": "/skipmaps/City_Of_Dreams_mild.json",
+      "strict": "/skipmaps/City_Of_Dreams_strict.json",
+      "custom_kids_safe": "/skipmaps/City_Of_Dreams_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/City_Of_Dreams_custom_teens.json",
+      "custom_religious": "/skipmaps/City_Of_Dreams_custom_religious.json"
+    },
+    "rail": "top-picks"
+  },
+  {
+    "id": "Atlas",
+    "title": "Atlas",
+    "videoUrl": "/videos/Atlas.mp4",
+    "thumbnail": "/thumbnails/Atlas.jpg",
+    "skipMapUrl": {
+      "mild": "/skipmaps/City_Of_Dreams_mild.json",
+      "strict": "/skipmaps/City_Of_Dreams_strict.json",
+      "custom_kids_safe": "/skipmaps/City_Of_Dreams_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/City_Of_Dreams_custom_teens.json",
+      "custom_religious": "/skipmaps/City_Of_Dreams_custom_religious.json"
+    },
+    "rail": "top-picks"
+  },
+  {
+    "id": "Atlas",
+    "title": "Atlas",
+    "videoUrl": "/videos/Atlas.mp4",
+    "thumbnail": "/thumbnails/Atlas.jpg",
+    "skipMapUrl": {
+      "mild": "/skipmaps/City_Of_Dreams_mild.json",
+      "strict": "/skipmaps/City_Of_Dreams_strict.json",
+      "custom_kids_safe": "/skipmaps/City_Of_Dreams_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/City_Of_Dreams_custom_teens.json",
+      "custom_religious": "/skipmaps/City_Of_Dreams_custom_religious.json"
+    },
+    "rail": "smartskips"
+  },
+  {
+    "id": "The_Silent_Heist",
+    "title": "The Silent Heist",
+    "videoUrl": "/videos/The_Silent_Heist.mp4",
+    "thumbnail": "/thumbnails/The_Silent_Heist.jpg",
+    "skipMapUrl": {
+      "mild": "/skipmaps/City_Of_Dreams_mild.json",
+      "strict": "/skipmaps/City_Of_Dreams_strict.json",
+      "custom_kids_safe": "/skipmaps/City_Of_Dreams_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/City_Of_Dreams_custom_teens.json",
+      "custom_religious": "/skipmaps/City_Of_Dreams_custom_religious.json"
+    },
+    "rail": "smartskips"
+  },
+  {
+    "id": "The_Silver_Lining_Squad",
+    "title": "The Silver Lining Squad",
+    "videoUrl": "/videos/The_Silver_Lining_Squad.mp4",
+    "thumbnail": "/thumbnails/The_Silver_Lining_Squad.jpg",
+    "skipMapUrl": {
+      "mild": "/skipmaps/City_Of_Dreams_mild.json",
+      "strict": "/skipmaps/City_Of_Dreams_strict.json",
+      "custom_kids_safe": "/skipmaps/City_Of_Dreams_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/City_Of_Dreams_custom_teens.json",
+      "custom_religious": "/skipmaps/City_Of_Dreams_custom_religious.json"
+    },
+    "rail": "smartskips"
+  },
+  {
+    "id": "Neon_Horizon",
+    "title": "Neon Horizon",
+    "videoUrl": "/videos/Neon_Horizon.mp4",
+    "thumbnail": "/thumbnails/Neon_Horizon.jpg",
+    "skipMapUrl": {
+      "mild": "/skipmaps/City_Of_Dreams_mild.json",
+      "strict": "/skipmaps/City_Of_Dreams_strict.json",
+      "custom_kids_safe": "/skipmaps/City_Of_Dreams_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/City_Of_Dreams_custom_teens.json",
+      "custom_religious": "/skipmaps/City_Of_Dreams_custom_religious.json"
+    },
+    "rail": "smartskips"
+  },
+  {
+    "id": "The_Forgotten_Echo",
+    "title": "The Forgotten Echo",
+    "videoUrl": "/videos/The_Forgotten_Echo.mp4",
+    "thumbnail": "/thumbnails/The_Forgotten_Echo.jpg",
+    "skipMapUrl": {
+      "mild": "/skipmaps/City_Of_Dreams_mild.json",
+      "strict": "/skipmaps/City_Of_Dreams_strict.json",
+      "custom_kids_safe": "/skipmaps/City_Of_Dreams_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/City_Of_Dreams_custom_teens.json",
+      "custom_religious": "/skipmaps/City_Of_Dreams_custom_religious.json"
+    },
+    "rail": "smartskips"
   },
   {
     "id": "City_Of_Dreams",
@@ -47,7 +251,7 @@
       "custom_teens": "/skipmaps/City_Of_Dreams_custom_teens.json",
       "custom_religious": "/skipmaps/City_Of_Dreams_custom_religious.json"
     },
-    "category": "Recommended For You"
+    "rail": "genre"
   },
   {
     "id": "Dhruba",
@@ -61,7 +265,35 @@
       "custom_religious": "/skipmaps/Dhruba_custom_religious.json"
     },
     "thumbnail": "/thumbnails/Dhruba.jpg",
-    "category": "Recommended For You"
+    "rail": "genre"
+  },
+  {
+    "id": "Il_Filo_Invisible",
+    "title": "Il Filo Invisible",
+    "videoUrl": "/videos/Il_Filo_Invisible.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/Genesis_Protocol_mild.json",
+      "strict": "/skipmaps/Genesis_Protocol_strict.json",
+      "custom_kids_safe": "/skipmaps/Genesis_Protocol_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Genesis_Protocol_custom_teens.json",
+      "custom_religious": "/skipmaps/Genesis_Protocol_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/Il_Filo_Invisible.jpg",
+    "rail": "genre"
+  },
+  {
+    "id": "Grandmas_Roadtrip_Chaos",
+    "title": "Grandma's Roadtrip Chaos",
+    "videoUrl": "/videos/Grandmas_Roadtrip_Chaos.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/Genesis_Protocol_mild.json",
+      "strict": "/skipmaps/Genesis_Protocol_strict.json",
+      "custom_kids_safe": "/skipmaps/Genesis_Protocol_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Genesis_Protocol_custom_teens.json",
+      "custom_religious": "/skipmaps/Genesis_Protocol_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/Grandmas_Roadtrip_Chaos.jpg",
+    "rail": "genre"
   },
   {
     "id": "Genesis_Protocol",
@@ -75,29 +307,189 @@
       "custom_religious": "/skipmaps/Genesis_Protocol_custom_religious.json"
     },
     "thumbnail": "/thumbnails/Genesis_Protocol.jpg",
-    "category": "Recommended For You"
+    "rail": "genre"
   },
   {
-    "id": "A_Paris_Promise_2",
-    "title": "Summer Moments",
-    "videoUrl": "/videos/A_Paris_Promise.mp4",
-    "skipMapUrl": "/skipmaps/A_Paris_Promise.json",
-    "thumbnail": "/thumbnails/summer_thumbnail.jpg",
-    "category": "Family Picks"
-  },
-  {
-    "id": "City_Of_Dreams_2",
-    "title": "By the Water",
-    "videoUrl": "/videos/City_Of_Dreams.mp4",
-    "thumbnail": "/thumbnails/water.jpg",
+    "id": "Gridlock",
+    "title": "Gridlock",
+    "videoUrl": "/videos/Gridlock.mp4",
     "skipMapUrl": {
-      "mild": "/skipmaps/City_Of_Dreams_mild.json",
-      "strict": "/skipmaps/City_Of_Dreams_strict.json",
-      "custom_kids_safe": "/skipmaps/City_Of_Dreams_custom_kids_safe.json",
-      "custom_teens": "/skipmaps/City_Of_Dreams_custom_teens.json",
-      "custom_religious": "/skipmaps/City_Of_Dreams_custom_religious.json"
+      "mild": "/skipmaps/Genesis_Protocol_mild.json",
+      "strict": "/skipmaps/Genesis_Protocol_strict.json",
+      "custom_kids_safe": "/skipmaps/Genesis_Protocol_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Genesis_Protocol_custom_teens.json",
+      "custom_religious": "/skipmaps/Genesis_Protocol_custom_religious.json"
     },
-    "category": "Family Picks"
+    "thumbnail": "/thumbnails/Gridlock.jpg",
+    "rail": "genre"
+  },
+  {
+    "id": "Long_Story_Short",
+    "title": "Long Story Short",
+    "videoUrl": "/videos/Long_Story_Short.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/Genesis_Protocol_mild.json",
+      "strict": "/skipmaps/Genesis_Protocol_strict.json",
+      "custom_kids_safe": "/skipmaps/Genesis_Protocol_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Genesis_Protocol_custom_teens.json",
+      "custom_religious": "/skipmaps/Genesis_Protocol_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/Long_Story_Short.jpg",
+    "rail": "genre"
+  },
+  {
+    "id": "Luz_De_La_Noche",
+    "title": "Luz De La Noche",
+    "videoUrl": "/videos/Luz_De_La_Noche.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/Genesis_Protocol_mild.json",
+      "strict": "/skipmaps/Genesis_Protocol_strict.json",
+      "custom_kids_safe": "/skipmaps/Genesis_Protocol_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Genesis_Protocol_custom_teens.json",
+      "custom_religious": "/skipmaps/Genesis_Protocol_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/Luz_De_La_Noche.jpg",
+    "rail": "genre"
+  },
+  {
+    "id": "Neon_Eclipse",
+    "title": "Neon Eclipse",
+    "videoUrl": "/videos/Neon_Eclipse.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/Genesis_Protocol_mild.json",
+      "strict": "/skipmaps/Genesis_Protocol_strict.json",
+      "custom_kids_safe": "/skipmaps/Genesis_Protocol_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Genesis_Protocol_custom_teens.json",
+      "custom_religious": "/skipmaps/Genesis_Protocol_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/Neon_Eclipse.jpg",
+    "rail": "genre"
+  },
+  {
+    "id": "Nights_Edge",
+    "title": "Night's Edge",
+    "videoUrl": "/videos/Nights_Edge.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/Genesis_Protocol_mild.json",
+      "strict": "/skipmaps/Genesis_Protocol_strict.json",
+      "custom_kids_safe": "/skipmaps/Genesis_Protocol_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Genesis_Protocol_custom_teens.json",
+      "custom_religious": "/skipmaps/Genesis_Protocol_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/Nights_Edge.jpg",
+    "rail": "genre"
+  },
+  {
+    "id": "Nitrorush",
+    "title": "Nitrorush",
+    "videoUrl": "/videos/Nitrorush.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/Genesis_Protocol_mild.json",
+      "strict": "/skipmaps/Genesis_Protocol_strict.json",
+      "custom_kids_safe": "/skipmaps/Genesis_Protocol_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Genesis_Protocol_custom_teens.json",
+      "custom_religious": "/skipmaps/Genesis_Protocol_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/Nitrorush.jpg",
+    "rail": "genre"
+  },
+  {
+    "id": "Parisian_Memories",
+    "title": "Parisian Memories",
+    "videoUrl": "/videos/Parisian_Memories.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/Genesis_Protocol_mild.json",
+      "strict": "/skipmaps/Genesis_Protocol_strict.json",
+      "custom_kids_safe": "/skipmaps/Genesis_Protocol_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Genesis_Protocol_custom_teens.json",
+      "custom_religious": "/skipmaps/Genesis_Protocol_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/Parisian_Memories.jpg",
+    "rail": "genre"
+  },
+  {
+    "id": "Project_Chaos_The_After_Party",
+    "title": "Project Chaos: The After Party",
+    "videoUrl": "/videos/Project_Chaos_The_After_Party.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/Genesis_Protocol_mild.json",
+      "strict": "/skipmaps/Genesis_Protocol_strict.json",
+      "custom_kids_safe": "/skipmaps/Genesis_Protocol_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Genesis_Protocol_custom_teens.json",
+      "custom_religious": "/skipmaps/Genesis_Protocol_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/Project_Chaos_The_After_Party.jpg",
+    "rail": "genre"
+  },
+  {
+    "id": "The_Silent_Warrior",
+    "title": "The Silent Warrior",
+    "videoUrl": "/videos/The_Silent_Warrior.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/Genesis_Protocol_mild.json",
+      "strict": "/skipmaps/Genesis_Protocol_strict.json",
+      "custom_kids_safe": "/skipmaps/Genesis_Protocol_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Genesis_Protocol_custom_teens.json",
+      "custom_religious": "/skipmaps/Genesis_Protocol_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/The_Silent_Warrior.jpg",
+    "rail": "extra"
+  },
+  {
+    "id": "The_Gig_Is_Up",
+    "title": "THE GIG IS UP",
+    "videoUrl": "/videos/The_Gig_Is_Up.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/Genesis_Protocol_mild.json",
+      "strict": "/skipmaps/Genesis_Protocol_strict.json",
+      "custom_kids_safe": "/skipmaps/Genesis_Protocol_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Genesis_Protocol_custom_teens.json",
+      "custom_religious": "/skipmaps/Genesis_Protocol_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/The_Gig_Is_Up.jpg",
+    "rail": "extra"
+  },
+  {
+    "id": "The_Observer_Effect",
+    "title": "The Observer Effect",
+    "videoUrl": "/videos/The_Observer_Effect.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/Genesis_Protocol_mild.json",
+      "strict": "/skipmaps/Genesis_Protocol_strict.json",
+      "custom_kids_safe": "/skipmaps/Genesis_Protocol_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Genesis_Protocol_custom_teens.json",
+      "custom_religious": "/skipmaps/Genesis_Protocol_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/The_Observer_Effect.jpg",
+    "rail": "extra"
+  },
+  {
+    "id": "The_Silent_Witness",
+    "title": "The Silent Witness",
+    "videoUrl": "/videos/The_Silent_Witness.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/Genesis_Protocol_mild.json",
+      "strict": "/skipmaps/Genesis_Protocol_strict.json",
+      "custom_kids_safe": "/skipmaps/Genesis_Protocol_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Genesis_Protocol_custom_teens.json",
+      "custom_religious": "/skipmaps/Genesis_Protocol_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/The_Silent_Witness.jpg",
+    "rail": "extra"
+  },
+  {
+    "id": "Unbreakable_Spirits",
+    "title": "Unbreakable Spirits",
+    "videoUrl": "/videos/Unbreakable_Spirits.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/Genesis_Protocol_mild.json",
+      "strict": "/skipmaps/Genesis_Protocol_strict.json",
+      "custom_kids_safe": "/skipmaps/Genesis_Protocol_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Genesis_Protocol_custom_teens.json",
+      "custom_religious": "/skipmaps/Genesis_Protocol_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/Unbreakable_Spirits.jpg",
+    "rail": "extra"
   },
   {
     "id": "dance_moves",
