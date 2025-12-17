@@ -259,10 +259,10 @@
 .hero {
   position: relative;
   width: 100vw;
-  height: 60vh;
-  min-height: 360px;
-  background-size: cover;
+  height: 75vh;       /* from 60vh */
+  min-height: 480px;  /* from 360px */
   background-position: center top;
+  background-size: cover;
 }
 
 .home-hero-overlay {
