@@ -15,8 +15,10 @@ const SIDE_ITEMS = [
 
 const HomePage = () => {
   const [videoMetadata, setVideoMetadata] = useState([]);
+  const [heroIndex, setHeroIndex] = useState(0);
   const navigate = useNavigate();
 
+  // Load metadata
   useEffect(() => {
     fetch("/video_metadata.json")
       .then((res) => res.json())
@@ -24,17 +26,31 @@ const HomePage = () => {
       .catch((err) => console.error("Failed to load video metadata:", err));
   }, []);
 
-  // 1️⃣ HERO — pick from landscape / hero rail (or fall back to first item)
-  const hero = useMemo(() => {
-    if (!videoMetadata.length) return null;
+  // 1️⃣ HERO LIST — all items marked as hero (or featured). fallback to first item.
+  const heroItems = useMemo(() => {
+    if (!videoMetadata.length) return [];
 
     const heroRail = videoMetadata.filter(
       (v) => v.rail === "hero" || v.featured === true
     );
-    if (heroRail.length > 0) return heroRail[0];
 
-    return videoMetadata[0];
+    return heroRail.length ? heroRail : [videoMetadata[0]];
   }, [videoMetadata]);
+
+  // Hero slideshow timer
+  useEffect(() => {
+    if (!heroItems.length) return;
+
+    setHeroIndex(0); // reset when hero list changes
+
+    const t = setInterval(() => {
+      setHeroIndex((i) => (i + 1) % heroItems.length);
+    }, 6000);
+
+    return () => clearInterval(t);
+  }, [heroItems]);
+
+  const heroItem = heroItems.length ? heroItems[heroIndex] : null;
 
   // 2️⃣ TOP PICKS — vertical posters row
   const topPicks = useMemo(
@@ -42,8 +58,9 @@ const HomePage = () => {
     [videoMetadata]
   );
 
-  // 3️⃣ SMARTSKIPS DEMO — vertical posters row
-  const smartSkips = useMemo(
+  // 3️⃣ OTT Row (formerly "smartskips") — vertical posters row
+  // NOTE: Make sure your metadata rail string matches EXACTLY (including curly apostrophe if you keep it).
+  const safeChoice = useMemo(
     () => videoMetadata.filter((v) => v.rail === "Editor’s Safe Choice"),
     [videoMetadata]
   );
@@ -127,37 +144,40 @@ const HomePage = () => {
 
       {/* MAIN CONTENT: HERO + RAILS + FOOTER */}
       <main className="hp-main">
-        {hero && (
+        {heroItem && (
           <section
             className="hero"
             style={{
               backgroundImage: `url(${
-                hero.backdrop || hero.heroImage || hero.thumbnail
+                heroItem.backdrop || heroItem.heroImage || heroItem.thumbnail
               })`,
             }}
           >
             <div className="home-hero-overlay">
               <motion.h2
                 className="hero-title"
+                key={heroItem.id} // helps re-animate on slide
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.15 }}
+                transition={{ duration: 0.45 }}
               >
-                {hero.title}
+                {heroItem.title}
               </motion.h2>
 
-              {hero.tagline ? (
-                <p className="hero-tagline">{hero.tagline}</p>
+              {heroItem.tagline ? (
+                <p className="hero-tagline">{heroItem.tagline}</p>
               ) : null}
 
               <div className="hero-actions">
                 <button
-                  className="btn btn-primary"
-                  onClick={() => onThumbActivate(hero.id)}
-                  type="button"
-                >
-                  ▶ Play
-                </button>
+  className="btn btn-primary"
+  onClick={() => onThumbActivate(heroItem.id)}
+  type="button"
+>
+  <span className="play-icon">▶</span>
+  <span className="play-text">Play</span>
+</button>
+
                 <button
                   className="btn btn-ghost"
                   onClick={() => navigate("/about-smartskips")}
@@ -181,11 +201,11 @@ const HomePage = () => {
             />
           )}
 
-          {/* 3️⃣ SmartSkips Demo — vertical */}
-          {smartSkips.length > 0 && (
+          {/* 3️⃣ Editor’s Safe Choice — vertical */}
+          {safeChoice.length > 0 && (
             <ThumbRow
-              title="SmartSkips Demo"
-              items={smartSkips}
+              title="Editor’s Safe Choice"
+              items={safeChoice}
               variant="vertical"
               onThumbActivate={onThumbActivate}
             />
@@ -205,7 +225,7 @@ const HomePage = () => {
           {/* 5️⃣ Extra row — square */}
           {extraRow.length > 0 && (
             <ThumbRow
-              title="More to Explore"
+              title="Recommended for You"
               items={extraRow}
               variant="square"
               onThumbActivate={onThumbActivate}

@@ -262,7 +262,7 @@
   height: 60vh;
   min-height: 360px;
   background-size: cover;
-  background-position: center;
+  background-position: center top;
 }
 
 .home-hero-overlay {
@@ -304,9 +304,19 @@
 }
 
 .btn-primary {
-  background: #ff1849;
-  color: #fff;
+  background: #ffd91a; /* TP yellow */
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.6rem;
+  border-radius: 8px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(255, 217, 26, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
+
 
 .btn-ghost {
   background: rgba(255, 255, 255, 0.2);
@@ -440,3 +450,17 @@
     margin-left: 0;
   }
 }
+.play-icon {
+  color: #d81414; /* TP red */
+  font-size: 1.1rem;
+  line-height: 1;
+}
+.play-text {
+  color: #111; /* near-black */
+  font-size: 0.95rem;
+}
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 22px rgba(255, 217, 26, 0.55);
+}
+

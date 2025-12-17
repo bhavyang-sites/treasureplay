@@ -251,7 +251,7 @@
       "custom_teens": "/skipmaps/City_Of_Dreams_custom_teens.json",
       "custom_religious": "/skipmaps/City_Of_Dreams_custom_religious.json"
     },
-    "rail": "genre"
+    "rail": "safeChoice"
   },
   {
     "id": "Dhruba",
@@ -265,7 +265,7 @@
       "custom_religious": "/skipmaps/Dhruba_custom_religious.json"
     },
     "thumbnail": "/thumbnails/Dhruba.jpg",
-    "rail": "genre"
+    "rail": "safeChoice"
   },
   {
     "id": "Il_Filo_Invisible",
@@ -279,7 +279,7 @@
       "custom_religious": "/skipmaps/Genesis_Protocol_custom_religious.json"
     },
     "thumbnail": "/thumbnails/Il_Filo_Invisible.jpg",
-    "rail": "genre"
+    "rail": "safeChoice"
   },
   {
     "id": "Grandmas_Roadtrip_Chaos",
@@ -293,7 +293,7 @@
       "custom_religious": "/skipmaps/Genesis_Protocol_custom_religious.json"
     },
     "thumbnail": "/thumbnails/Grandmas_Roadtrip_Chaos.jpg",
-    "rail": "genre"
+    "rail": "safeChoice"
   },
   {
     "id": "Genesis_Protocol",
@@ -307,7 +307,7 @@
       "custom_religious": "/skipmaps/Genesis_Protocol_custom_religious.json"
     },
     "thumbnail": "/thumbnails/Genesis_Protocol.jpg",
-    "rail": "genre"
+    "rail": "safeChoice"
   },
   {
     "id": "Gridlock",
@@ -321,7 +321,7 @@
       "custom_religious": "/skipmaps/Genesis_Protocol_custom_religious.json"
     },
     "thumbnail": "/thumbnails/Gridlock.jpg",
-    "rail": "genre"
+    "rail": "safeChoice"
   },
   {
     "id": "Long_Story_Short",
@@ -335,7 +335,7 @@
       "custom_religious": "/skipmaps/Genesis_Protocol_custom_religious.json"
     },
     "thumbnail": "/thumbnails/Long_Story_Short.jpg",
-    "rail": "genre"
+    "rail": "safeChoice"
   },
   {
     "id": "Luz_De_La_Noche",
@@ -349,7 +349,7 @@
       "custom_religious": "/skipmaps/Genesis_Protocol_custom_religious.json"
     },
     "thumbnail": "/thumbnails/Luz_De_La_Noche.jpg",
-    "rail": "genre"
+    "rail": "safeChoice"
   },
   {
     "id": "Neon_Eclipse",
@@ -363,63 +363,7 @@
       "custom_religious": "/skipmaps/Genesis_Protocol_custom_religious.json"
     },
     "thumbnail": "/thumbnails/Neon_Eclipse.jpg",
-    "rail": "genre"
-  },
-  {
-    "id": "Nights_Edge",
-    "title": "Night's Edge",
-    "videoUrl": "/videos/Nights_Edge.mp4",
-    "skipMapUrl": {
-      "mild": "/skipmaps/Genesis_Protocol_mild.json",
-      "strict": "/skipmaps/Genesis_Protocol_strict.json",
-      "custom_kids_safe": "/skipmaps/Genesis_Protocol_custom_kids_safe.json",
-      "custom_teens": "/skipmaps/Genesis_Protocol_custom_teens.json",
-      "custom_religious": "/skipmaps/Genesis_Protocol_custom_religious.json"
-    },
-    "thumbnail": "/thumbnails/Nights_Edge.jpg",
-    "rail": "genre"
-  },
-  {
-    "id": "Nitrorush",
-    "title": "Nitrorush",
-    "videoUrl": "/videos/Nitrorush.mp4",
-    "skipMapUrl": {
-      "mild": "/skipmaps/Genesis_Protocol_mild.json",
-      "strict": "/skipmaps/Genesis_Protocol_strict.json",
-      "custom_kids_safe": "/skipmaps/Genesis_Protocol_custom_kids_safe.json",
-      "custom_teens": "/skipmaps/Genesis_Protocol_custom_teens.json",
-      "custom_religious": "/skipmaps/Genesis_Protocol_custom_religious.json"
-    },
-    "thumbnail": "/thumbnails/Nitrorush.jpg",
-    "rail": "genre"
-  },
-  {
-    "id": "Parisian_Memories",
-    "title": "Parisian Memories",
-    "videoUrl": "/videos/Parisian_Memories.mp4",
-    "skipMapUrl": {
-      "mild": "/skipmaps/Genesis_Protocol_mild.json",
-      "strict": "/skipmaps/Genesis_Protocol_strict.json",
-      "custom_kids_safe": "/skipmaps/Genesis_Protocol_custom_kids_safe.json",
-      "custom_teens": "/skipmaps/Genesis_Protocol_custom_teens.json",
-      "custom_religious": "/skipmaps/Genesis_Protocol_custom_religious.json"
-    },
-    "thumbnail": "/thumbnails/Parisian_Memories.jpg",
-    "rail": "genre"
-  },
-  {
-    "id": "Project_Chaos_The_After_Party",
-    "title": "Project Chaos: The After Party",
-    "videoUrl": "/videos/Project_Chaos_The_After_Party.mp4",
-    "skipMapUrl": {
-      "mild": "/skipmaps/Genesis_Protocol_mild.json",
-      "strict": "/skipmaps/Genesis_Protocol_strict.json",
-      "custom_kids_safe": "/skipmaps/Genesis_Protocol_custom_kids_safe.json",
-      "custom_teens": "/skipmaps/Genesis_Protocol_custom_teens.json",
-      "custom_religious": "/skipmaps/Genesis_Protocol_custom_religious.json"
-    },
-    "thumbnail": "/thumbnails/Project_Chaos_The_After_Party.jpg",
-    "rail": "genre"
+    "rail": "safeChoice"
   },
   {
     "id": "The_Silent_Warrior",
@@ -489,6 +433,62 @@
       "custom_religious": "/skipmaps/Genesis_Protocol_custom_religious.json"
     },
     "thumbnail": "/thumbnails/Unbreakable_Spirits.jpg",
+    "rail": "extra"
+  },
+  {
+    "id": "Nights_Edge",
+    "title": "Night's Edge",
+    "videoUrl": "/videos/Nights_Edge.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/Genesis_Protocol_mild.json",
+      "strict": "/skipmaps/Genesis_Protocol_strict.json",
+      "custom_kids_safe": "/skipmaps/Genesis_Protocol_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Genesis_Protocol_custom_teens.json",
+      "custom_religious": "/skipmaps/Genesis_Protocol_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/Nights_Edge.jpg",
+    "rail": "extra"
+  },
+  {
+    "id": "Nitrorush",
+    "title": "Nitrorush",
+    "videoUrl": "/videos/Nitrorush.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/Genesis_Protocol_mild.json",
+      "strict": "/skipmaps/Genesis_Protocol_strict.json",
+      "custom_kids_safe": "/skipmaps/Genesis_Protocol_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Genesis_Protocol_custom_teens.json",
+      "custom_religious": "/skipmaps/Genesis_Protocol_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/Nitrorush.jpg",
+    "rail": "extra"
+  },
+  {
+    "id": "Parisian_Memories",
+    "title": "Parisian Memories",
+    "videoUrl": "/videos/Parisian_Memories.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/Genesis_Protocol_mild.json",
+      "strict": "/skipmaps/Genesis_Protocol_strict.json",
+      "custom_kids_safe": "/skipmaps/Genesis_Protocol_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Genesis_Protocol_custom_teens.json",
+      "custom_religious": "/skipmaps/Genesis_Protocol_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/Parisian_Memories.jpg",
+    "rail": "extra"
+  },
+  {
+    "id": "Project_Chaos_The_After_Party",
+    "title": "Project Chaos: The After Party",
+    "videoUrl": "/videos/Project_Chaos_The_After_Party.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/Genesis_Protocol_mild.json",
+      "strict": "/skipmaps/Genesis_Protocol_strict.json",
+      "custom_kids_safe": "/skipmaps/Genesis_Protocol_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/Genesis_Protocol_custom_teens.json",
+      "custom_religious": "/skipmaps/Genesis_Protocol_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/Project_Chaos_The_After_Party.jpg",
     "rail": "extra"
   },
   {
