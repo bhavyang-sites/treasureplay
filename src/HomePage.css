@@ -282,10 +282,14 @@
 
 .hero-title {
   font-family: "Oswald", sans-serif;
-  font-size: 3rem;
-  font-weight: 700;
+  font-size: 2.2rem;
+  font-weight: 600;
   text-transform: uppercase;
+
+  margin-top: 1.2rem;     /* ⬅ pushes title down */
+  margin-bottom: 0.4rem;  /* keeps it close to CTA */
 }
+
 
 .hero-tagline {
   margin-top: 0.5rem;
