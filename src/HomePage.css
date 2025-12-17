@@ -261,7 +261,7 @@
   width: 100vw;
   height: 75vh;       /* from 60vh */
   min-height: 480px;  /* from 360px */
-  background-position: center top;
+  background-position: center 15%;
   background-size: cover;
 }
 
