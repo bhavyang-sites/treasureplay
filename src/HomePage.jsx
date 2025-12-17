@@ -61,7 +61,7 @@ const HomePage = () => {
   // 3️⃣ OTT Row (formerly "smartskips") — vertical posters row
   // NOTE: Make sure your metadata rail string matches EXACTLY (including curly apostrophe if you keep it).
   const safeChoice = useMemo(
-    () => videoMetadata.filter((v) => v.rail === "Editor’s Safe Choice"),
+    () => videoMetadata.filter((v) => v.rail === "safeChoice"),
     [videoMetadata]
   );
 

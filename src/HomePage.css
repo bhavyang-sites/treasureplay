@@ -272,7 +272,12 @@
   flex-direction: column;
   justify-content: flex-end;
   padding: 2rem 3rem 2.5rem 6rem;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.4) 0%,
+    rgba(0, 0, 0, 0.15) 25%,
+    transparent 60%
+  );
 }
 
 .hero-title {
