@@ -1,7 +1,7 @@
 [
   {
     "id": "The_Last_Embrace",
-    "title": "The Last Embrace Part 4",
+    "title": "The Last Embrace Part 5",
     "videoUrl": "https://pub-3b449d5e44504ca18a0a8be82cbbf64c.r2.dev/The_Last_Embrace.mp4",
     "skipMapUrl": {
       "mild": "/skipmaps/The_Last_Embrace_mild.json",
@@ -10,7 +10,7 @@
       "custom_teens": "/skipmaps/The_Last_Embrace_custom_teens.json",
       "custom_religious": "/skipmaps/The_Last_Embrace_custom_religious.json"
     },
-    "thumbnail": "/thumbnails/The_Last_Embrace_Part_4.jpg",
+    "thumbnail": "/thumbnails/The_Last_Embrace_Part_5.jpg",
     "rail": "hero"
   },
   {
