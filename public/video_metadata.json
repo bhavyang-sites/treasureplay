@@ -1,5 +1,19 @@
 [
   {
+    "id": "The_Last_Embrace",
+    "title": "The Last Embrace Part 2",
+    "videoUrl": "https://pub-3b449d5e44504ca18a0a8be82cbbf64c.r2.dev/The_Last_Embrace.mp4",
+    "skipMapUrl": {
+      "mild": "/skipmaps/The_Last_Embrace_mild.json",
+      "strict": "/skipmaps/The_Last_Embrace_strict.json",
+      "custom_kids_safe": "/skipmaps/The_Last_Embrace_custom_kids_safe.json",
+      "custom_teens": "/skipmaps/The_Last_Embrace_custom_teens.json",
+      "custom_religious": "/skipmaps/The_Last_Embrace_custom_religious.json"
+    },
+    "thumbnail": "/thumbnails/The_Last_Embrace_Part_2.jpg",
+    "rail": "hero"
+  },
+  {
     "id": "A_Paris_Promise",
     "title": "A Paris Promise",
     "videoUrl": "/videos/A_Paris_Promise.mp4",
