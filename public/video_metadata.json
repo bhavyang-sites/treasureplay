@@ -1,7 +1,7 @@
 [
   {
     "id": "The_Last_Embrace",
-    "title": "The Last Embrace Part 5",
+    "title": "The Last Embrace Part",
     "videoUrl": "https://pub-3b449d5e44504ca18a0a8be82cbbf64c.r2.dev/The_Last_Embrace.mp4",
     "skipMapUrl": {
       "mild": "/skipmaps/The_Last_Embrace_mild.json",
@@ -22,25 +22,11 @@
     "rail": "hero"
   },
   {
-    "id": "Accidental_Heroes",
-    "title": "Accidental Heroes",
+    "id": "Misfit_Mayhem",
+    "title": "Misfit Mayhem",
     "videoUrl": "/videos/A_Paris_Promise.mp4",
     "skipMapUrl": "/skipmaps/A_Paris_Promise.json",
-    "thumbnail": "/thumbnails/Accidental_Heroes.jpg",
-    "rail": "hero"
-  },
-  {
-    "id": "The_Last_Embrace",
-    "title": "The Last Embrace",
-    "videoUrl": "https://pub-3b449d5e44504ca18a0a8be82cbbf64c.r2.dev/The_Last_Embrace.mp4",
-    "skipMapUrl": {
-      "mild": "/skipmaps/The_Last_Embrace_mild.json",
-      "strict": "/skipmaps/The_Last_Embrace_strict.json",
-      "custom_kids_safe": "/skipmaps/The_Last_Embrace_custom_kids_safe.json",
-      "custom_teens": "/skipmaps/The_Last_Embrace_custom_teens.json",
-      "custom_religious": "/skipmaps/The_Last_Embrace_custom_religious.json"
-    },
-    "thumbnail": "/thumbnails/The_Last_Embrace.jpg",
+    "thumbnail": "/thumbnails/Misfit_Mayhem.jpg",
     "rail": "hero"
   },
   {
