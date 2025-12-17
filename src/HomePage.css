@@ -261,8 +261,8 @@
   width: 100vw;
   height: 60vh;
   min-height: 360px;
-  background-size: cover;
-  background-position: center top;
+  background-size: 105%;
+  background-position: center 15%;
 }
 
 .home-hero-overlay {
