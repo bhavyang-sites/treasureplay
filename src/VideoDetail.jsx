@@ -1,8 +1,7 @@
 // VideoDetail.jsx
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import "./VideoDetail.css";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
+import "./VideoDetail.css";
 
 
 function toSeconds(ts) {
