@@ -1,90 +1,7 @@
 // VideoDetail.jsx
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import { useEffect, useMemo, useRef } from "react"
+import React, { useEffect, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./VideoDetail.css";
-
-function toSeconds(ts) {
-  if (typeof ts === "number") return ts;
-  if (typeof ts !== "string") return null;
-  const parts = ts.split(":").map((p) => p.trim());
-  if (parts.some((p) => p === "" || isNaN(Number(p)))) return null;
-
-  if (parts.length === 2) {
-    const [m, s] = parts.map(Number);
-    return m * 60 + s;
-  }
-  if (parts.length === 3) {
-    const [h, m, s] = parts.map(Number);
-    return h * 3600 + m * 60 + s;
-  }
-  return null;
-}
-
-export function useJumpClipHotkey({
-  videoRef,
-  jumpTo = "22:44",
-  clipLength = 48,
-  enabled = true,
-  autoPlay = true,
-  requireFocus = false,
-}) {
-  const clipStart = useMemo(() => toSeconds(jumpTo), [jumpTo]);
-  const clipEndRef = useRef(null); // stores absolute stop time (seconds)
-
-  useEffect(() => {
-    const v = videoRef?.current;
-    if (!v || !enabled) return;
-
-    const onTimeUpdate = () => {
-      const clipEnd = clipEndRef.current;
-      if (typeof clipEnd !== "number") return;
-
-      // Pause once we reach end of the clip window
-      if (v.currentTime >= clipEnd) {
-        v.pause();
-        v.currentTime = clipEnd;     // clamp exactly
-        clipEndRef.current = null;   // disarm so it doesn't keep pausing later
-      }
-    };
-
-    const onKeyDown = (e) => {
-      // don’t hijack typing in inputs
-      const tag = (e.target?.tagName || "").toLowerCase();
-      if (tag === "input" || tag === "textarea" || e.target?.isContentEditable) return;
-
-      if (requireFocus && document.activeElement !== v) return;
-
-      if (e.key === "ArrowRight") {
-        e.preventDefault();
-
-        if (typeof clipStart !== "number") return;
-
-        // if duration known, clamp start/end within duration
-        const dur = v.duration;
-        const start = Number.isFinite(dur) ? Math.min(clipStart, Math.max(0, dur - 0.2)) : clipStart;
-        const endCandidate = start + clipLength;
-        const end = Number.isFinite(dur) ? Math.min(endCandidate, Math.max(0, dur - 0.1)) : endCandidate;
-
-        // arm the stop point for this clip play
-        clipEndRef.current = end;
-
-        // jump and optionally autoplay
-        v.currentTime = start;
-        if (autoPlay) v.play().catch(() => {});
-      }
-    };
-
-    v.addEventListener("timeupdate", onTimeUpdate);
-    window.addEventListener("keydown", onKeyDown, { passive: false });
-
-    return () => {
-      v.removeEventListener("timeupdate", onTimeUpdate);
-      window.removeEventListener("keydown", onKeyDown);
-    };
-  }, [videoRef, enabled, clipStart, clipLength, autoPlay, requireFocus]);
-}
-
 
 const VideoDetail = () => {
   const { id } = useParams();
@@ -100,16 +17,6 @@ const VideoDetail = () => {
 
   const customProfiles = ["Kids Safe", "Teens", "Religious"];
   const videoRef = useRef(null);
-
-  useJumpClipHotkey({
-  videoRef,
-  jumpTo: "22:44",
-  clipLength: 48,
-  enabled: true,
-  autoPlay: true,
-  requireFocus: false, // set true if you only want it when video is focused
-});
-
 
   // Load metadata
   useEffect(() => {
