@@ -2,6 +2,8 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./VideoDetail.css";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
+
 
 function toSeconds(ts) {
   if (typeof ts === "number") return ts;
@@ -119,6 +121,9 @@ const VideoDetail = () => {
 
   const customProfiles = ["Kids Safe", "Teens", "Religious"];
   const videoRef = useRef(null);
+  const location = useLocation();
+  const shouldAutoplay = new URLSearchParams(location.search).get("autoplay") === "1";
+
 
   useJumpClipHotkey({
   videoRef,
@@ -300,9 +305,12 @@ const VideoDetail = () => {
   poster={video.thumbnail}
   controls
   preload="metadata"
+  autoPlay={shouldAutoplay}
+  playsInline
   tabIndex={0}
   onPlay={(e) => e.currentTarget.focus()}
 />
+
 
 
           {/* SmartSkips bottom overlay bar */}

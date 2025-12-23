@@ -535,5 +535,125 @@
   gap: 0.75rem;
   align-items: center;
 }
+/* ================================
+   SmartSkips Popover Enhancements
+   ================================ */
+
+.smartskips-popover {
+  border: 1px solid rgba(255, 217, 26, 0.18); /* subtle product tint */
+}
+
+.smartskips-popover-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.smartskips-popover-title::before {
+  content: "SMARTSKIPS";
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  font-weight: 900;
+  color: rgba(255, 217, 26, 0.95);
+
+  padding: 0.18rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(255, 217, 26, 0.10);
+  border: 1px solid rgba(255, 217, 26, 0.22);
+}
+/* ===== Premium SmartSkips popover look ===== */
+
+.smartskips-popover {
+  max-width: 620px;
+  border-radius: 18px;
+
+  /* richer glass + subtle gold edge */
+  background: radial-gradient(1200px 500px at 20% 0%,
+      rgba(255, 217, 26, 0.10),
+      rgba(10, 10, 14, 0.72) 55%),
+    rgba(10, 10, 14, 0.70);
+
+  border: 1px solid rgba(255, 217, 26, 0.22);
+
+  box-shadow:
+    0 22px 60px rgba(0, 0, 0, 0.55),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.smartskips-popover-head {
+  padding-bottom: 0.6rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.smartskips-popover-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.08rem;
+}
+
+.smartskips-popover-title::before {
+  content: "SMARTSKIPS";
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  font-weight: 900;
+  color: rgba(255, 217, 26, 0.95);
+  padding: 0.18rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(255, 217, 26, 0.10);
+  border: 1px solid rgba(255, 217, 26, 0.22);
+}
+
+/* nicer close button */
+.smartskips-popover-close {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.smartskips-popover-close:hover {
+  background: rgba(255, 217, 26, 0.10);
+  border-color: rgba(255, 217, 26, 0.28);
+}
+
+/* bullets: cleaner spacing + stronger emphasis */
+.smartskips-bullets {
+  padding-left: 1.1rem;
+  font-size: 0.98rem;
+  line-height: 1.45;
+}
+
+.smartskips-bullets li {
+  margin: 0.55rem 0;
+}
+
+.smartskips-bullets strong {
+  color: #fff;
+}
+
+/* action row: right-align primary */
+.smartskips-popover-actions {
+  margin-top: 0.3rem;
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.smartskips-popover-actions .btn {
+  border-radius: 12px;
+  padding: 0.7rem 1.2rem;
+}
+
+.smartskips-popover-actions .btn-outline {
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.smartskips-popover-actions .btn-outline:hover {
+  background: rgba(255, 255, 255, 0.10);
+}
 
 

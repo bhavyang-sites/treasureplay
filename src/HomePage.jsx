@@ -229,7 +229,7 @@ const HomePage = () => {
       <button
         className="btn btn-primary"
         type="button"
-        onClick={() => navigate("/about-smartskips")}
+        onClick={() => navigate(`/video/${heroItem.id}?autoplay=1`)}
       >
         See how it works
       </button>
