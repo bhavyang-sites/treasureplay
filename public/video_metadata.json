@@ -1,8 +1,8 @@
 [
   {
     "id": "The_Last_Embrace",
-    "title": "The Last Embrace Part",
-    "videoUrl": "https://d2m4uhpxe35mn8.cloudfront.net/The_Last_Embrace.mp4",
+    "title": "The Last Embrace",
+    "videoUrl": "https://d2m4uhpxe35mn8.cloudfront.net/v3/The_Last_Embrace.mp4",
     "skipMapUrl": {
       "mild": "/skipmaps/The_Last_Embrace_mild.json",
       "strict": "/skipmaps/The_Last_Embrace_strict.json",
