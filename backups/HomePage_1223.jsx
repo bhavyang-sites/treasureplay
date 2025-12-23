@@ -17,7 +17,6 @@ const HomePage = () => {
   const [videoMetadata, setVideoMetadata] = useState([]);
   const [heroIndex, setHeroIndex] = useState(0);
   const navigate = useNavigate();
-  const [showSmartSkipsInfo, setShowSmartSkipsInfo] = useState(false);
 
   // Load metadata
   useEffect(() => {
@@ -180,63 +179,13 @@ const HomePage = () => {
 </button>
 
                 <button
-  className="btn btn-smartskips"
-  onClick={() => setShowSmartSkipsInfo((v) => !v)}
-  type="button"
-  aria-expanded={showSmartSkipsInfo}
-  aria-controls="smartskips-popover"
->
-  🛡 SmartSkips Family Mode
-</button>
-
+                  className="btn btn-ghost"
+                  onClick={() => navigate("/about-smartskips")}
+                  type="button"
+                >
+                  What is SmartSkips?
+                </button>
               </div>
-              {showSmartSkipsInfo && (
-  <motion.div
-    id="smartskips-popover"
-    className="smartskips-popover"
-    initial={{ opacity: 0, y: 8, scale: 0.98 }}
-    animate={{ opacity: 1, y: 0, scale: 1 }}
-    exit={{ opacity: 0, y: 8, scale: 0.98 }}
-    transition={{ duration: 0.18 }}
-  >
-    <div className="smartskips-popover-head">
-      <div className="smartskips-popover-title">SmartSkips Family Mode</div>
-      <button
-        type="button"
-        className="smartskips-popover-close"
-        onClick={() => setShowSmartSkipsInfo(false)}
-        aria-label="Close"
-      >
-        ✕
-      </button>
-    </div>
-
-    <ul className="smartskips-bullets">
-      <li><strong>Scene-level filtering</strong> using proxy videos + metadata (skip map output).</li>
-      <li><strong>Zero pipeline disruption</strong> — plugs into your existing CDN/DRM/apps.</li>
-      <li><strong>Playback plugin</strong> adds Family Mode toggle + profiles (Mild/Strict/Custom).</li>
-    </ul>
-
-    <div className="smartskips-popover-actions">
-      <button
-        className="btn btn-outline"
-        type="button"
-        onClick={() => setShowSmartSkipsInfo(false)}
-      >
-        Continue Watching
-      </button>
-
-      <button
-        className="btn btn-primary"
-        type="button"
-        onClick={() => navigate("/about-smartskips")}
-      >
-        See how it works
-      </button>
-    </div>
-  </motion.div>
-)}
-
             </div>
           </section>
         )}

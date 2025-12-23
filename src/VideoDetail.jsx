@@ -294,13 +294,16 @@ const VideoDetail = () => {
 
         <div className="hero-content">
           <video
-            ref={videoRef}
-            className="video-player"
-            src={video.videoUrl}
-            poster={video.thumbnail}
-            controls
-            preload="metadata"
-          />
+  ref={videoRef}
+  className="video-player"
+  src={video.videoUrl}
+  poster={video.thumbnail}
+  controls
+  preload="metadata"
+  tabIndex={0}
+  onPlay={(e) => e.currentTarget.focus()}
+/>
+
 
           {/* SmartSkips bottom overlay bar */}
           <div className="player-overlay">
