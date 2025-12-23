@@ -32,23 +32,34 @@ export function useJumpClipHotkey({
   const clipEndRef = useRef(null); // stores absolute stop time (seconds)
 
   useEffect(() => {
-    const v = videoRef?.current;
-    if (!v || !enabled) return;
+  if (!enabled) return;
+
+  let v = null;
+  let rafId = null;
+
+  const cleanupFns = [];
+
+  const attach = () => {
+    v = videoRef?.current;
+
+    // wait until <video> exists
+    if (!v) {
+      rafId = requestAnimationFrame(attach);
+      return;
+    }
 
     const onTimeUpdate = () => {
       const clipEnd = clipEndRef.current;
       if (typeof clipEnd !== "number") return;
 
-      // Pause once we reach end of the clip window
       if (v.currentTime >= clipEnd) {
         v.pause();
-        v.currentTime = clipEnd;     // clamp exactly
-        clipEndRef.current = null;   // disarm so it doesn't keep pausing later
+        v.currentTime = clipEnd;
+        clipEndRef.current = null;
       }
     };
 
     const onKeyDown = (e) => {
-      // don’t hijack typing in inputs
       const tag = (e.target?.tagName || "").toLowerCase();
       if (tag === "input" || tag === "textarea" || e.target?.isContentEditable) return;
 
@@ -59,16 +70,18 @@ export function useJumpClipHotkey({
 
         if (typeof clipStart !== "number") return;
 
-        // if duration known, clamp start/end within duration
         const dur = v.duration;
-        const start = Number.isFinite(dur) ? Math.min(clipStart, Math.max(0, dur - 0.2)) : clipStart;
-        const endCandidate = start + clipLength;
-        const end = Number.isFinite(dur) ? Math.min(endCandidate, Math.max(0, dur - 0.1)) : endCandidate;
+        const start = Number.isFinite(dur)
+          ? Math.min(clipStart, Math.max(0, dur - 0.2))
+          : clipStart;
 
-        // arm the stop point for this clip play
+        const endCandidate = start + clipLength;
+        const end = Number.isFinite(dur)
+          ? Math.min(endCandidate, Math.max(0, dur - 0.1))
+          : endCandidate;
+
         clipEndRef.current = end;
 
-        // jump and optionally autoplay
         v.currentTime = start;
         if (autoPlay) v.play().catch(() => {});
       }
@@ -77,11 +90,18 @@ export function useJumpClipHotkey({
     v.addEventListener("timeupdate", onTimeUpdate);
     window.addEventListener("keydown", onKeyDown, { passive: false });
 
-    return () => {
-      v.removeEventListener("timeupdate", onTimeUpdate);
-      window.removeEventListener("keydown", onKeyDown);
-    };
-  }, [videoRef, enabled, clipStart, clipLength, autoPlay, requireFocus]);
+    cleanupFns.push(() => v.removeEventListener("timeupdate", onTimeUpdate));
+    cleanupFns.push(() => window.removeEventListener("keydown", onKeyDown));
+  };
+
+  attach();
+
+  return () => {
+    if (rafId) cancelAnimationFrame(rafId);
+    cleanupFns.forEach((fn) => fn());
+  };
+}, [videoRef, enabled, clipStart, clipLength, autoPlay, requireFocus]);
+
 }
 
 
