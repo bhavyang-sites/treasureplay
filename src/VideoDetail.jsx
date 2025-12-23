@@ -1,6 +1,5 @@
 // VideoDetail.jsx
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { useEffect, useMemo, useRef } from "react"
 import { useParams, useNavigate } from "react-router-dom";
 import "./VideoDetail.css";
 
