@@ -270,17 +270,14 @@ const VideoDetail = () => {
 
     vid.addEventListener("canplay", hide);
     vid.addEventListener("playing", hide);
-    vid.addEventListener("seeked", hide);
-
-    return () => {
+return () => {
       clearTimeout(t);
       vid.removeEventListener("seeking", show);
       vid.removeEventListener("waiting", show);
       vid.removeEventListener("stalled", show);
       vid.removeEventListener("canplay", hide);
       vid.removeEventListener("playing", hide);
-      vid.removeEventListener("seeked", hide);
-    };
+};
   }, [video, familyMode]);
 
 
@@ -316,6 +313,9 @@ const VideoDetail = () => {
           if (Math.abs(target - lastJumpAt) > 0.2) {
             lastJumpAt = target;
 
+
+            // Show Netflix-style buffering overlay immediately to cover the "frozen frame" during seek
+            setIsBuffering(true);
             if (typeof vid.fastSeek === "function") vid.fastSeek(target);
             else vid.currentTime = target;
 
