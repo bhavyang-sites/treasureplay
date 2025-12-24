@@ -3,6 +3,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import "./VideoDetail.css";
 
+
 function toSeconds(ts) {
   if (typeof ts === "number") return ts;
   if (typeof ts !== "string") return null;
@@ -29,7 +30,7 @@ export function useJumpClipHotkey({
   requireFocus = false,
 }) {
   const clipStart = useMemo(() => toSeconds(jumpTo), [jumpTo]);
-  const clipEndRef = useRef(null); // absolute stop time in seconds
+  const clipEndRef = useRef(null);
 
   useEffect(() => {
     if (!enabled) return;
@@ -37,6 +38,31 @@ export function useJumpClipHotkey({
     let v = null;
     let rafId = null;
     const cleanupFns = [];
+
+    const doJump = () => {
+      if (!v) return;
+      if (typeof clipStart !== "number") return;
+
+      // Ensure the video can receive keyboard focus
+      if (document.activeElement !== v) {
+        // focusing helps ensure consistent key behavior and avoids "click-to-activate"
+        try { v.focus(); } catch {}
+      }
+
+      const dur = v.duration;
+      const start = Number.isFinite(dur)
+        ? Math.min(clipStart, Math.max(0, dur - 0.2))
+        : clipStart;
+
+      const endCandidate = start + clipLength;
+      const end = Number.isFinite(dur)
+        ? Math.min(endCandidate, Math.max(0, dur - 0.1))
+        : endCandidate;
+
+      clipEndRef.current = end;
+      v.currentTime = start;
+      if (autoPlay) v.play().catch(() => {});
+    };
 
     const attach = () => {
       v = videoRef?.current;
@@ -51,10 +77,15 @@ export function useJumpClipHotkey({
         if (typeof clipEnd !== "number") return;
 
         if (v.currentTime >= clipEnd) {
-          // IMPORTANT: don't seek here (it conflicts with skipmap seeks)
           v.pause();
+          v.currentTime = clipEnd;
           clipEndRef.current = null;
         }
+      };
+
+      const onLoadedMetadata = () => {
+        // helpful so arrow key works immediately without clicking video
+        try { v.focus(); } catch {}
       };
 
       const onKeyDown = (e) => {
@@ -64,36 +95,32 @@ export function useJumpClipHotkey({
           tag === "textarea" ||
           tag === "select" ||
           e.target?.isContentEditable
-        )
-          return;
+        ) return;
 
         if (requireFocus && document.activeElement !== v) return;
 
         if (e.key === "ArrowRight") {
           e.preventDefault();
-          if (typeof clipStart !== "number") return;
 
-          const dur = v.duration;
-          const start = Number.isFinite(dur)
-            ? Math.min(clipStart, Math.max(0, dur - 0.2))
-            : clipStart;
+          // If metadata isn't ready yet, wait once, then jump.
+          // This fixes the “must click/pause first” feel on some setups.
+          if (!Number.isFinite(v.duration) || v.readyState < 1) {
+            v.addEventListener("loadedmetadata", doJump, { once: true });
+            // nudge focus so the page is "active"
+            try { v.focus(); } catch {}
+            return;
+          }
 
-          const endCandidate = start + clipLength;
-          const end = Number.isFinite(dur)
-            ? Math.min(endCandidate, Math.max(0, dur - 0.1))
-            : endCandidate;
-
-          clipEndRef.current = end;
-
-          v.currentTime = start;
-          if (autoPlay) v.play().catch(() => {});
+          doJump();
         }
       };
 
       v.addEventListener("timeupdate", onTimeUpdate);
+      v.addEventListener("loadedmetadata", onLoadedMetadata);
       window.addEventListener("keydown", onKeyDown, { passive: false });
 
       cleanupFns.push(() => v.removeEventListener("timeupdate", onTimeUpdate));
+      cleanupFns.push(() => v.removeEventListener("loadedmetadata", onLoadedMetadata));
       cleanupFns.push(() => window.removeEventListener("keydown", onKeyDown));
     };
 
@@ -105,6 +132,8 @@ export function useJumpClipHotkey({
     };
   }, [videoRef, enabled, clipStart, clipLength, autoPlay, requireFocus]);
 }
+
+
 
 const VideoDetail = () => {
   const { id } = useParams();
@@ -121,17 +150,18 @@ const VideoDetail = () => {
   const customProfiles = ["Kids Safe", "Teens", "Religious"];
   const videoRef = useRef(null);
   const location = useLocation();
-  const shouldAutoplay =
-    new URLSearchParams(location.search).get("autoplay") === "1";
+  const shouldAutoplay = new URLSearchParams(location.search).get("autoplay") === "1";
+
 
   useJumpClipHotkey({
-    videoRef,
-    jumpTo: "22:44",
-    clipLength: 48,
-    enabled: true,
-    autoPlay: true,
-    requireFocus: false,
-  });
+  videoRef,
+  jumpTo: "22:44",
+  clipLength: 48,
+  enabled: true,
+  autoPlay: true,
+  requireFocus: false, // set true if you only want it when video is focused
+});
+
 
   // Load metadata
   useEffect(() => {
@@ -144,7 +174,8 @@ const VideoDetail = () => {
           ? json.videos
           : [json];
 
-        const found = arr.find((v) => v.id.toLowerCase() === normalizedId) || null;
+        const found =
+          arr.find((v) => v.id.toLowerCase() === normalizedId) || null;
         setVideo(found);
       })
       .catch(() => setVideo(null));
@@ -163,7 +194,7 @@ const VideoDetail = () => {
   const handleProfileChange = (e) => {
     const val = e.target.value;
     setFilteringProfile(val);
-    setShowProfileCard(true);
+    setShowProfileCard(true); // show when profile changes
 
     if (val !== "Custom") {
       setCustomProfile("");
@@ -202,27 +233,34 @@ const VideoDetail = () => {
           ? data.segments
           : [];
 
-        const toSec = (x) => {
-          const n = Number(x);
-          if (!Number.isFinite(n)) return null;
-          // Treat as milliseconds only if extremely large (prevents breaking 1402.5 sec)
-          return n > 100000 ? n / 1000 : n;
-        };
+        const dur = videoRef.current?.duration; // seconds (may be NaN until metadata loaded)
 
-        const normalized = arr
-          .map((s) => ({
-            start: toSec(s.start),
-            end: toSec(s.end),
-            action: s.action || "skip",
-            label: s.label,
-            source: s.source,
-          }))
-          .filter(
-            (s) =>
-              Number.isFinite(s.start) &&
-              Number.isFinite(s.end) &&
-              s.end > s.start
-          );
+const toSec = (x) => {
+  const n = Number(x);
+  if (!Number.isFinite(n)) return null;
+
+  // If we know duration: treat as ms only if it's way larger than duration
+  if (Number.isFinite(dur) && dur > 0) {
+    return n > dur * 10 ? n / 1000 : n;
+  }
+
+  // Fallback heuristic when duration unknown:
+  // treat as ms only if extremely large (e.g., > ~1 day in seconds)
+  return n > 100000 ? n / 1000 : n;
+};
+
+const normalized = arr
+  .map((s) => ({
+    start: toSec(s.start),
+    end: toSec(s.end),
+    action: s.action || "skip",
+    label: s.label,
+    source: s.source,
+  }))
+  .filter((s) => Number.isFinite(s.start) && Number.isFinite(s.end) && s.end > s.start);
+
+setSkipMap(normalized);
+
 
         setSkipMap(normalized);
       })
@@ -252,30 +290,24 @@ const VideoDetail = () => {
 
       for (let s of segs) {
         if (t >= s.start - EPS_START && t < s.end - EPS_END) {
-          const dur = Number.isFinite(vid.duration) ? vid.duration : null;
-          const target = dur
-            ? Math.min(s.end + 0.05, dur - 0.05)
-            : s.end + 0.05;
-
+          const target = Math.min(s.end + 0.02, vid.duration - 0.05);
           if (Math.abs(target - t) > 0.01) {
-            if (typeof vid.fastSeek === "function") vid.fastSeek(target);
-            else vid.currentTime = target;
-
+            vid.currentTime = target;
             lastJumpAt = target;
-
-            // if the seek caused a pause/waiting, try to keep playing
-            if (vid.paused) vid.play().catch(() => {});
           }
           break;
         }
       }
     };
 
-    // Lighter + stable (no interval hammering)
+    const interval = setInterval(jumpIfNeeded, 100);
+    vid.addEventListener("seeking", jumpIfNeeded);
     vid.addEventListener("seeked", jumpIfNeeded);
     vid.addEventListener("timeupdate", jumpIfNeeded);
 
     return () => {
+      clearInterval(interval);
+      vid.removeEventListener("seeking", jumpIfNeeded);
       vid.removeEventListener("seeked", jumpIfNeeded);
       vid.removeEventListener("timeupdate", jumpIfNeeded);
     };
@@ -287,7 +319,7 @@ const VideoDetail = () => {
 
     const timer = setTimeout(() => {
       setShowProfileCard(false);
-    }, 5000);
+    }, 5000); // 5s; tweak if you want longer/shorter
 
     return () => clearTimeout(timer);
   }, [familyMode, showProfileCard]);
@@ -316,17 +348,19 @@ const VideoDetail = () => {
 
         <div className="hero-content">
           <video
-            ref={videoRef}
-            className="video-player"
-            src={video.videoUrl}
-            poster={video.thumbnail}
-            controls
-            preload="metadata"
-            autoPlay={shouldAutoplay}
-            playsInline
-            tabIndex={0}
-            onLoadedMetadata={(e) => e.currentTarget.focus()}
-          />
+  ref={videoRef}
+  className="video-player"
+  src={video.videoUrl}
+  poster={video.thumbnail}
+  controls
+  preload="metadata"
+  autoPlay={shouldAutoplay}
+  playsInline
+  tabIndex={0}
+  onLoadedMetadata={(e) => e.currentTarget.focus()}
+/>
+
+
 
           {/* SmartSkips bottom overlay bar */}
           <div className="player-overlay">
