@@ -3,9 +3,11 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import "./VideoDetail.css";
 
+/* ---------- helpers ---------- */
 function toSeconds(ts) {
   if (typeof ts === "number") return ts;
   if (typeof ts !== "string") return null;
+
   const parts = ts.split(":").map((p) => p.trim());
   if (parts.some((p) => p === "" || isNaN(Number(p)))) return null;
 
@@ -22,7 +24,7 @@ function toSeconds(ts) {
 
 /**
  * ArrowRight hotkey: jump to a time (e.g., "22:44") and optionally autoplay.
- * IMPORTANT: clip-end limiter REMOVED (no forced pause / clamp).
+ * IMPORTANT: NO clip-end limiter (you wanted to manually stop/trim).
  */
 export function useJumpClipHotkey({
   videoRef,
@@ -31,97 +33,71 @@ export function useJumpClipHotkey({
   autoPlay = true,
   requireFocus = false,
 }) {
-  const clipStart = useMemo(() => toSeconds(jumpTo), [jumpTo]);
+  const jumpSeconds = useMemo(() => toSeconds(jumpTo), [jumpTo]);
 
   useEffect(() => {
     if (!enabled) return;
 
-    let v = null;
-    let rafId = null;
-    const cleanupFns = [];
-
-    const doJump = () => {
-      if (!v) return;
-      if (typeof clipStart !== "number") return;
-
-      // Ensure the video can receive keyboard focus
-      if (document.activeElement !== v) {
-        try {
-          v.focus();
-        } catch {}
-      }
-
-      const dur = v.duration;
-      const start = Number.isFinite(dur)
-        ? Math.min(clipStart, Math.max(0, dur - 0.2))
-        : clipStart;
-
-      v.currentTime = start;
-      if (autoPlay) v.play().catch(() => {});
-    };
-
-    const attach = () => {
-      v = videoRef?.current;
-
-      if (!v) {
-        rafId = requestAnimationFrame(attach);
+    const onKeyDown = (e) => {
+      const tag = (e.target?.tagName || "").toLowerCase();
+      if (
+        tag === "input" ||
+        tag === "textarea" ||
+        tag === "select" ||
+        e.target?.isContentEditable
+      ) {
         return;
       }
 
-      const onLoadedMetadata = () => {
-        // helpful so arrow key works immediately without clicking video
-        try {
-          v.focus();
-        } catch {}
-      };
+      const vid = videoRef?.current;
+      if (!vid) return;
 
-      const onKeyDown = (e) => {
-        const tag = (e.target?.tagName || "").toLowerCase();
-        if (
-          tag === "input" ||
-          tag === "textarea" ||
-          tag === "select" ||
-          e.target?.isContentEditable
-        )
+      if (requireFocus && document.activeElement !== vid) return;
+
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+
+        const doJump = () => {
+          if (typeof jumpSeconds !== "number") return;
+
+          const dur = Number.isFinite(vid.duration) ? vid.duration : null;
+          const target = dur
+            ? Math.min(jumpSeconds, Math.max(0, dur - 0.2))
+            : jumpSeconds;
+
+          try {
+            vid.focus();
+          } catch {}
+
+          if (typeof vid.fastSeek === "function") vid.fastSeek(target);
+          else vid.currentTime = target;
+
+          if (autoPlay) vid.play().catch(() => {});
+        };
+
+        // If metadata isn't ready, wait once and jump.
+        if (!Number.isFinite(vid.duration) || vid.readyState < 1) {
+          vid.addEventListener("loadedmetadata", doJump, { once: true });
+          try {
+            vid.focus();
+          } catch {}
           return;
-
-        if (requireFocus && document.activeElement !== v) return;
-
-        if (e.key === "ArrowRight") {
-          e.preventDefault();
-
-          // If metadata isn't ready yet, wait once, then jump.
-          if (!Number.isFinite(v.duration) || v.readyState < 1) {
-            v.addEventListener("loadedmetadata", doJump, { once: true });
-            try {
-              v.focus();
-            } catch {}
-            return;
-          }
-
-          doJump();
         }
-      };
 
-      v.addEventListener("loadedmetadata", onLoadedMetadata);
-      window.addEventListener("keydown", onKeyDown, { passive: false });
-
-      cleanupFns.push(() => v.removeEventListener("loadedmetadata", onLoadedMetadata));
-      cleanupFns.push(() => window.removeEventListener("keydown", onKeyDown));
+        doJump();
+      }
     };
 
-    attach();
-
-    return () => {
-      if (rafId) cancelAnimationFrame(rafId);
-      cleanupFns.forEach((fn) => fn());
-    };
-  }, [videoRef, enabled, clipStart, autoPlay, requireFocus]);
+    window.addEventListener("keydown", onKeyDown, { passive: false });
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [videoRef, enabled, jumpSeconds, autoPlay, requireFocus]);
 }
 
+/* ---------- Main Component ---------- */
 const VideoDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const normalizedId = id.toLowerCase();
 
   const [video, setVideo] = useState();
@@ -133,11 +109,11 @@ const VideoDetail = () => {
 
   const customProfiles = ["Kids Safe", "Teens", "Religious"];
   const videoRef = useRef(null);
-  const location = useLocation();
+
   const shouldAutoplay =
     new URLSearchParams(location.search).get("autoplay") === "1";
 
-  // Keep ArrowRight jump, but NO clip-end pause/limit anymore
+  // ArrowRight jump (NO clip end)
   useJumpClipHotkey({
     videoRef,
     jumpTo: "22:44",
@@ -146,7 +122,7 @@ const VideoDetail = () => {
     requireFocus: false,
   });
 
-  // Load metadata
+  /* ---------- Load metadata ---------- */
   useEffect(() => {
     fetch("/video_metadata.json")
       .then((res) => res.json())
@@ -157,13 +133,14 @@ const VideoDetail = () => {
           ? json.videos
           : [json];
 
-        const found = arr.find((v) => v.id.toLowerCase() === normalizedId) || null;
+        const found =
+          arr.find((v) => (v.id || "").toLowerCase() === normalizedId) || null;
         setVideo(found);
       })
       .catch(() => setVideo(null));
   }, [normalizedId]);
 
-  // Remember last profile
+  /* ---------- Remember last profile ---------- */
   useEffect(() => {
     const saved = localStorage.getItem("lastProfile");
     if (saved) setFilteringProfile(saved);
@@ -183,155 +160,164 @@ const VideoDetail = () => {
     }
   };
 
-  // Load skip map for selected profile
-useEffect(() => {
-  const vid = videoRef.current;
-  if (!vid) return;
-
-  const segs = (skipMap || [])
-    .filter((s) => (s.action || "skip") === "skip")
-    .sort((a, b) => a.start - b.start);
-
-  if (!familyMode || segs.length === 0) return;
-
-  let lastJumpAt = -1;
-  let stopped = false;
-  let rafId = null;
-
-  const checkAndSkip = () => {
-    const t = vid.currentTime || 0;
-
-    if (t < lastJumpAt - 0.2) lastJumpAt = -1;
-
-    for (const s of segs) {
-      if (t >= s.start && t < s.end) {
-        const dur = Number.isFinite(vid.duration) ? vid.duration : null;
-        const target = dur ? Math.min(s.end + 0.05, dur - 0.05) : s.end + 0.05;
-
-        if (Math.abs(target - lastJumpAt) > 0.2) {
-          lastJumpAt = target;
-          if (typeof vid.fastSeek === "function") vid.fastSeek(target);
-          else vid.currentTime = target;
-
-          if (vid.paused) vid.play().catch(() => {});
-        }
-        break;
-      }
-    }
-  };
-
-  const loop = () => {
-    if (stopped) return;
-    checkAndSkip();
-
-    if (typeof vid.requestVideoFrameCallback === "function") {
-      vid.requestVideoFrameCallback(loop);
-    } else {
-      rafId = requestAnimationFrame(loop);
-    }
-  };
-
-  loop();
-
-  return () => {
-    stopped = true;
-    if (rafId) cancelAnimationFrame(rafId);
-  };
-}, [skipMap, familyMode]);
-
-
+  /* ---------- Load skip map for selected profile ---------- */
   useEffect(() => {
-  const vid = videoRef.current;
-  if (!vid) return;
+    if (!video) return;
 
-  const onCanPlay = () => {
-    if (familyMode && vid.paused) vid.play().catch(() => {});
-  };
+    const raw = video.skipMapUrl;
+    let url = null;
 
-  vid.addEventListener("canplay", onCanPlay);
-  return () => vid.removeEventListener("canplay", onCanPlay);
-}, [familyMode]);
-
-
-  // Skip logic (smooth + avoids repeated hammering)
-useEffect(() => {
-  const vid = videoRef.current;
-  if (!vid) return;
-
-  const segs = (skipMap || [])
-    .filter((s) => (s.action || "skip") === "skip")
-    .sort((a, b) => a.start - b.start);
-
-  if (!familyMode || segs.length === 0) return;
-
-  let lastJumpAt = -1;
-  let rafId = null;
-  let rvfcId = null;
-
-  const checkAndSkip = () => {
-    const t = vid.currentTime || 0;
-
-    // allow re-skip if user scrubs backward
-    if (t < lastJumpAt - 0.2) lastJumpAt = -1;
-
-    for (const s of segs) {
-      if (t >= s.start && t < s.end) {
-        const dur = Number.isFinite(vid.duration) ? vid.duration : null;
-        const target = dur ? Math.min(s.end + 0.05, dur - 0.05) : (s.end + 0.05);
-
-        // prevent hammering the same seek
-        if (Math.abs(target - lastJumpAt) > 0.2) {
-          lastJumpAt = target;
-          if (typeof vid.fastSeek === "function") vid.fastSeek(target);
-          else vid.currentTime = target;
-
-          // try to resume immediately (may still buffer)
-          if (vid.paused) vid.play().catch(() => {});
-        }
-        break;
+    if (typeof raw === "string") {
+      url = raw;
+    } else if (raw && typeof raw === "object") {
+      if (filteringProfile === "Custom" && customProfile) {
+        const key =
+          "custom_" + customProfile.toLowerCase().replace(/ /g, "_");
+        url = raw[key];
+      } else {
+        url = raw[filteringProfile.toLowerCase()];
       }
     }
-  };
 
-  // Best: check every rendered frame
-  const loop = () => {
-    checkAndSkip();
-    if (typeof vid.requestVideoFrameCallback === "function") {
-      rvfcId = vid.requestVideoFrameCallback(loop);
-    } else {
-      rafId = requestAnimationFrame(loop);
+    if (!url) {
+      setSkipMap([]);
+      return;
     }
-  };
 
-  loop();
+    fetch(url)
+      .then((r) => r.json())
+      .then((data) => {
+        const arr = Array.isArray(data)
+          ? data
+          : Array.isArray(data?.segments)
+          ? data.segments
+          : [];
 
-  return () => {
-    if (rvfcId && typeof vid.cancelVideoFrameCallback === "function") {
-      try { vid.cancelVideoFrameCallback(rvfcId); } catch {}
-    }
-    if (rafId) cancelAnimationFrame(rafId);
-  };
-}, [skipMap, familyMode]);
+        const dur = videoRef.current?.duration; // may be NaN until metadata is loaded
 
+        // Smart ms-vs-seconds heuristic (does NOT break at >1000 seconds)
+        const toSecSmart = (x) => {
+          const n = Number(x);
+          if (!Number.isFinite(n)) return null;
 
-  // Auto-hide profile card after a few seconds
+          // If duration is known, treat as ms only if it's way larger than duration
+          if (Number.isFinite(dur) && dur > 0) {
+            return n > dur * 10 ? n / 1000 : n;
+          }
+
+          // Fallback: treat as ms only if extremely large
+          return n > 100000 ? n / 1000 : n;
+        };
+
+        const normalized = arr
+          .map((s) => ({
+            start: toSecSmart(s.start),
+            end: toSecSmart(s.end),
+            action: s.action || "skip",
+            label: s.label,
+            source: s.source,
+          }))
+          .filter(
+            (s) =>
+              Number.isFinite(s.start) &&
+              Number.isFinite(s.end) &&
+              s.end > s.start
+          )
+          .sort((a, b) => a.start - b.start);
+
+        setSkipMap(normalized);
+      })
+      .catch(() => setSkipMap([]));
+  }, [video, filteringProfile, customProfile]);
+
+  /* ---------- Auto-resume after buffering ends ---------- */
+  useEffect(() => {
+    const vid = videoRef.current;
+    if (!vid) return;
+
+    const onCanPlay = () => {
+      if (familyMode && vid.paused) vid.play().catch(() => {});
+    };
+
+    vid.addEventListener("canplay", onCanPlay);
+    return () => vid.removeEventListener("canplay", onCanPlay);
+  }, [familyMode]);
+
+  /* ---------- Skip engine (ONLY ONE) ---------- */
+  useEffect(() => {
+    const vid = videoRef.current;
+    if (!vid) return;
+
+    const segs = (skipMap || []).filter(
+      (s) => (s.action || "skip") === "skip"
+    );
+    if (!familyMode || segs.length === 0) return;
+
+    let lastJumpAt = -1;
+    let rafId = null;
+    let rvfcId = null;
+
+    const checkAndSkip = () => {
+      const t = vid.currentTime || 0;
+
+      // allow re-skip if user scrubs backward
+      if (t < lastJumpAt - 0.2) lastJumpAt = -1;
+
+      for (const s of segs) {
+        if (t >= s.start && t < s.end) {
+          const dur = Number.isFinite(vid.duration) ? vid.duration : null;
+          const target = dur
+            ? Math.min(s.end + 0.05, dur - 0.05)
+            : s.end + 0.05;
+
+          // prevent hammering repeated seeks
+          if (Math.abs(target - lastJumpAt) > 0.2) {
+            lastJumpAt = target;
+
+            if (typeof vid.fastSeek === "function") vid.fastSeek(target);
+            else vid.currentTime = target;
+
+            // try to resume immediately (may still buffer)
+            if (vid.paused) vid.play().catch(() => {});
+          }
+          break;
+        }
+      }
+    };
+
+    const loop = () => {
+      checkAndSkip();
+      if (typeof vid.requestVideoFrameCallback === "function") {
+        rvfcId = vid.requestVideoFrameCallback(loop);
+      } else {
+        rafId = requestAnimationFrame(loop);
+      }
+    };
+
+    loop();
+
+    return () => {
+      // cancel what we can; if cancelVideoFrameCallback isn't present, it stops naturally after unmount
+      if (rvfcId && typeof vid.cancelVideoFrameCallback === "function") {
+        try {
+          vid.cancelVideoFrameCallback(rvfcId);
+        } catch {}
+      }
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, [skipMap, familyMode]);
+
+  /* ---------- Auto-hide profile card ---------- */
   useEffect(() => {
     if (!familyMode || !showProfileCard) return;
 
-    const timer = setTimeout(() => {
-      setShowProfileCard(false);
-    }, 5000);
-
+    const timer = setTimeout(() => setShowProfileCard(false), 5000);
     return () => clearTimeout(timer);
   }, [familyMode, showProfileCard]);
 
-  // Loading / error states
-  if (video === undefined) {
-    return <div className="video-loading">Loading...</div>;
-  }
-  if (!video) {
-    return <div className="video-loading">Video not found.</div>;
-  }
+  /* ---------- Loading / error ---------- */
+  if (video === undefined) return <div className="video-loading">Loading...</div>;
+  if (!video) return <div className="video-loading">Video not found.</div>;
 
   return (
     <div className="video-detail-page">
