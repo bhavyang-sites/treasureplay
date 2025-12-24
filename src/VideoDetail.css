@@ -680,6 +680,10 @@
    ============================ */
 .netflix-player-shell{
   position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: block;
 }
 
 /* Covers the video area during seek/buffer so the user doesn't see the frozen last frame */
