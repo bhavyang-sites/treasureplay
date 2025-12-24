@@ -107,6 +107,9 @@ const VideoDetail = () => {
   const [customProfile, setCustomProfile] = useState("");
   const [showProfileCard, setShowProfileCard] = useState(false);
 
+  // Netflix-style buffering overlay
+  const [isBuffering, setIsBuffering] = useState(false);
+
   const customProfiles = ["Kids Safe", "Teens", "Religious"];
   const videoRef = useRef(null);
 
@@ -243,6 +246,45 @@ const VideoDetail = () => {
     return () => vid.removeEventListener("canplay", onCanPlay);
   }, [familyMode]);
 
+  /* ---------- Netflix-style buffering overlay (seek / wait / canplay) ---------- */
+  useEffect(() => {
+    const vid = videoRef.current;
+    if (!vid) return;
+
+    let t = null;
+
+    const show = () => {
+      // small delay prevents flicker on very short stalls
+      clearTimeout(t);
+      t = setTimeout(() => setIsBuffering(true), 120);
+    };
+
+    const hide = () => {
+      clearTimeout(t);
+      setIsBuffering(false);
+    };
+
+    vid.addEventListener("seeking", show);
+    vid.addEventListener("waiting", show);
+    vid.addEventListener("stalled", show);
+
+    vid.addEventListener("canplay", hide);
+    vid.addEventListener("playing", hide);
+    vid.addEventListener("seeked", hide);
+
+    return () => {
+      clearTimeout(t);
+      vid.removeEventListener("seeking", show);
+      vid.removeEventListener("waiting", show);
+      vid.removeEventListener("stalled", show);
+      vid.removeEventListener("canplay", hide);
+      vid.removeEventListener("playing", hide);
+      vid.removeEventListener("seeked", hide);
+    };
+  }, [video, familyMode]);
+
+
+
   /* ---------- Skip engine (ONLY ONE) ---------- */
   useEffect(() => {
     const vid = videoRef.current;
@@ -334,6 +376,7 @@ const VideoDetail = () => {
         <div className="hero-overlay" />
 
         <div className="hero-content">
+          <div className="netflix-player-shell">
           <video
             ref={videoRef}
             className="video-player"
@@ -346,6 +389,14 @@ const VideoDetail = () => {
             tabIndex={0}
             onLoadedMetadata={(e) => e.currentTarget.focus()}
           />
+
+          {isBuffering && (
+            <div className="nf-buffering-overlay" aria-label="Buffering">
+              <div className="nf-spinner" />
+              <div className="nf-shimmer" />
+            </div>
+          )}
+        </div>
 
           {/* SmartSkips bottom overlay bar */}
           <div className="player-overlay">
