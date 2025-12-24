@@ -184,135 +184,124 @@ const VideoDetail = () => {
   };
 
   // Load skip map for selected profile
-useEffect(() => {
-  const vid = videoRef.current;
-  if (!vid) return;
+  useEffect(() => {
+    if (!video) return;
 
-  const segs = (skipMap || [])
-    .filter((s) => (s.action || "skip") === "skip")
-    .sort((a, b) => a.start - b.start);
+    const raw = video.skipMapUrl;
+    let url = null;
 
-  if (!familyMode || segs.length === 0) return;
-
-  let lastJumpAt = -1;
-  let stopped = false;
-  let rafId = null;
-
-  const checkAndSkip = () => {
-    const t = vid.currentTime || 0;
-
-    if (t < lastJumpAt - 0.2) lastJumpAt = -1;
-
-    for (const s of segs) {
-      if (t >= s.start && t < s.end) {
-        const dur = Number.isFinite(vid.duration) ? vid.duration : null;
-        const target = dur ? Math.min(s.end + 0.05, dur - 0.05) : s.end + 0.05;
-
-        if (Math.abs(target - lastJumpAt) > 0.2) {
-          lastJumpAt = target;
-          if (typeof vid.fastSeek === "function") vid.fastSeek(target);
-          else vid.currentTime = target;
-
-          if (vid.paused) vid.play().catch(() => {});
-        }
-        break;
+    if (typeof raw === "string") {
+      url = raw;
+    } else if (raw && typeof raw === "object") {
+      if (filteringProfile === "Custom" && customProfile) {
+        const key = "custom_" + customProfile.toLowerCase().replace(/ /g, "_");
+        url = raw[key];
+      } else {
+        url = raw[filteringProfile.toLowerCase()];
       }
     }
-  };
 
-  const loop = () => {
-    if (stopped) return;
-    checkAndSkip();
-
-    if (typeof vid.requestVideoFrameCallback === "function") {
-      vid.requestVideoFrameCallback(loop);
-    } else {
-      rafId = requestAnimationFrame(loop);
+    if (!url) {
+      setSkipMap([]);
+      return;
     }
-  };
 
-  loop();
+    fetch(url)
+      .then((r) => r.json())
+      .then((data) => {
+        const arr = Array.isArray(data)
+          ? data
+          : Array.isArray(data?.segments)
+          ? data.segments
+          : [];
 
-  return () => {
-    stopped = true;
-    if (rafId) cancelAnimationFrame(rafId);
-  };
-}, [skipMap, familyMode]);
+        const dur = videoRef.current?.duration; // seconds (may be NaN until metadata loaded)
 
+        const toSecSmart = (x) => {
+          const n = Number(x);
+          if (!Number.isFinite(n)) return null;
 
-  useEffect(() => {
-  const vid = videoRef.current;
-  if (!vid) return;
+          // If duration is known: treat as ms only if way larger than duration
+          if (Number.isFinite(dur) && dur > 0) {
+            return n > dur * 10 ? n / 1000 : n;
+          }
 
-  const onCanPlay = () => {
-    if (familyMode && vid.paused) vid.play().catch(() => {});
-  };
+          // Fallback: treat as ms only if extremely large
+          return n > 100000 ? n / 1000 : n;
+        };
 
-  vid.addEventListener("canplay", onCanPlay);
-  return () => vid.removeEventListener("canplay", onCanPlay);
-}, [familyMode]);
+        const normalized = arr
+          .map((s) => ({
+            start: toSecSmart(s.start),
+            end: toSecSmart(s.end),
+            action: s.action || "skip",
+            label: s.label,
+            source: s.source,
+          }))
+          .filter(
+            (s) =>
+              Number.isFinite(s.start) &&
+              Number.isFinite(s.end) &&
+              s.end > s.start
+          );
 
+        setSkipMap(normalized);
+      })
+      .catch(() => setSkipMap([]));
+  }, [video, filteringProfile, customProfile]);
 
   // Skip logic (smooth + avoids repeated hammering)
-useEffect(() => {
-  const vid = videoRef.current;
-  if (!vid) return;
+  useEffect(() => {
+    const vid = videoRef.current;
+    if (!vid) return;
 
-  const segs = (skipMap || [])
-    .filter((s) => (s.action || "skip") === "skip")
-    .sort((a, b) => a.start - b.start);
+    const segs = (skipMap || [])
+      .filter((s) => (s.action || "skip") === "skip")
+      .sort((a, b) => a.start - b.start);
 
-  if (!familyMode || segs.length === 0) return;
+    if (!familyMode || segs.length === 0) return;
 
-  let lastJumpAt = -1;
-  let rafId = null;
-  let rvfcId = null;
+    let lastJumpAt = -1;
+    const EPS_START = 0.12;
+    const EPS_END = 0.04;
 
-  const checkAndSkip = () => {
-    const t = vid.currentTime || 0;
+    const jumpIfNeeded = () => {
+      if (!familyMode) return;
+      const t = vid.currentTime || 0;
 
-    // allow re-skip if user scrubs backward
-    if (t < lastJumpAt - 0.2) lastJumpAt = -1;
+      // allow re-skip if user scrubs backward
+      if (t < lastJumpAt - 0.2) lastJumpAt = -1;
 
-    for (const s of segs) {
-      if (t >= s.start && t < s.end) {
-        const dur = Number.isFinite(vid.duration) ? vid.duration : null;
-        const target = dur ? Math.min(s.end + 0.05, dur - 0.05) : (s.end + 0.05);
+      for (let s of segs) {
+        if (t >= s.start - EPS_START && t < s.end - EPS_END) {
+          const dur = Number.isFinite(vid.duration) ? vid.duration : null;
+          const target = dur
+            ? Math.min(s.end + 0.05, dur - 0.05)
+            : s.end + 0.05;
 
-        // prevent hammering the same seek
-        if (Math.abs(target - lastJumpAt) > 0.2) {
-          lastJumpAt = target;
-          if (typeof vid.fastSeek === "function") vid.fastSeek(target);
-          else vid.currentTime = target;
+          if (Math.abs(target - t) > 0.01) {
+            if (typeof vid.fastSeek === "function") vid.fastSeek(target);
+            else vid.currentTime = target;
 
-          // try to resume immediately (may still buffer)
-          if (vid.paused) vid.play().catch(() => {});
+            lastJumpAt = target;
+
+            // keep playing if seek caused pause/waiting
+            if (vid.paused) vid.play().catch(() => {});
+          }
+          break;
         }
-        break;
       }
-    }
-  };
+    };
 
-  // Best: check every rendered frame
-  const loop = () => {
-    checkAndSkip();
-    if (typeof vid.requestVideoFrameCallback === "function") {
-      rvfcId = vid.requestVideoFrameCallback(loop);
-    } else {
-      rafId = requestAnimationFrame(loop);
-    }
-  };
+    // No interval + no "seeking" listener (less churn)
+    vid.addEventListener("seeked", jumpIfNeeded);
+    vid.addEventListener("timeupdate", jumpIfNeeded);
 
-  loop();
-
-  return () => {
-    if (rvfcId && typeof vid.cancelVideoFrameCallback === "function") {
-      try { vid.cancelVideoFrameCallback(rvfcId); } catch {}
-    }
-    if (rafId) cancelAnimationFrame(rafId);
-  };
-}, [skipMap, familyMode]);
-
+    return () => {
+      vid.removeEventListener("seeked", jumpIfNeeded);
+      vid.removeEventListener("timeupdate", jumpIfNeeded);
+    };
+  }, [skipMap, familyMode]);
 
   // Auto-hide profile card after a few seconds
   useEffect(() => {
