@@ -251,60 +251,38 @@ const VideoDetail = () => {
     const vid = videoRef.current;
     if (!vid) return;
 
-    let tShow = null;
-    let tMin = null;
-    let minHoldUntil = 0; // epoch ms
+    let t = null;
 
-    const showNow = () => {
-      // prevent flicker for micro-stalls
-      clearTimeout(tShow);
-      tShow = setTimeout(() => {
-        minHoldUntil = Date.now() + 250; // hold at least 250ms so user perceives it
-        setIsBuffering(true);
-        // fail-safe: if the browser never fires canplay/playing, don't keep it forever
-        clearTimeout(tMin);
-        tMin = setTimeout(() => {
-          // if we still don't have future data, keep showing; otherwise hide
-          if (vid.readyState >= 3) setIsBuffering(false);
-        }, 2000);
-      }, 90);
+    const show = () => {
+      // small delay prevents flicker on very short stalls
+      clearTimeout(t);
+      t = setTimeout(() => setIsBuffering(true), 120);
     };
 
-    const hideWhenReady = () => {
-      clearTimeout(tShow);
-      const remaining = minHoldUntil - Date.now();
-      const doHide = () => {
-        // Only hide when we actually have data to render
-        if (vid.readyState >= 3) setIsBuffering(false);
-      };
-      if (remaining > 0) setTimeout(doHide, remaining);
-      else doHide();
+    const hide = () => {
+      clearTimeout(t);
+      setIsBuffering(false);
     };
 
-    // Show overlay during operations that commonly cause "frozen frame"
-    vid.addEventListener("seeking", showNow);
-    vid.addEventListener("waiting", showNow);
-    vid.addEventListener("stalled", showNow);
-    vid.addEventListener("loadstart", showNow);
+    vid.addEventListener("seeking", show);
+    vid.addEventListener("waiting", show);
+    vid.addEventListener("stalled", show);
 
-    // Hide overlay when playback can actually continue
-    vid.addEventListener("playing", hideWhenReady);
-    vid.addEventListener("canplay", hideWhenReady);
-    vid.addEventListener("canplaythrough", hideWhenReady);
-
-    return () => {
-      clearTimeout(tShow);
-      clearTimeout(tMin);
-      vid.removeEventListener("seeking", showNow);
-      vid.removeEventListener("waiting", showNow);
-      vid.removeEventListener("stalled", showNow);
-      vid.removeEventListener("loadstart", showNow);
-      vid.removeEventListener("playing", hideWhenReady);
-      vid.removeEventListener("canplay", hideWhenReady);
-      vid.removeEventListener("canplaythrough", hideWhenReady);
-    };
+    vid.addEventListener("canplay", hide);
+    vid.addEventListener("playing", hide);
+return () => {
+      clearTimeout(t);
+      vid.removeEventListener("seeking", show);
+      vid.removeEventListener("waiting", show);
+      vid.removeEventListener("stalled", show);
+      vid.removeEventListener("canplay", hide);
+      vid.removeEventListener("playing", hide);
+};
   }, [video, familyMode]);
-/* ---------- Skip engine (ONLY ONE) ---------- */
+
+
+
+  /* ---------- Skip engine (ONLY ONE) ---------- */
   useEffect(() => {
     const vid = videoRef.current;
     if (!vid) return;
@@ -416,7 +394,6 @@ const VideoDetail = () => {
             <div className="nf-buffering-overlay" aria-label="Buffering">
               <div className="nf-spinner" />
               <div className="nf-shimmer" />
-              <div className="nf-buffer-text">Loading…</div>
             </div>
           )}
         </div>
