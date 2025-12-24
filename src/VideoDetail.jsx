@@ -233,13 +233,34 @@ const VideoDetail = () => {
           ? data.segments
           : [];
 
-        const normalized = arr
-          .map((s) => ({
-            start: +s.start > 1000 ? +s.start / 1000 : +s.start,
-            end: +s.end > 1000 ? +s.end / 1000 : +s.end,
-            action: s.action || "skip",
-          }))
-          .filter((s) => s.end > s.start);
+        const dur = videoRef.current?.duration; // seconds (may be NaN until metadata loaded)
+
+const toSec = (x) => {
+  const n = Number(x);
+  if (!Number.isFinite(n)) return null;
+
+  // If we know duration: treat as ms only if it's way larger than duration
+  if (Number.isFinite(dur) && dur > 0) {
+    return n > dur * 10 ? n / 1000 : n;
+  }
+
+  // Fallback heuristic when duration unknown:
+  // treat as ms only if extremely large (e.g., > ~1 day in seconds)
+  return n > 100000 ? n / 1000 : n;
+};
+
+const normalized = arr
+  .map((s) => ({
+    start: toSec(s.start),
+    end: toSec(s.end),
+    action: s.action || "skip",
+    label: s.label,
+    source: s.source,
+  }))
+  .filter((s) => Number.isFinite(s.start) && Number.isFinite(s.end) && s.end > s.start);
+
+setSkipMap(normalized);
+
 
         setSkipMap(normalized);
       })
