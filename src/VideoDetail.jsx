@@ -30,80 +30,109 @@ export function useJumpClipHotkey({
   requireFocus = false,
 }) {
   const clipStart = useMemo(() => toSeconds(jumpTo), [jumpTo]);
-  const clipEndRef = useRef(null); // stores absolute stop time (seconds)
+  const clipEndRef = useRef(null);
 
   useEffect(() => {
-  if (!enabled) return;
+    if (!enabled) return;
 
-  let v = null;
-  let rafId = null;
+    let v = null;
+    let rafId = null;
+    const cleanupFns = [];
 
-  const cleanupFns = [];
+    const doJump = () => {
+      if (!v) return;
+      if (typeof clipStart !== "number") return;
 
-  const attach = () => {
-    v = videoRef?.current;
-
-    // wait until <video> exists
-    if (!v) {
-      rafId = requestAnimationFrame(attach);
-      return;
-    }
-
-    const onTimeUpdate = () => {
-      const clipEnd = clipEndRef.current;
-      if (typeof clipEnd !== "number") return;
-
-      if (v.currentTime >= clipEnd) {
-        v.pause();
-        v.currentTime = clipEnd;
-        clipEndRef.current = null;
+      // Ensure the video can receive keyboard focus
+      if (document.activeElement !== v) {
+        // focusing helps ensure consistent key behavior and avoids "click-to-activate"
+        try { v.focus(); } catch {}
       }
+
+      const dur = v.duration;
+      const start = Number.isFinite(dur)
+        ? Math.min(clipStart, Math.max(0, dur - 0.2))
+        : clipStart;
+
+      const endCandidate = start + clipLength;
+      const end = Number.isFinite(dur)
+        ? Math.min(endCandidate, Math.max(0, dur - 0.1))
+        : endCandidate;
+
+      clipEndRef.current = end;
+      v.currentTime = start;
+      if (autoPlay) v.play().catch(() => {});
     };
 
-    const onKeyDown = (e) => {
-      const tag = (e.target?.tagName || "").toLowerCase();
-      if (tag === "input" || tag === "textarea" || e.target?.isContentEditable) return;
+    const attach = () => {
+      v = videoRef?.current;
 
-      if (requireFocus && document.activeElement !== v) return;
-
-      if (e.key === "ArrowRight") {
-        e.preventDefault();
-
-        if (typeof clipStart !== "number") return;
-
-        const dur = v.duration;
-        const start = Number.isFinite(dur)
-          ? Math.min(clipStart, Math.max(0, dur - 0.2))
-          : clipStart;
-
-        const endCandidate = start + clipLength;
-        const end = Number.isFinite(dur)
-          ? Math.min(endCandidate, Math.max(0, dur - 0.1))
-          : endCandidate;
-
-        clipEndRef.current = end;
-
-        v.currentTime = start;
-        if (autoPlay) v.play().catch(() => {});
+      if (!v) {
+        rafId = requestAnimationFrame(attach);
+        return;
       }
+
+      const onTimeUpdate = () => {
+        const clipEnd = clipEndRef.current;
+        if (typeof clipEnd !== "number") return;
+
+        if (v.currentTime >= clipEnd) {
+          v.pause();
+          v.currentTime = clipEnd;
+          clipEndRef.current = null;
+        }
+      };
+
+      const onLoadedMetadata = () => {
+        // helpful so arrow key works immediately without clicking video
+        try { v.focus(); } catch {}
+      };
+
+      const onKeyDown = (e) => {
+        const tag = (e.target?.tagName || "").toLowerCase();
+        if (
+          tag === "input" ||
+          tag === "textarea" ||
+          tag === "select" ||
+          e.target?.isContentEditable
+        ) return;
+
+        if (requireFocus && document.activeElement !== v) return;
+
+        if (e.key === "ArrowRight") {
+          e.preventDefault();
+
+          // If metadata isn't ready yet, wait once, then jump.
+          // This fixes the “must click/pause first” feel on some setups.
+          if (!Number.isFinite(v.duration) || v.readyState < 1) {
+            v.addEventListener("loadedmetadata", doJump, { once: true });
+            // nudge focus so the page is "active"
+            try { v.focus(); } catch {}
+            return;
+          }
+
+          doJump();
+        }
+      };
+
+      v.addEventListener("timeupdate", onTimeUpdate);
+      v.addEventListener("loadedmetadata", onLoadedMetadata);
+      window.addEventListener("keydown", onKeyDown, { passive: false });
+
+      cleanupFns.push(() => v.removeEventListener("timeupdate", onTimeUpdate));
+      cleanupFns.push(() => v.removeEventListener("loadedmetadata", onLoadedMetadata));
+      cleanupFns.push(() => window.removeEventListener("keydown", onKeyDown));
     };
 
-    v.addEventListener("timeupdate", onTimeUpdate);
-    window.addEventListener("keydown", onKeyDown, { passive: false });
+    attach();
 
-    cleanupFns.push(() => v.removeEventListener("timeupdate", onTimeUpdate));
-    cleanupFns.push(() => window.removeEventListener("keydown", onKeyDown));
-  };
-
-  attach();
-
-  return () => {
-    if (rafId) cancelAnimationFrame(rafId);
-    cleanupFns.forEach((fn) => fn());
-  };
-}, [videoRef, enabled, clipStart, clipLength, autoPlay, requireFocus]);
-
+    return () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      cleanupFns.forEach((fn) => fn());
+    };
+  }, [videoRef, enabled, clipStart, clipLength, autoPlay, requireFocus]);
 }
+
 
 
 const VideoDetail = () => {
@@ -307,7 +336,7 @@ const VideoDetail = () => {
   autoPlay={shouldAutoplay}
   playsInline
   tabIndex={0}
-  onPlay={(e) => e.currentTarget.focus()}
+  onLoadedMetadata={(e) => e.currentTarget.focus()}
 />
 
 
