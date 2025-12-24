@@ -693,7 +693,7 @@
   pointer-events: none;
   display: grid;
   place-items: center;
-  z-index: 5;
+  z-index: 9999;
 }
 
 /* subtle dark wash */
@@ -706,6 +706,7 @@
 
 /* spinner */
 .nf-spinner{
+  z-index: 10000;
   width: 44px;
   height: 44px;
   border-radius: 999px;
@@ -718,6 +719,7 @@
 
 /* shimmer sweep */
 .nf-shimmer{
+  z-index: 9999;
   position: absolute;
   inset: 0;
   background: linear-gradient(
@@ -738,4 +740,16 @@
 @keyframes nfshimmer{
   0% { transform: translateX(-100%); }
   100% { transform: translateX(100%); }
+}
+
+/* Buffering label (Netflix-ish subtle text) */
+.nf-buffer-text{
+  position: relative;
+  z-index: 10000;
+  margin-top: 64px;
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+  text-shadow: 0 2px 10px rgba(0,0,0,0.7);
 }
