@@ -109,12 +109,6 @@ const VideoDetail = () => {
 
   // Netflix-style buffering overlay
   const [isBuffering, setIsBuffering] = useState(false);
-  const [bufferPct, setBufferPct] = useState(0);
-  const [skipFading, setSkipFading] = useState(false);
-  const bufferTimerRef = useRef(null);
-  const bufferStartRef = useRef(0);
-  const bufferMinHoldRef = useRef(0);
-
 
   const customProfiles = ["Kids Safe", "Teens", "Religious"];
   const videoRef = useRef(null);
@@ -257,59 +251,38 @@ const VideoDetail = () => {
     const vid = videoRef.current;
     if (!vid) return;
 
-    let tShow = null;
+    let t = null;
 
-    const startUI = () => {
-      clearTimeout(tShow);
-      tShow = setTimeout(() => {
-        bufferMinHoldRef.current = Date.now() + 250;
-        setIsBuffering(true);
-        setBufferPct((p) => (p > 0 ? p : 18));
-      }, 80);
+    const show = () => {
+      // small delay prevents flicker on very short stalls
+      clearTimeout(t);
+      t = setTimeout(() => setIsBuffering(true), 120);
     };
 
-    const finishUI = () => {
-      clearTimeout(tShow);
-      const remaining = bufferMinHoldRef.current - Date.now();
-
-      const doFinish = () => {
-        if (vid.readyState >= 3) {
-          clearInterval(bufferTimerRef.current);
-          setBufferPct(100);
-          setTimeout(() => {
-            setIsBuffering(false);
-            setSkipFading(false);
-            setBufferPct(0);
-          }, 160);
-        }
-      };
-
-      if (remaining > 0) setTimeout(doFinish, remaining);
-      else doFinish();
+    const hide = () => {
+      clearTimeout(t);
+      setIsBuffering(false);
     };
 
-    vid.addEventListener("seeking", startUI);
-    vid.addEventListener("waiting", startUI);
-    vid.addEventListener("stalled", startUI);
-    vid.addEventListener("loadstart", startUI);
+    vid.addEventListener("seeking", show);
+    vid.addEventListener("waiting", show);
+    vid.addEventListener("stalled", show);
 
-    vid.addEventListener("playing", finishUI);
-    vid.addEventListener("canplay", finishUI);
-    vid.addEventListener("canplaythrough", finishUI);
-
-    return () => {
-      clearTimeout(tShow);
-      vid.removeEventListener("seeking", startUI);
-      vid.removeEventListener("waiting", startUI);
-      vid.removeEventListener("stalled", startUI);
-      vid.removeEventListener("loadstart", startUI);
-
-      vid.removeEventListener("playing", finishUI);
-      vid.removeEventListener("canplay", finishUI);
-      vid.removeEventListener("canplaythrough", finishUI);
-    };
+    vid.addEventListener("canplay", hide);
+    vid.addEventListener("playing", hide);
+return () => {
+      clearTimeout(t);
+      vid.removeEventListener("seeking", show);
+      vid.removeEventListener("waiting", show);
+      vid.removeEventListener("stalled", show);
+      vid.removeEventListener("canplay", hide);
+      vid.removeEventListener("playing", hide);
+};
   }, [video, familyMode]);
-/* ---------- Skip engine (ONLY ONE) ---------- */
+
+
+
+  /* ---------- Skip engine (ONLY ONE) ---------- */
   useEffect(() => {
     const vid = videoRef.current;
     if (!vid) return;
@@ -341,8 +314,8 @@ const VideoDetail = () => {
             lastJumpAt = target;
 
 
-            // Option A+B: start fade + progress overlay immediately
-            startSkipTransition();
+            // Show Netflix-style buffering overlay immediately to cover the "frozen frame" during seek
+            setIsBuffering(true);
             if (typeof vid.fastSeek === "function") vid.fastSeek(target);
             else vid.currentTime = target;
 
@@ -375,13 +348,6 @@ const VideoDetail = () => {
       if (rafId) cancelAnimationFrame(rafId);
     };
   }, [skipMap, familyMode]);
-
-  // Cleanup timers
-  useEffect(() => {
-    return () => {
-      clearInterval(bufferTimerRef.current);
-    };
-  }, []);
 
   /* ---------- Auto-hide profile card ---------- */
   useEffect(() => {
@@ -424,17 +390,10 @@ const VideoDetail = () => {
             onLoadedMetadata={(e) => e.currentTarget.focus()}
           />
 
-          {skipFading && <div className="nf-fade-layer" />}
           {isBuffering && (
-            <div className="nf-skip-overlay" aria-label="Skipping">
-              <div className="nf-skip-title">Skipping…</div>
-              <div className="nf-progress">
-                <div
-                  className="nf-progress-bar"
-                  style={{ width: `${bufferPct}%` }}
-                />
-              </div>
-              <div className="nf-pct">{bufferPct}%</div>
+            <div className="nf-buffering-overlay" aria-label="Buffering">
+              <div className="nf-spinner" />
+              <div className="nf-shimmer" />
             </div>
           )}
         </div>
