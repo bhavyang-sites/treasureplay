@@ -693,7 +693,7 @@
 }
 
 @keyframes nfFadeIn{
-  to { opacity: 0.35; }
+  to { opacity: 0.55; }
 }
 
 .netflix-player-shell .nf-skip-overlay{

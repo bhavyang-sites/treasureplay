@@ -117,13 +117,6 @@ const VideoDetail = () => {
   const [filteringProfile, setFilteringProfile] = useState("Strict");
   const [customProfile, setCustomProfile] = useState("");
   const [showProfileCard, setShowProfileCard] = useState(false);
-  const [isBuffering, setIsBuffering] = useState(false);
-  const [bufferPct, setBufferPct] = useState(0);
-  const [skipFading, setSkipFading] = useState(false);
-
-  const bufferTimerRef = useRef(null);
-  const bufferStartRef = useRef(0);
-  const hideTimerRef = useRef(null);
 
   const customProfiles = ["Kids Safe", "Teens", "Religious"];
   const videoRef = useRef(null);
@@ -278,23 +271,43 @@ const VideoDetail = () => {
     const EPS_START = 0.12;
     const EPS_END = 0.04;
 
+    const prevTimeRef = { current: -1 };
+
     const jumpIfNeeded = () => {
       if (!familyMode) return;
-      const t = vid.currentTime || 0;
 
+      const t = vid.currentTime || 0;
+      const prev = prevTimeRef.current;
+      prevTimeRef.current = t;
+
+      // allow re-skip if user scrubs back
       if (t < lastJumpAt - 0.2) lastJumpAt = -1;
 
       for (let s of segs) {
-        if (t >= s.start - EPS_START && t < s.end - EPS_END) {
-          const target = Math.min(s.end + 0.02, vid.duration - 0.05);
-          if (Math.abs(target - t) > 0.01) {
-          startSkipTransition();
-            vid.currentTime = target;
-            lastJumpAt = target;
-            if (vid.paused) vid.play().catch(() => {});
+        const inside = t >= s.start - EPS_START && t < s.end - EPS_END;
 
+        // If timeupdate jumps over the start boundary in one tick, we could miss "inside".
+        // Treat crossing into (or across) the segment as a trigger too.
+        const crossedInto =
+          prev !== -1 && prev < s.start && t >= s.start;
+
+        if (inside || crossedInto) {
+          const dur = Number.isFinite(vid.duration) ? vid.duration : null;
+          const target = dur ? Math.min(s.end + 0.02, dur - 0.05) : s.end + 0.02;
+
+          // prevent repeated seeks to the same point
+          if (Math.abs(target - lastJumpAt) > 0.15) {
+            lastJumpAt = target;
+
+            // Option A+B: show Netflix-style transition while post-skip loads
+            startSkipTransition();
+
+            if (typeof vid.fastSeek === "function") vid.fastSeek(target);
+            else vid.currentTime = target;
+
+            if (vid.paused) vid.play().catch(() => {});
           }
-          break;
+          return; // only do one skip per tick
         }
       }
     };
@@ -303,6 +316,7 @@ const VideoDetail = () => {
     vid.addEventListener("seeking", jumpIfNeeded);
     vid.addEventListener("seeked", jumpIfNeeded);
     vid.addEventListener("timeupdate", jumpIfNeeded);
+    vid.addEventListener("play", jumpIfNeeded);
     const onPlayable = () => stopSkipTransition(false);
     vid.addEventListener("canplay", onPlayable);
     vid.addEventListener("playing", onPlayable);
@@ -312,6 +326,7 @@ const VideoDetail = () => {
       vid.removeEventListener("seeking", jumpIfNeeded);
       vid.removeEventListener("seeked", jumpIfNeeded);
       vid.removeEventListener("timeupdate", jumpIfNeeded);
+      vid.removeEventListener("play", jumpIfNeeded);
       vid.removeEventListener("canplay", onPlayable);
       vid.removeEventListener("playing", onPlayable);
     };
