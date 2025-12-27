@@ -680,10 +680,6 @@
    ============================ */
 .netflix-player-shell{
   position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  display: block;
 }
 
 /* Covers the video area during seek/buffer so the user doesn't see the frozen last frame */
@@ -693,94 +689,7 @@
   pointer-events: none;
   display: grid;
   place-items: center;
-  z-index: 9999;
-}
-
-/* subtle dark wash */
-.nf-buffering-overlay::before{
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.35);
-}
-
-/* spinner */
-.nf-spinner{
-  z-index: 10000;
-  width: 44px;
-  height: 44px;
-  border-radius: 999px;
-  border: 3px solid rgba(255,255,255,0.25);
-  border-top-color: rgba(255,255,255,0.9);
-  animation: nfspin 0.9s linear infinite;
-  position: relative;
-  z-index: 6;
-}
-
-/* shimmer sweep */
-.nf-shimmer{
-  z-index: 9999;
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    110deg,
-    rgba(255,255,255,0.00) 0%,
-    rgba(255,255,255,0.08) 45%,
-    rgba(255,255,255,0.00) 70%
-  );
-  transform: translateX(-100%);
-  animation: nfshimmer 1.25s ease-in-out infinite;
-  z-index: 6;
-}
-
-@keyframes nfspin{
-  to { transform: rotate(360deg); }
-}
-
-@keyframes nfshimmer{
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-/* Buffering label (Netflix-ish subtle text) */
-.nf-buffer-text{
-  position: relative;
-  z-index: 10000;
-  margin-top: 64px;
-  font-size: 0.95rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.75);
-  text-shadow: 0 2px 10px rgba(0,0,0,0.7);
-}
-/* ============================
-   Netflix-style buffering UI
-   (layout-safe: does NOT clip native controls)
-   ============================ */
-
-.netflix-player-shell{
-  position: relative;
-  width: 100%;
-  max-width: 100%;
-  display: block;
-}
-
-/* Keep the video within the viewport so controls remain visible */
-.netflix-player-shell .video-player{
-  width: 100%;
-  height: auto;
-  max-height: 100vh;
-  display: block;
-}
-
-/* Overlay covers only the video box */
-.nf-buffering-overlay{
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  display: grid;
-  place-items: center;
-  z-index: 9999;
+  z-index: 5;
 }
 
 /* subtle dark wash */
@@ -800,7 +709,7 @@
   border-top-color: rgba(255,255,255,0.9);
   animation: nfspin 0.9s linear infinite;
   position: relative;
-  z-index: 10000;
+  z-index: 6;
 }
 
 /* shimmer sweep */
@@ -815,7 +724,7 @@
   );
   transform: translateX(-100%);
   animation: nfshimmer 1.25s ease-in-out infinite;
-  z-index: 9999;
+  z-index: 6;
 }
 
 @keyframes nfspin{
