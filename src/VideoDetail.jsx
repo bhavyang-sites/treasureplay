@@ -117,6 +117,13 @@ const VideoDetail = () => {
   const [filteringProfile, setFilteringProfile] = useState("Strict");
   const [customProfile, setCustomProfile] = useState("");
   const [showProfileCard, setShowProfileCard] = useState(false);
+  const [isBuffering, setIsBuffering] = useState(false);
+  const [bufferPct, setBufferPct] = useState(0);
+  const [skipFading, setSkipFading] = useState(false);
+
+  const bufferTimerRef = useRef(null);
+  const bufferStartRef = useRef(0);
+  const hideTimerRef = useRef(null);
 
   const customProfiles = ["Kids Safe", "Teens", "Religious"];
   const videoRef = useRef(null);
