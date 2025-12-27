@@ -717,17 +717,17 @@
 
 /* Shared pill base */
 .cta-pill{
-  height: 46px;
+  height: 40px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
 
-  padding: 0 18px;
+  padding: 0 16px;
   border-radius: 14px;
 
-  font-weight: 700;
-  font-size: 16px;
+  font-size: 15px;
+  font-weight: 600;
   line-height: 1;          /* fixes vertical “buggy” feel */
   white-space: nowrap;
 
@@ -778,4 +778,14 @@
   height: 18px;
   display: inline-block;
   flex: 0 0 18px;
+}
+.cta-icon{
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  top: 1px;               /* optical baseline correction */
+  opacity: 0.95;
 }
