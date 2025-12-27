@@ -323,38 +323,72 @@ const VideoDetail = () => {
     let rafId = null;
     let rvfcId = null;
 
+    // Track previous time so we don't "miss" short segments between callbacks
+    const prevTimeRef = { current: -1 };
+    // Track which segment we are expecting next (fast path)
+    const segIndexRef = { current: 0 };
+
+    const resetIndexIfScrubbedBack = (t) => {
+      // If user scrubs back significantly, restart scanning from beginning
+      if (prevTimeRef.current !== -1 && t < prevTimeRef.current - 0.75) {
+        segIndexRef.current = 0;
+        lastJumpAt = -1;
+      }
+    };
+
     const checkAndSkip = () => {
       const t = vid.currentTime || 0;
 
-      // allow re-skip if user scrubs backward
+      resetIndexIfScrubbedBack(t);
+
+      // allow re-skip if user scrubs backward a little
       if (t < lastJumpAt - 0.2) lastJumpAt = -1;
 
-      for (const s of segs) {
-        if (t >= s.start && t < s.end) {
-          const dur = Number.isFinite(vid.duration) ? vid.duration : null;
-          const target = dur
-            ? Math.min(s.end + 0.05, dur - 0.05)
-            : s.end + 0.05;
+      const prev = prevTimeRef.current;
+      prevTimeRef.current = t;
 
-          // prevent hammering repeated seeks
-          if (Math.abs(target - lastJumpAt) > 0.2) {
-            lastJumpAt = target;
+      // Advance seg index if we've already passed segment end
+      while (
+        segIndexRef.current < segs.length &&
+        t >= segs[segIndexRef.current].end - 0.02
+      ) {
+        segIndexRef.current += 1;
+      }
 
+      const s = segs[segIndexRef.current];
+      if (!s) return;
 
-            // Option A+B: start fade + progress overlay immediately
-            startSkipTransition();
-            if (typeof vid.fastSeek === "function") vid.fastSeek(target);
-            else vid.currentTime = target;
+      // We can miss a segment if we jump from prev < start to t > end in one tick.
+      // Treat crossing into the segment as a trigger too.
+      const crossedInto =
+        prev !== -1 &&
+        prev < s.start &&
+        t >= s.start;
 
-            // try to resume immediately (may still buffer)
-            if (vid.paused) vid.play().catch(() => {});
-          }
-          break;
+      const inside = t >= s.start && t < s.end;
+
+      if (inside || crossedInto) {
+        const dur = Number.isFinite(vid.duration) ? vid.duration : null;
+        const target = dur
+          ? Math.min(s.end + 0.05, dur - 0.05)
+          : s.end + 0.05;
+
+        // prevent hammering repeated seeks
+        if (Math.abs(target - lastJumpAt) > 0.15) {
+          lastJumpAt = target;
+
+          // Option A+B: start fade + progress overlay immediately
+          startSkipTransition();
+
+          if (typeof vid.fastSeek === "function") vid.fastSeek(target);
+          else vid.currentTime = target;
+
+          // try to resume immediately (may still buffer)
+          if (vid.paused) vid.play().catch(() => {});
         }
       }
     };
 
-    
     const onTimeUpdate = () => {
       // Backup path in case frame callbacks are throttled
       checkAndSkip();
