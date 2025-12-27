@@ -335,182 +335,38 @@ function ThumbRow({ title, items, onThumbActivate, variant = "landscape" }) {
   const rowClassName = `thumbnail-row thumbnail-row-${variant}`;
   const imageClassName = `thumbnail-image thumbnail-image-${variant}`;
 
-  /* HomePage.jsx - Updated Return Statement */
-
   return (
-    <div className="homepage" style={{ backgroundImage: `url(${heroItem.thumbnail})` }}>
-      <Navbar />
-      <div className="hero-overlay-gradient" />
-
-      <div className="hero-content container">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={heroItem.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.6 }}
-            className="hero-text-stack"
-          >
-            <h1 className="hero-title">{heroItem.title}</h1>
-            
-            {/* Metadata Row - Made more distinct */}
-            <div className="hero-meta-row">
-              <span className="match-score">{heroItem.match} Match</span>
-              <span className="meta-year">{heroItem.year}</span>
-              <span className="meta-rating-badge">{heroItem.rating}</span>
-              <span className="meta-duration">{heroItem.duration}</span>
-            </div>
-            
-            <p className="hero-synopsis">{heroItem.synopsis}</p>
-
-            <div className="hero-actions">
-              <button className="btn btn-primary" onClick={() => navigate(`/video/${heroItem.id}?autoplay=1`)}>
-                <span className="btn-icon">▶</span> Play
-              </button>
-              
-              {/* SmartSkips Button with active state indicator */}
-              <button 
-                className={`btn btn-secondary smartskips-btn ${showSmartSkipsInfo ? 'active' : ''}`}
-                onClick={() => setShowSmartSkipsInfo(!showSmartSkipsInfo)}
-              >
-                <span className="btn-icon">🛡️</span> SmartSkips Family Mode
-              </button>
-              
-              <button className="btn btn-secondary" onClick={openModal}>
-                <span className="btn-icon">ℹ️</span> More Info
-              </button>
-            </div>
-
-            {/* =================================================
-                1. REFINED SMARTSKIPS POPOVER
-               ================================================= */}
-            <AnimatePresence>
-              {showSmartSkipsInfo && (
-                <motion.div
-                  id="smartskips-popover"
-                  className="glass-popover smartskips-popover"
-                  initial={{ opacity: 0, y: 10, scale: 0.98 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: 10, scale: 0.98 }}
-                  transition={{ type: "spring", stiffness: 350, damping: 25 }}
-                >
-                  <div className="popover-header">
-                    <div className="header-text">
-                      <span className="premium-badge">NEW FEATURE</span>
-                      <h3>SmartSkips™ Family Mode</h3>
-                    </div>
-                    <button
-                      type="button"
-                      className="round-close-btn"
-                      onClick={() => setShowSmartSkipsInfo(false)}
-                      aria-label="Close"
-                    >
-                      ✕
-                    </button>
-                  </div>
-
-                  <div className="popover-body">
-                    <p className="popover-intro">
-                      Activate AI-powered filtering to automatically skip mature content in real-time.
-                    </p>
-                    
-                    <ul className="feature-grid-list">
-                      <li className="feature-grid-item">
-                        <div className="feature-icon-box gold">🛡️</div>
-                        <div>
-                          <strong>Auto-Skip Scenes</strong>
-                          <span>Nudity, violence, and strong language.</span>
-                        </div>
-                      </li>
-                      <li className="feature-grid-item">
-                        <div className="feature-icon-box blue">⚡</div>
-                        <div>
-                          <strong>Zero Latency</strong>
-                          <span>Instant, seamless playback jumps.</span>
-                        </div>
-                      </li>
-                      <li className="feature-grid-item">
-                        <div className="feature-icon-box purple">⚙️</div>
-                        <div>
-                          <strong>Customizable</strong>
-                          <span>Choose Strict, Teen, or Custom profiles.</span>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="popover-footer">
-                    <button
-                      className="btn btn-primary grow"
-                      onClick={() => navigate(`/video/${heroItem.id}?autoplay=1&familyMode=1`)}
-                    >
-                      Try Demo Experience
-                    </button>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.div>
-        </AnimatePresence>
+    <section className="row">
+      <div className="row-header">
+        <h3 className="row-title">{title}</h3>
       </div>
-
-      {/* =================================================
-          2. REFINED INFO MODAL
-         ================================================= */}
-      <AnimatePresence>
-        {showInfoModal && (
-          <motion.div
-            className="modal-backdrop"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={closeModal}
+      <div className={rowClassName}>
+        {items.map((video) => (
+          <article
+            key={video.id}
+            className="thumbnail-item"
+            tabIndex={0}
+            onClick={() => onThumbActivate(video.id)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onThumbActivate(video.id);
+              }
+            }}
           >
-            <motion.div
-              className="glass-popover modal-container"
-              initial={{ y: 50, opacity: 0, scale: 0.95 }}
-              animate={{ y: 0, opacity: 1, scale: 1 }}
-              exit={{ y: 30, opacity: 0, scale: 0.95 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="modal-header-image" style={{backgroundImage: `url(${heroItem.thumbnail})`}}>
-                <div className="modal-gradient-overlay"></div>
-                <button className="round-close-btn modal-close-abs" onClick={closeModal}>✕</button>
-                <h1>{heroItem.title}</h1>
-              </div>
-
-              <div className="modal-content-body">
-                <div className="modal-meta-bar">
-                  <span className="match-score">{heroItem.match} Match</span>
-                  <span>{heroItem.year}</span>
-                  <span className="meta-rating-badge">{heroItem.rating}</span>
-                  <span>{heroItem.duration}</span>
-                  <span className="hd-badge">HD</span>
-                </div>
-
-                <p className="modal-synopsis-large">{heroItem.synopsis}{heroItem.synopsis}</p>
-
-                <div className="modal-details-grid">
-                  <div className="detail-col">
-                    <span className="detail-label">Cast:</span>
-                    <span className="detail-value">{heroItem.cast}</span>
-                  </div>
-                  <div className="detail-col">
-                    <span className="detail-label">Genres:</span>
-                    <span className="detail-value">{heroItem.genres}</span>
-                  </div>
-                  <div className="detail-col">
-                    <span className="detail-label">This movie is:</span>
-                    <span className="detail-value">Exciting • Action-Packed • Sci-Fi</span>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+            <div className="thumbnail-wrapper">
+              <img
+                src={video.thumbnail}
+                alt={video.title}
+                className={imageClassName}
+                loading="lazy"
+              />
+            </div>
+            <p className="thumbnail-title">{video.title}</p>
+          </article>
+        ))}
+      </div>
+    </section>
   );
 }
 
