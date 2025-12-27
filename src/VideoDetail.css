@@ -751,3 +751,24 @@
   text-transform: uppercase;
   text-shadow: 0 6px 18px rgba(0,0,0,0.7);
 }
+/* --- Fix blackout: ensure wrapper has height so video 100% works --- */
+.hero-content{
+  width: 100%;
+  height: 100%;
+}
+
+.netflix-player-shell{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* If you want the video to fill height while preserving aspect */
+.video-player{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+}
