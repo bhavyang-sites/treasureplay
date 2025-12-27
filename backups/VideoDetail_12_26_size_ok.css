@@ -746,35 +746,3 @@
   justify-content: center;
   overflow: hidden; /* Prevents any rogue scrollbars */
 }
-/* Update/Add these to your CSS */
-
-.hero-bg {
-  position: relative;
-  width: 100%;
-  height: 100vh; /* FORCE full viewport height */
-  background: #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden; /* Stop page scroll */
-}
-
-/* New class for the container around the video */
-.netflix-player-shell {
-  position: relative;
-  width: 100%;
-  height: 100%; /* Force it to fill the hero-bg */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-/* Ensure video fits inside the shell */
-.video-player {
-  width: 100%;
-  height: 100%;
-  object-fit: contain; /* Adds black bars automatically, preserves aspect ratio */
-  max-width: none;
-  border-radius: 0;
-}
