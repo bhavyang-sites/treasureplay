@@ -708,3 +708,74 @@
   background: rgba(255, 255, 255, 0.08);
 }
 
+/* Container holding both pills */
+.hero-cta-row{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Shared pill base */
+.cta-pill{
+  height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  padding: 0 18px;
+  border-radius: 14px;
+
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1;          /* fixes vertical “buggy” feel */
+  white-space: nowrap;
+
+  user-select: none;
+  cursor: pointer;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  transform: translateZ(0);
+  transition: transform 140ms ease, box-shadow 140ms ease, filter 140ms ease;
+}
+
+/* Hover/active polish */
+.cta-pill:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 14px 34px rgba(0,0,0,0.28);
+}
+.cta-pill:active{
+  transform: translateY(0px) scale(0.99);
+}
+
+/* Keyboard focus (OTT-grade) */
+.cta-pill:focus-visible{
+  outline: 2px solid rgba(255,255,255,0.85);
+  outline-offset: 3px;
+}
+
+/* PLAY pill (yellow) */
+.cta-play{
+  background: #ffd54a;
+  color: #111;
+}
+.cta-play:hover{ filter: brightness(0.98); }
+
+/* FAMILY pill (dark glass) */
+.cta-family{
+  background: rgba(18,18,18,0.72);
+  color: rgba(255,255,255,0.92);
+  border: 1px solid rgba(255,255,255,0.10);
+  backdrop-filter: blur(10px);
+}
+.cta-family:hover{
+  border-color: rgba(255,255,255,0.16);
+}
+
+/* Icon sizing consistency */
+.cta-pill .cta-icon{
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  flex: 0 0 18px;
+}

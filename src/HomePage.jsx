@@ -169,27 +169,18 @@ const HomePage = () => {
                 <p className="hero-tagline">{heroItem.tagline}</p>
               ) : null}
 
-              <div className="hero-actions">
-                <button
-  className="btn btn-primary"
-  onClick={() => onThumbActivate(heroItem.id)}
-  type="button"
->
-  <span className="play-icon">▶</span>
-  <span className="play-text">Play</span>
-</button>
+<div className="hero-cta-row">
+  <button className="cta-pill cta-play">
+    <span className="cta-icon">▶</span>
+    <span>Play</span>
+  </button>
 
-                <button
-  className="btn btn-smartskips"
-  onClick={() => setShowSmartSkipsInfo((v) => !v)}
-  type="button"
-  aria-expanded={showSmartSkipsInfo}
-  aria-controls="smartskips-popover"
->
-  🛡 SmartSkips Family Mode
-</button>
+  <button className="cta-pill cta-family">
+    <span className="cta-icon">🛡️</span>
+    <span>Family Mode</span>
+  </button>
+</div>
 
-              </div>
 
 {showSmartSkipsInfo && (
   <motion.div
