@@ -283,125 +283,71 @@ return () => {
 
 
   /* ---------- Skip engine (ONLY ONE) ---------- */
-/* ---------- Skip engine (Optimized + Visual Masking) ---------- */
-useEffect(() => {
-  const vid = videoRef.current;
-  if (!vid) return;
+  useEffect(() => {
+    const vid = videoRef.current;
+    if (!vid) return;
 
-  const segs = (skipMap || []).filter((s) => (s.action || "skip") === "skip");
-  // If Family Mode is off, ensure we clean up any leftover filters
-  if (!familyMode) {
-    vid.style.filter = "none"; 
-    vid.playbackRate = 1.0;
-    return;
-  }
-  
-  if (segs.length === 0) return;
+    const segs = (skipMap || []).filter(
+      (s) => (s.action || "skip") === "skip"
+    );
+    if (!familyMode || segs.length === 0) return;
 
-  let lastJumpAt = -1;
-  let rafId = null;
-  let rvfcId = null;
-  
-  // Track if we are currently "masking" content
-  let isMasking = false; 
+    let lastJumpAt = -1;
+    let rafId = null;
+    let rvfcId = null;
 
-  const checkAndSkip = () => {
-    const t = vid.currentTime || 0;
+    const checkAndSkip = () => {
+      const t = vid.currentTime || 0;
 
-    // Reset jump tracker if user scrubs backward manually
-    if (t < lastJumpAt - 0.2) lastJumpAt = -1;
+      // allow re-skip if user scrubs backward
+      if (t < lastJumpAt - 0.2) lastJumpAt = -1;
 
-    // 1. EXIT STRATEGY: Check if we need to restore normal viewing
-    if (isMasking) {
-       // Are we still inside ANY skip segment?
-       const insideAny = segs.some(s => t >= s.start && t < s.end);
-       
-       if (!insideAny) {
-         // --- INSTANT RESTORE ---
-         vid.style.filter = "none"; // Remove blur/blackout
-         vid.muted = false;
-         vid.playbackRate = 1.0;
-         isMasking = false;
-         setIsBuffering(false); // Hide spinner
-       }
-    }
+      for (const s of segs) {
+        if (t >= s.start && t < s.end) {
+          const dur = Number.isFinite(vid.duration) ? vid.duration : null;
+          const target = dur
+            ? Math.min(s.end + 0.05, dur - 0.05)
+            : s.end + 0.05;
 
-    // 2. ENTRY STRATEGY: Check if we entered a skip zone
-    for (const s of segs) {
-      if (t >= s.start && t < s.end) {
-        
-        const skipDuration = s.end - t;
+          // prevent hammering repeated seeks
+          if (Math.abs(target - lastJumpAt) > 0.2) {
+            lastJumpAt = target;
 
-        // Strategy A: MICRO-SKIP (The "Blur-Through" Method)
-        // Use this for short skips (< 5s) to avoid buffering latency
-        if (skipDuration < 5.0) {
-           if (!isMasking) {
-             isMasking = true;
-             
-             // --- INSTANT CENSORSHIP ---
-             // Option 1: Heavy Blur (Classy, like frosted glass)
-             vid.style.filter = "blur(60px) brightness(0.5)";
-             
-             // Option 2: Total Blackout (Safest for strict filtering)
-             // vid.style.filter = "brightness(0)"; 
 
-             vid.muted = true;       // Silence audio
-             vid.playbackRate = 16.0; // Fast forward
-           }
-           return; // Let the loop run; we are speeding through
+            // Show Netflix-style buffering overlay immediately to cover the "frozen frame" during seek
+            setIsBuffering(true);
+            if (typeof vid.fastSeek === "function") vid.fastSeek(target);
+            else vid.currentTime = target;
+
+            // try to resume immediately (may still buffer)
+            if (vid.paused) vid.play().catch(() => {});
+          }
+          break;
         }
-
-        // Strategy B: LONG SEEK (Standard Skip)
-        // Use this for long scenes where 16x speed is still too slow
-        const dur = Number.isFinite(vid.duration) ? vid.duration : null;
-        const target = dur ? Math.min(s.end + 0.05, dur - 0.05) : s.end + 0.05;
-
-        if (Math.abs(target - lastJumpAt) > 0.2) {
-          lastJumpAt = target;
-          
-          // Show spinner
-          setIsBuffering(true);
-          
-          // Mute briefly to prevent audio chirp during seek
-          vid.muted = true;
-          
-          if (typeof vid.fastSeek === "function") vid.fastSeek(target);
-          else vid.currentTime = target;
-
-          // Unmute slightly delayed to ensure seek is done (handled by restore logic or simple timeout)
-          setTimeout(() => { if(!isMasking) vid.muted = false; }, 300);
-
-          if (vid.paused) vid.play().catch(() => {});
-        }
-        break;
       }
-    }
-  };
+    };
 
-  const loop = () => {
-    checkAndSkip();
-    if (typeof vid.requestVideoFrameCallback === "function") {
-      rvfcId = vid.requestVideoFrameCallback(loop);
-    } else {
-      rafId = requestAnimationFrame(loop);
-    }
-  };
+    const loop = () => {
+      checkAndSkip();
+      if (typeof vid.requestVideoFrameCallback === "function") {
+        rvfcId = vid.requestVideoFrameCallback(loop);
+      } else {
+        rafId = requestAnimationFrame(loop);
+      }
+    };
 
-  loop();
+    loop();
 
-  return () => {
-    // Safety cleanup on unmount
-    if (vid) {
-       vid.style.filter = "none";
-       vid.playbackRate = 1.0;
-       vid.muted = false;
-    }
-    if (rvfcId && typeof vid.cancelVideoFrameCallback === "function") {
-      try { vid.cancelVideoFrameCallback(rvfcId); } catch {}
-    }
-    if (rafId) cancelAnimationFrame(rafId);
-  };
-}, [skipMap, familyMode]);
+    return () => {
+      // cancel what we can; if cancelVideoFrameCallback isn't present, it stops naturally after unmount
+      if (rvfcId && typeof vid.cancelVideoFrameCallback === "function") {
+        try {
+          vid.cancelVideoFrameCallback(rvfcId);
+        } catch {}
+      }
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, [skipMap, familyMode]);
 
   /* ---------- Auto-hide profile card ---------- */
   useEffect(() => {
