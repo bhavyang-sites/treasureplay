@@ -773,12 +773,6 @@
 }
 
 /* Icon sizing consistency */
-.cta-pill .cta-icon{
-  width: 18px;
-  height: 18px;
-  display: inline-block;
-  flex: 0 0 18px;
-}
 .cta-icon{
   width: 16px;
   height: 16px;
@@ -786,6 +780,6 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  top: 1px;               /* optical baseline correction */
+  top: 1px;
   opacity: 0.95;
 }

@@ -170,16 +170,25 @@ const HomePage = () => {
               ) : null}
 
 <div className="hero-cta-row">
-  <button className="cta-pill cta-play">
+  <button
+    className="cta-pill cta-play"
+    type="button"
+    onClick={() => navigate(`/video/${heroItem.id}?autoplay=1`)}
+  >
     <span className="cta-icon">▶</span>
     <span>Play</span>
   </button>
 
-  <button className="cta-pill cta-family">
+  <button
+    className="cta-pill cta-family"
+    type="button"
+    onClick={() => navigate(`/video/${heroItem.id}?autoplay=1&family=1`)}
+  >
     <span className="cta-icon">🛡️</span>
     <span>Family Mode</span>
   </button>
 </div>
+
 
 
 {showSmartSkipsInfo && (
