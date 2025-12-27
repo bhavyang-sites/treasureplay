@@ -354,9 +354,25 @@ const VideoDetail = () => {
       }
     };
 
-    const loop = () => {
+    
+    const onTimeUpdate = () => {
+      // Backup path in case frame callbacks are throttled
       checkAndSkip();
-      if (typeof vid.requestVideoFrameCallback === "function") {
+    };
+
+    vid.addEventListener("timeupdate", onTimeUpdate);
+
+const loop = () => {
+      checkAndSkip();
+
+      // requestVideoFrameCallback won't fire while paused (or during some buffering),
+      // so fall back to requestAnimationFrame in those cases to keep skip logic alive.
+      const canUseRvfc =
+        typeof vid.requestVideoFrameCallback === "function" &&
+        !vid.paused &&
+        vid.readyState >= 2; // HAVE_CURRENT_DATA
+
+      if (canUseRvfc) {
         rvfcId = vid.requestVideoFrameCallback(loop);
       } else {
         rafId = requestAnimationFrame(loop);
@@ -372,6 +388,7 @@ const VideoDetail = () => {
           vid.cancelVideoFrameCallback(rvfcId);
         } catch {}
       }
+      vid.removeEventListener("timeupdate", onTimeUpdate);
       if (rafId) cancelAnimationFrame(rafId);
     };
   }, [skipMap, familyMode]);
