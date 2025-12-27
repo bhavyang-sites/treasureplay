@@ -190,48 +190,77 @@ const HomePage = () => {
 </button>
 
               </div>
-              {showSmartSkipsInfo && (
+/* In HomePage.jsx, inside the return statement, replace the existing popup block */
+
+{showSmartSkipsInfo && (
   <motion.div
     id="smartskips-popover"
     className="smartskips-popover"
-    initial={{ opacity: 0, y: 8, scale: 0.98 }}
+    initial={{ opacity: 0, y: 15, scale: 0.96 }}
     animate={{ opacity: 1, y: 0, scale: 1 }}
-    exit={{ opacity: 0, y: 8, scale: 0.98 }}
-    transition={{ duration: 0.18 }}
+    exit={{ opacity: 0, y: 15, scale: 0.96 }}
+    transition={{ type: "spring", stiffness: 300, damping: 25 }}
   >
     <div className="smartskips-popover-head">
-      <div className="smartskips-popover-title">SmartSkips Family Mode</div>
+      <div className="smartskips-header-content">
+        <span className="smartskips-badge">NEW FEATURE</span>
+        <h3 className="smartskips-popover-title">SmartSkips Family Mode</h3>
+      </div>
       <button
         type="button"
         className="smartskips-popover-close"
         onClick={() => setShowSmartSkipsInfo(false)}
         aria-label="Close"
       >
-        ✕
+        <span className="close-icon">✕</span>
       </button>
     </div>
 
-    <ul className="smartskips-bullets">
-      <li><strong>Scene-level filtering</strong> using proxy videos + metadata (skip map output).</li>
-      <li><strong>Zero pipeline disruption</strong> — plugs into your existing CDN/DRM/apps.</li>
-      <li><strong>Playback plugin</strong> adds Family Mode toggle + profiles (Mild/Strict/Custom).</li>
-    </ul>
+    <div className="smartskips-body">
+      <p className="smartskips-intro">
+        Filter content in real-time without disrupting your pipeline.
+      </p>
+      
+      <ul className="smartskips-feature-list">
+        <li className="feature-item">
+          <span className="feature-icon">🛡️</span>
+          <div className="feature-text">
+            <strong>Scene-Level Filtering</strong>
+            <span>Seamlessly skips adult content using AI-generated skip maps.</span>
+          </div>
+        </li>
+        <li className="feature-item">
+          <span className="feature-icon">⚡</span>
+          <div className="feature-text">
+            <strong>Zero Latency</strong>
+            <span>Plugs directly into your existing CDN & DRM workflow.</span>
+          </div>
+        </li>
+        <li className="feature-item">
+          <span className="feature-icon">🎛️</span>
+          <div className="feature-text">
+            <strong>Custom Profiles</strong>
+            <span>Viewers choose between Mild, Strict, or Custom filtering.</span>
+          </div>
+        </li>
+      </ul>
+    </div>
 
     <div className="smartskips-popover-actions">
       <button
-        className="btn btn-outline"
-        type="button"
-        onClick={() => setShowSmartSkipsInfo(false)}
-      >
-        Continue Watching
-      </button>
-
-      <button
-        className="btn btn-primary"
+        className="btn btn-primary btn-wide"
         type="button"
         onClick={() => navigate(`/video/${heroItem.id}?autoplay=1`)}
       >
-        See how it works
+        <span>▶ Demo Experience</span>
+      </button>
+      
+      <button
+        className="btn btn-ghost"
+        type="button"
+        onClick={() => setShowSmartSkipsInfo(false)}
+      >
+        Maybe Later
       </button>
     </div>
   </motion.div>
