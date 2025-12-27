@@ -772,3 +772,7 @@
   object-fit: contain;
   background: #000;
 }
+.netflix-player-shell {
+  height: 100%;
+}
+
