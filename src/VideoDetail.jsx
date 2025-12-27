@@ -1,35 +1,99 @@
+// VideoDetail.jsx
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import "./VideoDetail.css";
 
-/* ... keep your toSeconds and useJumpClipHotkey helpers exactly as they were ... */
+/* ---------- helpers ---------- */
 function toSeconds(ts) {
   if (typeof ts === "number") return ts;
   if (typeof ts !== "string") return null;
+
   const parts = ts.split(":").map((p) => p.trim());
-  if (parts.length === 2) { const [m, s] = parts.map(Number); return m * 60 + s; }
-  if (parts.length === 3) { const [h, m, s] = parts.map(Number); return h * 3600 + m * 60 + s; }
+  if (parts.some((p) => p === "" || isNaN(Number(p)))) return null;
+
+  if (parts.length === 2) {
+    const [m, s] = parts.map(Number);
+    return m * 60 + s;
+  }
+  if (parts.length === 3) {
+    const [h, m, s] = parts.map(Number);
+    return h * 3600 + m * 60 + s;
+  }
   return null;
 }
 
-export function useJumpClipHotkey({ videoRef, jumpTo = "22:44", enabled = true, autoPlay = true, requireFocus = false }) {
-  // ... (Keep your existing hotkey code here) ...
+/**
+ * ArrowRight hotkey: jump to a time (e.g., "22:44") and optionally autoplay.
+ * IMPORTANT: NO clip-end limiter (you wanted to manually stop/trim).
+ */
+export function useJumpClipHotkey({
+  videoRef,
+  jumpTo = "22:44",
+  enabled = true,
+  autoPlay = true,
+  requireFocus = false,
+}) {
   const jumpSeconds = useMemo(() => toSeconds(jumpTo), [jumpTo]);
+
   useEffect(() => {
     if (!enabled) return;
+
     const onKeyDown = (e) => {
-       // ... (paste your existing hotkey logic) ...
-       if (e.key === "ArrowRight" && videoRef.current) {
-          // simple jump logic for brevity in this snippet
-          videoRef.current.currentTime = jumpSeconds;
-       }
+      const tag = (e.target?.tagName || "").toLowerCase();
+      if (
+        tag === "input" ||
+        tag === "textarea" ||
+        tag === "select" ||
+        e.target?.isContentEditable
+      ) {
+        return;
+      }
+
+      const vid = videoRef?.current;
+      if (!vid) return;
+
+      if (requireFocus && document.activeElement !== vid) return;
+
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+
+        const doJump = () => {
+          if (typeof jumpSeconds !== "number") return;
+
+          const dur = Number.isFinite(vid.duration) ? vid.duration : null;
+          const target = dur
+            ? Math.min(jumpSeconds, Math.max(0, dur - 0.2))
+            : jumpSeconds;
+
+          try {
+            vid.focus();
+          } catch {}
+
+          if (typeof vid.fastSeek === "function") vid.fastSeek(target);
+          else vid.currentTime = target;
+
+          if (autoPlay) vid.play().catch(() => {});
+        };
+
+        // If metadata isn't ready, wait once and jump.
+        if (!Number.isFinite(vid.duration) || vid.readyState < 1) {
+          vid.addEventListener("loadedmetadata", doJump, { once: true });
+          try {
+            vid.focus();
+          } catch {}
+          return;
+        }
+
+        doJump();
+      }
     };
-    window.addEventListener("keydown", onKeyDown);
+
+    window.addEventListener("keydown", onKeyDown, { passive: false });
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [videoRef, enabled, jumpSeconds]);
+  }, [videoRef, enabled, jumpSeconds, autoPlay, requireFocus]);
 }
 
-
+/* ---------- Main Component ---------- */
 const VideoDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -42,159 +106,221 @@ const VideoDetail = () => {
   const [filteringProfile, setFilteringProfile] = useState("Strict");
   const [customProfile, setCustomProfile] = useState("");
   const [showProfileCard, setShowProfileCard] = useState(false);
+
+  // Netflix-style buffering overlay
   const [isBuffering, setIsBuffering] = useState(false);
 
   const customProfiles = ["Kids Safe", "Teens", "Religious"];
   const videoRef = useRef(null);
-  
-  // --- GHOST PLAYER CHANGE: Ref for the hidden pre-loader ---
-  const preloadRef = useRef(null);
 
-  const shouldAutoplay = new URLSearchParams(location.search).get("autoplay") === "1";
+  const shouldAutoplay =
+    new URLSearchParams(location.search).get("autoplay") === "1";
 
-  useJumpClipHotkey({ videoRef, jumpTo: "22:44", enabled: true });
+  // ArrowRight jump (NO clip end)
+  useJumpClipHotkey({
+    videoRef,
+    jumpTo: "22:44",
+    enabled: true,
+    autoPlay: true,
+    requireFocus: false,
+  });
 
-  // 1. Metadata Load
+  /* ---------- Load metadata ---------- */
   useEffect(() => {
     fetch("/video_metadata.json")
       .then((res) => res.json())
       .then((json) => {
-        const arr = json.videos || (Array.isArray(json) ? json : [json]);
-        setVideo(arr.find((v) => (v.id || "").toLowerCase() === normalizedId) || null);
+        const arr = Array.isArray(json)
+          ? json
+          : json.videos && Array.isArray(json.videos)
+          ? json.videos
+          : [json];
+
+        const found =
+          arr.find((v) => (v.id || "").toLowerCase() === normalizedId) || null;
+        setVideo(found);
       })
       .catch(() => setVideo(null));
   }, [normalizedId]);
 
-  // 2. Profile Persistence
+  /* ---------- Remember last profile ---------- */
   useEffect(() => {
     const saved = localStorage.getItem("lastProfile");
     if (saved) setFilteringProfile(saved);
   }, []);
+
   useEffect(() => {
     localStorage.setItem("lastProfile", filteringProfile);
   }, [filteringProfile]);
 
   const handleProfileChange = (e) => {
-    setFilteringProfile(e.target.value);
+    const val = e.target.value;
+    setFilteringProfile(val);
     setShowProfileCard(true);
-    if (e.target.value !== "Custom") setCustomProfile("");
+
+    if (val !== "Custom") {
+      setCustomProfile("");
+    }
   };
 
-  // 3. Skip Map Load
+  /* ---------- Load skip map for selected profile ---------- */
   useEffect(() => {
     if (!video) return;
+
     const raw = video.skipMapUrl;
-    // ... (Your existing URL logic) ...
-    let url = typeof raw === "string" ? raw : raw?.[filteringProfile.toLowerCase()];
-    if(filteringProfile === "Custom" && customProfile) url = raw?.["custom_" + customProfile.toLowerCase().replace(/ /g, "_")];
+    let url = null;
 
-    if (!url) { setSkipMap([]); return; }
+    if (typeof raw === "string") {
+      url = raw;
+    } else if (raw && typeof raw === "object") {
+      if (filteringProfile === "Custom" && customProfile) {
+        const key =
+          "custom_" + customProfile.toLowerCase().replace(/ /g, "_");
+        url = raw[key];
+      } else {
+        url = raw[filteringProfile.toLowerCase()];
+      }
+    }
 
-    fetch(url).then((r) => r.json()).then((data) => {
-        const arr = data.segments || (Array.isArray(data) ? data : []);
-        // ... (Your existing normalization logic) ...
-        // Simply returning normalized data here for brevity
-        const normalized = arr.map(s => ({ start: Number(s.start), end: Number(s.end) })).sort((a,b)=>a.start-b.start);
+    if (!url) {
+      setSkipMap([]);
+      return;
+    }
+
+    fetch(url)
+      .then((r) => r.json())
+      .then((data) => {
+        const arr = Array.isArray(data)
+          ? data
+          : Array.isArray(data?.segments)
+          ? data.segments
+          : [];
+
+        const dur = videoRef.current?.duration; // may be NaN until metadata is loaded
+
+        // Smart ms-vs-seconds heuristic (does NOT break at >1000 seconds)
+        const toSecSmart = (x) => {
+          const n = Number(x);
+          if (!Number.isFinite(n)) return null;
+
+          // If duration is known, treat as ms only if it's way larger than duration
+          if (Number.isFinite(dur) && dur > 0) {
+            return n > dur * 10 ? n / 1000 : n;
+          }
+
+          // Fallback: treat as ms only if extremely large
+          return n > 100000 ? n / 1000 : n;
+        };
+
+        const normalized = arr
+          .map((s) => ({
+            start: toSecSmart(s.start),
+            end: toSecSmart(s.end),
+            action: s.action || "skip",
+            label: s.label,
+            source: s.source,
+          }))
+          .filter(
+            (s) =>
+              Number.isFinite(s.start) &&
+              Number.isFinite(s.end) &&
+              s.end > s.start
+          )
+          .sort((a, b) => a.start - b.start);
+
         setSkipMap(normalized);
-      }).catch(() => setSkipMap([]));
+      })
+      .catch(() => setSkipMap([]));
   }, [video, filteringProfile, customProfile]);
 
-
-  // 4. Buffering Listeners
+  /* ---------- Auto-resume after buffering ends ---------- */
   useEffect(() => {
     const vid = videoRef.current;
     if (!vid) return;
-    let t;
-    const show = () => { clearTimeout(t); t = setTimeout(() => setIsBuffering(true), 150); };
-    const hide = () => { clearTimeout(t); setIsBuffering(false); };
-    
-    vid.addEventListener("waiting", show);
-    vid.addEventListener("playing", hide);
-    return () => { vid.removeEventListener("waiting", show); vid.removeEventListener("playing", hide); };
-  }, []);
 
+    const onCanPlay = () => {
+      if (familyMode && vid.paused) vid.play().catch(() => {});
+    };
 
-  /* ---------- GHOST PRE-LOADER & SKIP ENGINE ---------- */
+    vid.addEventListener("canplay", onCanPlay);
+    return () => vid.removeEventListener("canplay", onCanPlay);
+  }, [familyMode]);
+
+  /* ---------- Netflix-style buffering overlay (seek / wait / canplay) ---------- */
   useEffect(() => {
     const vid = videoRef.current;
-    const ghost = preloadRef.current; // The hidden player
-    if (!vid || !ghost) return;
+    if (!vid) return;
 
-    // Filter relevant skips
-    const segs = (skipMap || []).filter((s) => (s.action || "skip") === "skip");
-    
-    // If Family Mode is OFF, ensure visual filters are gone
-    if (!familyMode) {
-      vid.style.filter = "none";
-      vid.muted = false;
-      return; 
-    }
-    if (segs.length === 0) return;
+    let t = null;
 
-    // Track state
+    const show = () => {
+      // small delay prevents flicker on very short stalls
+      clearTimeout(t);
+      t = setTimeout(() => setIsBuffering(true), 120);
+    };
+
+    const hide = () => {
+      clearTimeout(t);
+      setIsBuffering(false);
+    };
+
+    vid.addEventListener("seeking", show);
+    vid.addEventListener("waiting", show);
+    vid.addEventListener("stalled", show);
+
+    vid.addEventListener("canplay", hide);
+    vid.addEventListener("playing", hide);
+return () => {
+      clearTimeout(t);
+      vid.removeEventListener("seeking", show);
+      vid.removeEventListener("waiting", show);
+      vid.removeEventListener("stalled", show);
+      vid.removeEventListener("canplay", hide);
+      vid.removeEventListener("playing", hide);
+};
+  }, [video, familyMode]);
+
+
+
+  /* ---------- Skip engine (ONLY ONE) ---------- */
+  useEffect(() => {
+    const vid = videoRef.current;
+    if (!vid) return;
+
+    const segs = (skipMap || []).filter(
+      (s) => (s.action || "skip") === "skip"
+    );
+    if (!familyMode || segs.length === 0) return;
+
     let lastJumpAt = -1;
-    let rvfcId = null;
     let rafId = null;
-    
-    // Used to ensure we only preload a specific segment once per session
-    const preloadedSegments = new Set();
+    let rvfcId = null;
 
     const checkAndSkip = () => {
       const t = vid.currentTime || 0;
 
-      // Reset jump tracker if user scrubs back
+      // allow re-skip if user scrubs backward
       if (t < lastJumpAt - 0.2) lastJumpAt = -1;
 
-      // Find the UPCOMING skip (for preloading)
-      // We look for a skip that starts within the next 15 seconds
-      const nextSkip = segs.find(s => s.start > t && s.start - t < 15);
-      
-      if (nextSkip && !preloadedSegments.has(nextSkip.start)) {
-        // --- PRELOAD ACTION ---
-        // 1. Tell Ghost Player to load the destination timestamp
-        ghost.src = vid.currentSrc; // Ensure it uses same source
-        ghost.currentTime = nextSkip.end; 
-        
-        // 2. Mark done so we don't spam it
-        preloadedSegments.add(nextSkip.start);
-        // console.log("Ghost pre-fetching timestamp:", nextSkip.end);
-      }
-
-      // Check for ACTIVE skip
       for (const s of segs) {
         if (t >= s.start && t < s.end) {
-          
-          // Target time
           const dur = Number.isFinite(vid.duration) ? vid.duration : null;
-          const target = dur ? Math.min(s.end + 0.05, dur - 0.05) : s.end + 0.05;
+          const target = dur
+            ? Math.min(s.end + 0.05, dur - 0.05)
+            : s.end + 0.05;
 
+          // prevent hammering repeated seeks
           if (Math.abs(target - lastJumpAt) > 0.2) {
             lastJumpAt = target;
 
-            // --- INSTANT VISUAL MASK ---
-            // Hide the "bad" frame instantly
-            vid.style.filter = "brightness(0)"; 
-            vid.muted = true; // Silence immediately
 
-            // --- EXECUTE JUMP ---
-            // Because Ghost Player has (hopefully) cached this range, this seek should be near-instant.
+            // Show Netflix-style buffering overlay immediately to cover the "frozen frame" during seek
+            setIsBuffering(true);
             if (typeof vid.fastSeek === "function") vid.fastSeek(target);
             else vid.currentTime = target;
 
-            // --- RESTORE ---
-            // We use a tiny timeout or "seeked" event to un-mask
-            // But for responsiveness, we can unmask after a set safe delay
-            // or attach a one-time 'seeked' listener.
-            const onSeeked = () => {
-               vid.style.filter = "none";
-               vid.muted = false;
-               setIsBuffering(false); // Force hide spinner
-            };
-            
-            // If seek takes too long, unmask anyway after 1s so user isn't stuck in dark
-            vid.addEventListener("seeked", onSeeked, { once: true });
-            
-            if (vid.paused) vid.play().catch(()=>{});
+            // try to resume immediately (may still buffer)
+            if (vid.paused) vid.play().catch(() => {});
           }
           break;
         }
@@ -203,84 +329,160 @@ const VideoDetail = () => {
 
     const loop = () => {
       checkAndSkip();
-      if (typeof vid.requestVideoFrameCallback === "function") rvfcId = vid.requestVideoFrameCallback(loop);
-      else rafId = requestAnimationFrame(loop);
+      if (typeof vid.requestVideoFrameCallback === "function") {
+        rvfcId = vid.requestVideoFrameCallback(loop);
+      } else {
+        rafId = requestAnimationFrame(loop);
+      }
     };
+
     loop();
 
     return () => {
-      if (rvfcId) vid.cancelVideoFrameCallback(rvfcId);
+      // cancel what we can; if cancelVideoFrameCallback isn't present, it stops naturally after unmount
+      if (rvfcId && typeof vid.cancelVideoFrameCallback === "function") {
+        try {
+          vid.cancelVideoFrameCallback(rvfcId);
+        } catch {}
+      }
       if (rafId) cancelAnimationFrame(rafId);
-      vid.style.filter = "none";
-      vid.muted = false;
     };
   }, [skipMap, familyMode]);
 
+  /* ---------- Auto-hide profile card ---------- */
+  useEffect(() => {
+    if (!familyMode || !showProfileCard) return;
 
-  if (!video) return <div className="video-loading">Loading...</div>;
+    const timer = setTimeout(() => setShowProfileCard(false), 5000);
+    return () => clearTimeout(timer);
+  }, [familyMode, showProfileCard]);
+
+  /* ---------- Loading / error ---------- */
+  if (video === undefined) return <div className="video-loading">Loading...</div>;
+  if (!video) return <div className="video-loading">Video not found.</div>;
 
   return (
     <div className="video-detail-page">
-      <button className="back-arrow" onClick={() => navigate("/")}><span className="arrow-icon">←</span></button>
+      {/* Back arrow */}
+      <button className="back-arrow" onClick={() => navigate("/")}>
+        <span className="arrow-icon">←</span>
+      </button>
 
-      {/* --- GHOST PLAYER ELEMENT --- */}
-      {/* Hidden, muted, distinct ID. Used only for caching data. */}
-      <video 
-        ref={preloadRef} 
-        style={{ display: 'none' }} 
-        preload="auto" 
-        muted 
-        playsInline 
-      />
-
-      <div className="hero-bg" style={{ backgroundImage: `url(${video.thumbnail || ""})` }}>
+      {/* Fullscreen-style hero */}
+      <div
+        className="hero-bg"
+        style={{ backgroundImage: `url(${video.thumbnail || ""})` }}
+      >
         <div className="hero-overlay" />
+
         <div className="hero-content">
           <div className="netflix-player-shell">
-            <video
-              ref={videoRef}
-              className="video-player"
-              src={video.videoUrl}
-              poster={video.thumbnail}
-              controls
-              autoPlay={shouldAutoplay}
-              playsInline
-            />
-            {isBuffering && (
-              <div className="nf-buffering-overlay">
-                <div className="nf-spinner" />
-                <div className="nf-shimmer" />
-              </div>
-            )}
-          </div>
-          
-          {/* ... (Your overlay controls, family toggle, etc.) ... */}
-           <div className="player-overlay">
+          <video
+            ref={videoRef}
+            className="video-player"
+            src={video.videoUrl}
+            poster={video.thumbnail}
+            controls
+            preload="auto"
+            autoPlay={shouldAutoplay}
+            playsInline
+            tabIndex={0}
+            onLoadedMetadata={(e) => e.currentTarget.focus()}
+          />
+
+          {isBuffering && (
+            <div className="nf-buffering-overlay" aria-label="Buffering">
+              <div className="nf-spinner" />
+              <div className="nf-shimmer" />
+            </div>
+          )}
+        </div>
+
+          {/* SmartSkips bottom overlay bar */}
+          <div className="player-overlay">
             <div className="overlay-row">
+              {/* Centered movie-style title */}
               <div className="overlay-title">{video.title}</div>
+
+              {/* Family Mode block on the right (UNCHANGED UI) */}
               <div className="overlay-family">
                 <div className="family-toggle-row">
                   <input
-                    id="family-toggle" type="checkbox" className="toggle-checkbox"
+                    id="family-toggle"
+                    type="checkbox"
+                    className="toggle-checkbox"
                     checked={familyMode}
                     onChange={(e) => {
-                       const on = e.target.checked;
-                       setFamilyMode(on);
-                       if (on) { setFilteringProfile("Strict"); setShowProfileCard(true); }
-                       else setShowProfileCard(false);
+                      const on = e.target.checked;
+                      setFamilyMode(on);
+                      if (on) {
+                        setFilteringProfile("Strict");
+                        setCustomProfile("");
+                        setShowProfileCard(true);
+                      } else {
+                        setShowProfileCard(false);
+                      }
                     }}
                   />
                   <label htmlFor="family-toggle" className="toggle-switch" />
-                  <span className="toggle-status">{familyMode ? "Family Mode: On" : "Family Mode: Off"}</span>
+                  <span className="toggle-status">
+                    {familyMode ? "Family Mode: On" : "Family Mode: Off"}
+                  </span>
                 </div>
+
+                {/* Popover card (conditional, auto-hides) */}
                 {familyMode && showProfileCard && (
-                   <div className="profile-card family-popover">
-                      {/* ... profile dropdowns ... */}
-                       <div className="profile-row elegant-dropdown">
-                          <span>Profile: <strong>{filteringProfile}</strong></span>
-                          {/* ... etc ... */}
-                       </div>
-                   </div>
+                  <div className="profile-card family-popover">
+                    <div className="profile-row elegant-dropdown">
+                      <span>
+                        Active Profile: <strong>{filteringProfile}</strong>
+                      </span>
+                      <select
+                        className="select-elegant"
+                        value={filteringProfile}
+                        onChange={handleProfileChange}
+                      >
+                        <option value="Mild">Mild</option>
+                        <option value="Strict">Strict</option>
+                        <option value="Custom">Custom</option>
+                      </select>
+                    </div>
+
+                    {filteringProfile === "Custom" && (
+                      <div className="profile-row elegant-dropdown">
+                        <select
+                          className="select-elegant"
+                          value={customProfile}
+                          onChange={(e) => {
+                            setCustomProfile(e.target.value);
+                            setShowProfileCard(true);
+                          }}
+                        >
+                          <option value="">Select sub-profile…</option>
+                          {customProfiles.map((p) => (
+                            <option key={p} value={p}>
+                              {p}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    )}
+
+                    {skipMap && skipMap.length > 0 && (
+                      <p className="profile-skips">Skips: {skipMap.length}</p>
+                    )}
+
+                    <p className="profile-desc">
+                      {filteringProfile === "Mild" &&
+                        "Blocks only explicit content. Ideal for general audiences."}
+                      {filteringProfile === "Strict" &&
+                        "Strictly filters nudity, suggestive content, and violence. Best for young kids."}
+                      {filteringProfile === "Custom" &&
+                        (customProfile
+                          ? `Custom settings applied: ${customProfile}`
+                          : "Please select a custom profile to apply.")}
+                    </p>
+                  </div>
                 )}
               </div>
             </div>
