@@ -43,7 +43,8 @@ export function useJumpClipHotkey({
   const attach = () => {
     v = videoRef?.current;
 
-    // wait until <video> exists
+    // wait until <div className="netflix-player-shell">
+ <video> exists
     if (!v) {
       rafId = requestAnimationFrame(attach);
       return;
@@ -350,32 +351,34 @@ const VideoDetail = () => {
         style={{ backgroundImage: `url(${video.thumbnail || ""})` }}
       >
         <div className="hero-overlay" />
+   {skipFading && <div className="nf-fade-layer" />}
+   {isBuffering && (
+     <div className="nf-skip-overlay" aria-label="Skipping">
+       <div className="nf-skip-title">Skipping…</div>
+       <div className="nf-progress">
+         <div className="nf-progress-bar" style={{ width: `${bufferPct}%` }} />
+       </div>
+       <div className="nf-pct">{bufferPct}%</div>
+     </div>
+   )}
+ </div>
 <div className="hero-content">
-          <div className="netflix-player-shell">
           <video
-            ref={videoRef}
-            className="video-player"
-            src={video.videoUrl}
-            poster={video.thumbnail}
-            controls
-            preload="metadata"
-            autoPlay={shouldAutoplay}
-            playsInline
-            tabIndex={0}
-            onPlay={(e) => e.currentTarget.focus()}
-          />
-          {skipFading && <div className="nf-fade-layer" />}
-          {isBuffering && (
-            <div className="nf-skip-overlay" aria-label="Skipping">
-              <div className="nf-skip-title">Skipping…</div>
-              <div className="nf-progress">
-                <div className="nf-progress-bar" style={{ width: `${bufferPct}%` }} />
-              </div>
-              <div className="nf-pct">{bufferPct}%</div>
-            </div>
-          )}
-        </div>
-{/* SmartSkips bottom overlay bar */}
+  ref={videoRef}
+  className="video-player"
+  src={video.videoUrl}
+  poster={video.thumbnail}
+  controls
+  preload="metadata"
+  autoPlay={shouldAutoplay}
+  playsInline
+  tabIndex={0}
+  onPlay={(e) => e.currentTarget.focus()}
+/>
+
+
+
+          {/* SmartSkips bottom overlay bar */}
           <div className="player-overlay">
             <div className="overlay-row">
               {/* Centered movie-style title */}
