@@ -1,60 +1,610 @@
-/* HomePage.css */
+/* ========== GLOBAL BACKGROUND ========== */
 
-/* ... keep your existing Navbar, Hero styles up to hero-actions ... */
+.homepage-container {
+  min-height: 100vh;
+  /* Dark cinematic background */
+  background: radial-gradient(1100px 500px at 10% -10%, #14151b 0%, #050509 55%, #020308 100%);
+  color: #ffffff;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  position: relative;
+  overflow-x: hidden;
+}
 
-/* Small update to hero-meta-row for better alignment */
-.hero-meta-row {
+/* =====================================================
+   SIDE RAIL — 76px (Collapsed) -> 200px (Expanded)
+   ===================================================== */
+
+.side-rail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 76px;
+  height: 100vh;
+  z-index: 40;
+
+  /* Faded Gradient (Collapsed State) */
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.95) 0%,
+    rgba(0, 0, 0, 0.6) 75%,
+    rgba(0, 0, 0, 0) 100%
+  );
+
+  transition: width 0.25s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hover-expanded menu */
+.side-rail:hover {
+  width: 200px;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.95) 0%,
+    rgba(0, 0, 0, 0.75) 100%
+  );
+}
+
+.side-rail-inner {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+  box-sizing: border-box;
+}
+
+/* =====================================================
+   TREASUREPLAY LOGO
+   ===================================================== */
+
+.side-logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  padding-bottom: 2rem;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  overflow: visible;
+  transition: all 0.2s ease;
+}
+
+.side-logo-top {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
+/* The red "t" */
+.side-logo-t {
+  font-family: "Poppins", sans-serif;
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #d81414;
+  line-height: 1;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  margin-right: 1px;
+}
+
+/* The red "reasure" (hidden by default) */
+.side-logo-reasure {
+  display: none;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #e91e24;
+}
+
+/* Yellow "play" pill */
+.side-logo-play-pill {
+  position: relative;
+  background: #ffd91a;
+  border-radius: 4px;
+  padding: 0 4px;
+  height: 22px;
+  margin-top: 6px;
+
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  justify-content: center;
+  box-shadow: 0 0 5px rgba(255, 217, 26, 0.4);
+}
+
+/* "p" in collapsed mode */
+.side-logo-play-text {
+  font-size: 0;
+}
+.side-logo-play-text::before {
+  content: "p";
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  color: #111;
   font-size: 1.1rem;
+  line-height: 1;
+}
+
+/* Antenna (hidden in collapsed) */
+.side-logo-play-pill::before,
+.side-logo-play-pill::after {
+  content: "";
+  position: absolute;
+  display: none;
+  top: -8px;
+  width: 2px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  z-index: 10;
+}
+.side-logo-play-pill::before {
+  left: 4px;
+  transform: rotate(-30deg);
+  transform-origin: bottom center;
+}
+.side-logo-play-pill::after {
+  right: 4px;
+  transform: rotate(30deg);
+  transform-origin: bottom center;
+}
+
+/* Expanded state overrides */
+.side-rail:hover .side-logo {
+  justify-content: flex-start;
+  padding-left: 1.5rem;
+}
+
+.side-rail:hover .side-logo-reasure {
+  display: block;
+}
+
+.side-rail:hover .side-logo-play-pill {
+  padding: 0 10px;
+  margin-left: 4px;
+  margin-top: 4px;
+}
+
+/* Restore word "play" */
+.side-rail:hover .side-logo-play-text {
+  color: #111;
+  font-size: 0.95rem;
+}
+.side-rail:hover .side-logo-play-text::before {
+  content: none;
+}
+
+/* Show antenna */
+.side-rail:hover .side-logo-play-pill::before,
+.side-rail:hover .side-logo-play-pill::after {
+  display: block;
+}
+
+/* =====================================================
+   SIDE NAVIGATION ICONS
+   ===================================================== */
+
+.side-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  margin-top: 1rem;
+  flex-grow: 1;
+}
+
+.side-nav-item {
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.5rem 0 0.5rem 1.1rem;
+  cursor: pointer;
+  color: #e5e7eb;
+}
+
+.side-nav-item:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.side-nav-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(30, 30, 30, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.side-nav-icon {
+  font-size: 1.25rem;
+}
+
+.side-nav-label {
+  margin-left: 1rem;
+  opacity: 0;
+  white-space: nowrap;
+  transition: opacity 0.2s;
   font-weight: 500;
-}
-/* Update to Rating Badge */
-.meta-rating-badge {
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  padding: 0 0.6rem;
-  font-size: 0.85rem;
-  line-height: 1.5;
-  border-radius: 4px;
-  color: #ddd;
+  font-size: 1rem;
 }
 
-/* SmartSkips active state button */
-.smartskips-btn.active {
-    background: rgba(255, 217, 26, 0.2);
-    border-color: rgba(255, 217, 26, 0.6);
-    color: #ffd91a;
+.side-rail:hover .side-nav-label {
+  opacity: 1;
 }
 
-/* =========================================
-   SHARED "GLASS" UTILITIES & COMPONENTS
-   ========================================= */
+.side-nav-pill {
+  padding: 2px 8px;
+  border-radius: 99px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  background: #ffd91a;
+  color: #111;
+}
 
-/* The base style for both boxes */
-.glass-popover {
-  background: rgba(20, 20, 28, 0.85); /* Deep dark, slight transparency */
-  backdrop-filter: blur(20px) saturate(120%); /* The premium frosting effect */
-  -webkit-backdrop-filter: blur(20px) saturate(120%);
-  border: 1px solid rgba(255, 255, 255, 0.08); /* Subtle border */
-  box-shadow: 
-    0 25px 50px -12px rgba(0, 0, 0, 0.7), /* Deep shadow */
-    inset 0 1px 1px rgba(255, 255, 255, 0.05); /* Inner top highlight */
-  border-radius: 16px;
-  overflow: hidden;
+/* =====================================================
+   MAIN CONTENT
+   ===================================================== */
+
+.hp-main {
+  padding-bottom: 3rem;
+}
+
+.hero {
+  position: relative;
+  width: 100vw;
+  height: 70vh;
+  min-height: 480px;
+  background-size: cover;
+  background-position: center 5%;
+}
+
+.home-hero-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2rem 3rem 2.5rem 6rem;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.4) 0%,
+    rgba(0, 0, 0, 0.15) 25%,
+    transparent 60%
+  );
+}
+
+.hero-title {
+  font-family: "Oswald", sans-serif;
+
+  font-size: 1.65rem;
+  font-weight: 350;
+  letter-spacing: 0.01em;
+  line-height: 1.15;
+
+  text-transform: none;
+
+  margin-top: 1.1rem;        /* keeps it near CTA */
+  margin-bottom: 0.35rem;    /* tight spacing above buttons */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+
+
+.hero-tagline {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  color: #e5e7eb;
+  max-width: 32rem;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.btn {
+  padding: 0.6rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  background: #ffd91a; /* TP yellow */
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.6rem;
+  border-radius: 8px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(255, 217, 26, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.2);
   color: #fff;
 }
 
-/* A better, circular close button */
-.round-close-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(255, 255, 255, 0.1);
-  color: #ccc;
+.btn-outline {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  color: #fff;
+}
+
+/* =====================================================
+   RAILS / ROWS
+   ===================================================== */
+
+.rows {
+  padding: 2rem 2rem 2rem 6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+}
+
+.row-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.row-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+/* Base thumbnail row */
+.thumbnail-row {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+}
+
+/* Thumbnail card */
+.thumbnail-item {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  outline: none;
+}
+
+.thumbnail-wrapper {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Default (landscape) thumbnail */
+.thumbnail-image {
+  width: 16rem;
+  height: 9rem;
+  object-fit: contain;
+  display: block;
+  background-color: #000;
+}
+
+/* Vertical rail styling */
+.thumbnail-row-vertical .thumbnail-image-vertical {
+  width: 10rem;
+  height: 15rem;
+  object-fit: cover;
+}
+
+/* Square rail styling */
+.thumbnail-row-square .thumbnail-image-square {
+  width: 9rem;
+  height: 9rem;
+  object-fit: cover;
+}
+
+/* Titles under cards */
+.thumbnail-title {
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  max-width: 10rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #e5e7eb;
+}
+
+/* Footer */
+.hp-footer {
+  padding: 2rem;
+  text-align: center;
+  margin-left: 6rem;
+}
+
+.hp-footer .cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.95rem;
+  color: #e5e7eb;
+}
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+
+@media (max-width: 768px) {
+  .side-rail {
+    display: none;
+  }
+
+  .home-hero-overlay {
+    padding-left: 2rem;
+  }
+
+  .rows {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .hp-footer {
+    margin-left: 0;
+  }
+}
+.play-icon {
+  color: #d81414; /* TP red */
   font-size: 1.1rem;
+  line-height: 1;
+}
+.play-text {
+  color: #111; /* near-black */
+  font-size: 0.95rem;
+}
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 22px rgba(255, 217, 26, 0.55);
+}
+/* SmartSkips popover card (Hero) */
+.smartskips-popover {
+  margin-top: 0.9rem;
+  max-width: 540px;
+  padding: 0.95rem 1rem;
+  border-radius: 14px;
+  background: rgba(10, 10, 14, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+}
+
+.smartskips-popover-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.6rem;
+}
+
+.smartskips-popover-title {
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  font-size: 1.02rem;
+}
+
+.smartskips-popover-close {
+  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.smartskips-popover-close:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.smartskips-bullets {
+  margin: 0.25rem 0 0.8rem;
+  padding-left: 1.1rem;
+  color: #e5e7eb;
+  font-size: 0.95rem;
+  line-height: 1.35;
+}
+
+.smartskips-bullets li {
+  margin: 0.45rem 0;
+}
+
+.smartskips-popover-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+/* ================================
+   SmartSkips Popover Enhancements
+   ================================ */
+/* =========================================
+   IMPROVED SMARTSKIPS POPOVER
+   ========================================= */
+
+.smartskips-popover {
+  /* Positioning relative to parent hero container */
+  position: absolute;
+  top: 100%; /* Sits just below the buttons */
+  left: 3rem; /* Align with left padding */
+  margin-top: 1.5rem;
+  
+  width: 100%;
+  max-width: 480px;
+  border-radius: 20px;
+  
+  /* Premium Glass Effect */
+  background: rgba(18, 18, 24, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  
+  /* Subtle Gold Border Gradient */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 217, 26, 0.15); /* Inner gold rim */
+    
+  overflow: hidden;
+  z-index: 50;
+}
+
+/* Header Section */
+.smartskips-popover-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 1.5rem 1.5rem 0.5rem;
+}
+
+.smartskips-badge {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #111;
+  background: #ffd91a;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.smartskips-popover-title {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+
+/* Enhanced Close Button */
+.smartskips-popover-close {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #aaa;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%; /* Circle looks more modern than square */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -62,231 +612,99 @@
   transition: all 0.2s ease;
 }
 
-.round-close-btn:hover {
-  background: rgba(255, 255, 255, 0.25);
+.smartskips-popover-close:hover {
+  background: rgba(255, 255, 255, 0.15);
   color: #fff;
-  transform: scale(1.05);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: rotate(90deg); /* Playful rotation on hover */
 }
 
-/* Premium Badges */
-.premium-badge {
-  background: linear-gradient(135deg, #ffd91a, #ffac1a);
-  color: #000;
-  font-size: 0.65rem;
-  font-weight: 800;
-  letter-spacing: 0.05em;
-  padding: 3px 8px;
-  border-radius: 4px;
-  text-transform: uppercase;
-  margin-bottom: 0.5rem;
-  display: inline-block;
-  box-shadow: 0 2px 10px rgba(255, 217, 26, 0.3);
+.close-icon {
+  font-size: 14px;
+  line-height: 1;
 }
 
-/* =========================================
-   BOX 1: SMARTSKIPS POPOVER (Refined)
-   ========================================= */
-.smartskips-popover {
-  position: absolute;
-  top: 100%;
-  left: 3rem; /* Aligned with hero content padding */
-  margin-top: 1.5rem;
-  width: 100%;
-  max-width: 460px;
-  z-index: 100;
+/* Body Content */
+.smartskips-body {
+  padding: 0 1.5rem 1.5rem;
 }
 
-.popover-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 1.5rem 1.5rem 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.popover-header h3 {
-  margin: 0;
-  font-size: 1.35rem;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-}
-
-.popover-body {
-  padding: 1.5rem;
-}
-
-.popover-intro {
+.smartskips-intro {
   color: #b0b0b0;
   font-size: 0.95rem;
+  margin-bottom: 1.2rem;
   line-height: 1.5;
-  margin-bottom: 1.5rem;
 }
 
-/* Gridded feature list for better alignment */
-.feature-grid-list {
+/* Feature List (Icons instead of bullets) */
+.smartskips-feature-list {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
-}
-
-.feature-grid-item {
-  display: flex;
-  align-items: center;
   gap: 1rem;
 }
 
-/* Colored icon boxes */
-.feature-icon-box {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
+.feature-item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.feature-icon {
+  font-size: 1.2rem;
+  background: rgba(255, 217, 26, 0.1); /* Low opacity gold bg */
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.3rem;
   flex-shrink: 0;
 }
-.feature-icon-box.gold { background: rgba(255, 217, 26, 0.15); color: #ffd91a; }
-.feature-icon-box.blue { background: rgba(66, 153, 225, 0.15); color: #63b3ed; }
-.feature-icon-box.purple { background: rgba(159, 122, 234, 0.15); color: #b794f4; }
 
-.feature-grid-item strong { display: block; font-size: 0.95rem; margin-bottom: 3px; }
-.feature-grid-item span { display: block; font-size: 0.85rem; color: #999; }
-
-.popover-footer {
-  padding: 1.2rem 1.5rem;
-  background: rgba(0, 0, 0, 0.2);
-  display: flex;
-}
-.popover-footer .btn { width: 100%; justify-content: center; padding: 0.8rem; font-weight: 600;}
-.btn.grow:hover { transform: scale(1.02); }
-
-
-/* =========================================
-   BOX 2: INFO MODAL (OVERHAULED)
-   ========================================= */
-
-.modal-backdrop {
-  position: fixed;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.7); /* Darker backdrop */
-  backdrop-filter: blur(8px); /* Blur the background page */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  padding: 2rem;
-}
-
-/* The Modal Box itself uses the shared .glass-popover class + this */
-.modal-container {
-  width: 100%;
-  max-width: 800px; /* Wider than the popover */
-  max-height: 90vh;
-  overflow-y: auto; /* Scrollable if content is long */
-  position: relative;
-}
-
-/* Header with image background */
-.modal-header-image {
-  position: relative;
-  height: 300px;
-  background-size: cover;
-  background-position: center top;
-  display: flex;
-  align-items: flex-end;
-  padding: 2rem;
-}
-
-/* Gradient to make text readable over image */
-.modal-gradient-overlay {
-  position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: linear-gradient(to bottom, rgba(20, 20, 28, 0.2) 0%, rgba(20, 20, 28, 1) 95%);
-  z-index: 1;
-}
-
-.modal-header-image h1 {
-  position: relative;
-  z-index: 2;
-  margin: 0;
-  font-size: 2.5rem;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-}
-
-/* Absolute positioned close button for modal */
-.modal-close-abs {
-  position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  z-index: 10;
-  background: rgba(0, 0, 0, 0.5); /* Darker background for contrast over image */
-}
-
-/* Modal Body styles */
-.modal-content-body {
-  padding: 2rem;
-  background: transparent; /* Let the glass effect show */
-}
-
-.modal-meta-bar {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-  font-weight: 600;
-  font-size: 1rem;
-}
-
-.hd-badge {
-  border: 1px solid rgba(255,255,255,0.5);
-  padding: 0 5px;
-  font-size: 0.7rem;
-  border-radius: 3px;
-  color:#ccc;
-}
-
-.modal-synopsis-large {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  color: #ddd;
-  margin-bottom: 2.5rem;
-}
-
-/* Grid for Cast/Genres */
-.modal-details-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: 2rem;
-}
-
-.detail-col {
+.feature-text {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
 }
 
-.detail-label {
-  color: #777;
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-
-.detail-value {
+.feature-text strong {
   color: #fff;
   font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.feature-text span {
+  color: #9ca3af;
+  font-size: 0.85rem;
   line-height: 1.4;
 }
 
-/* --- Responsive tweaks --- */
-@media (max-width: 768px) {
-    .hero-content { padding-left: 5%; }
-    .smartskips-popover { left: 5%; max-width: 90%; }
-    .modal-header-image { height: 200px; }
-    .modal-header-image h1 { font-size: 1.8rem; }
+/* Footer / Actions */
+.smartskips-popover-actions {
+  padding: 1rem 1.5rem 1.5rem;
+  background: rgba(0, 0, 0, 0.2); /* Slightly darker footer area */
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
 }
+
+/* Make the primary button stand out */
+.btn-wide {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.btn-ghost {
+  color: #9ca3af;
+  padding: 0.6rem 1rem;
+}
+.btn-ghost:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
