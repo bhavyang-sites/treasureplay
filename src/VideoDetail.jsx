@@ -212,13 +212,22 @@ const VideoDetail = () => {
           ? data.segments
           : [];
 
-        const normalized = arr
-          .map((s) => ({
-            start: +s.start > 1000 ? +s.start / 1000 : +s.start,
-            end: +s.end > 1000 ? +s.end / 1000 : +s.end,
-            action: s.action || "skip",
-          }))
-          .filter((s) => s.end > s.start);
+        const toSec = (v) => {
+  const n = Number(v);
+  if (!Number.isFinite(n)) return null;
+
+  // treat as ms only if it's clearly ms
+  return n >= 10000 ? n / 1000 : n;
+};
+
+const normalized = arr
+  .map((s) => ({
+    start: toSec(s.start),
+    end: toSec(s.end),
+    action: s.action || "skip",
+  }))
+  .filter((s) => s.start != null && s.end != null && s.end > s.start);
+
 
         setSkipMap(normalized);
       })
